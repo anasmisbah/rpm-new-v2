@@ -3,12 +3,12 @@
 @section('content-header')
 <div class="row mb-2">
     <div class="col-sm-6">
-      <h1 class="m-0 text-dark">History Deliveries</h1>
+      <h1 class="m-0 text-dark">History Delivery Order</h1>
     </div><!-- /.col -->
     <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item active">Deliveries</li>
+        <li class="breadcrumb-item"><a href="{{route('home.index')}}">Beranda</a></li>
+        <li class="breadcrumb-item active">Delivery Order</li>
       </ol>
     </div><!-- /.col -->
   </div><!-- /.row -->
@@ -18,7 +18,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Recently Deliveries</h3>
+              <h3 class="card-title">Pengantaran Jalur Darat</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body p-0">
@@ -30,10 +30,11 @@
                       <img src="{{asset('/uploads/'.$delivery->driver->avatar)}}" alt="Avatar Driver" class="img-size-50">
                     </div>
                     <div class="product-info">
-                      <a href="{{route('driver.show',$delivery->driver->id)}}" class="product-title">{{$delivery->driver->name}}
+                      <a href="{{route('driver.agen.show',$delivery->driver->id)}}" class="product-title">{{$delivery->driver->name}}</a>
                       <span class="product-description">
-                        The driver has delivered to {{$delivery->distributor->name}}
+                        Driver Telah Menyelesaikan Pengantaran <a href="{{route('deliveryorder.agen.show',$delivery->id)}}">{{$delivery->delivery_order_number}}</a> kepada customer <a href="{{route('customer.agen.show',$delivery->customer->id)}}">{{$delivery->customer->name}}</a>
                       </span>
+                      <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i>{{$delivery->arrival_time->format('d F Y')}} {{$delivery->arrival_time->format('H:i:s')}}</p>
                     </div>
                   </li>
                   @endforeach
@@ -42,7 +43,7 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer text-center">
-              <a href="javascript:void(0)" class="uppercase">All Deliveries</a>
+                {{ $deliveries->links() }}
             </div>
             <!-- /.card-footer -->
           </div>

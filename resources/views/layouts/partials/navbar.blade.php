@@ -2,7 +2,8 @@
     use App\Voucher;
     use App\DeliveryOrder;
     $vouchers = Voucher::orderBy('id','desc')->limit(3)->get();
-    $deliveries = DeliveryOrder::orderBy('id','desc')->limit(3)->get();
+    $delivery_darat = DeliveryOrder::where([['status',2],['shipped_via',0]])->orderBy('updated_at','desc')->limit(3)->get();
+    $delivery_laut = DeliveryOrder::where([['status',2],['shipped_via',1]])->orderBy('updated_at','desc')->limit(3)->get();
 @endphp
 <nav class="main-header navbar navbar-expand navbar-white navbar-light border-bottom-0">
     <!-- Left navbar links -->
@@ -21,24 +22,24 @@
               <i class="ion ion-android-boat"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                {{-- @foreach ($deliveries as $delivery)
+                @foreach ($delivery_laut as $delivery)
                 <a href="#" class="dropdown-item">
-                  <!-- Message Start -->
-                  <div class="media">
-                    <img src="{{asset('/uploads/'.$delivery->driver->avatar)}}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-                    <div class="media-body">
-                      <h3 class="dropdown-item-title">
-                        {{$delivery->driver->name}}
-                      </h3>
-                      <p class="text-sm">Driver has been delivery package to {{$delivery->distributor->name}}</p>
-                      <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i>{{$delivery->delivery_at->format('l, d F Y')}}</p>
+                    <!-- Message Start -->
+                    <div class="media">
+                      <img src="{{asset('/uploads/'.$delivery->driver->avatar)}}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                      <div class="media-body">
+                        <h3 class="dropdown-item-title">
+                          {{$delivery->driver->name}}
+                        </h3>
+                        <p class="text-sm">Driver Telah Menyelesaikan Pengantaran Delivery Order {{$delivery->sales_order->sales_order_number}}</p>
+                        <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i>{{$delivery->arrival_time->format('d F Y')}} {{$delivery->arrival_time->format('H:i:s')}}</p>
+                      </div>
                     </div>
-                  </div>
-                  <!-- Message End -->
-                </a>
-                @endforeach --}}
+                    <!-- Message End -->
+                  </a>
+                @endforeach
               <div class="dropdown-divider"></div>
-              <a href="{{route('home.delivery')}}" class="dropdown-item dropdown-footer">Lihat Semua Pengantaran Jalur Laut</a>
+              <a href="{{route('home.delivery.laut')}}" class="dropdown-item dropdown-footer">Lihat Semua Pengantaran Jalur Laut</a>
             </div>
           </li>
         <li class="nav-item dropdown">
@@ -46,7 +47,7 @@
               <i class="fa fa-truck-pickup"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                {{-- @foreach ($deliveries as $delivery)
+                @foreach ($delivery_darat as $delivery)
                 <a href="#" class="dropdown-item">
                   <!-- Message Start -->
                   <div class="media">
@@ -55,15 +56,15 @@
                       <h3 class="dropdown-item-title">
                         {{$delivery->driver->name}}
                       </h3>
-                      <p class="text-sm">Driver has been delivery package to {{$delivery->distributor->name}}</p>
-                      <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i>{{$delivery->delivery_at->format('l, d F Y')}}</p>
+                      <p class="text-sm">Driver Telah Menyelesaikan Pengantaran Delivery Order {{$delivery->sales_order->sales_order_number}}</p>
+                      <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i>{{$delivery->arrival_time->format('d F Y')}} {{$delivery->arrival_time->format('H:i:s')}}</p>
                     </div>
                   </div>
                   <!-- Message End -->
                 </a>
-                @endforeach --}}
+                @endforeach
               <div class="dropdown-divider"></div>
-              <a href="{{route('home.delivery')}}" class="dropdown-item dropdown-footer">Lihat Semua Pengantaran Jalur Darat</a>
+              <a href="{{route('home.delivery.darat')}}" class="dropdown-item dropdown-footer">Lihat Semua Pengantaran Jalur Darat</a>
             </div>
           </li>
           <li class="nav-item dropdown">

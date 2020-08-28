@@ -42,7 +42,8 @@ Route::middleware(['auth','admin'])->group(function (){
 
         Route::get('home/chart','HomeController@chart')->name('home.chart');
         Route::get('home/voucher','HomeController@voucher')->name('home.voucher');
-        Route::get('home/delivery','HomeController@delivery')->name('home.delivery');
+        Route::get('home/deliveryorder/laut','HomeController@do_laut')->name('home.delivery.laut');
+        Route::get('home/deliveryorder/darat','HomeController@do_darat')->name('home.delivery.darat');
 
         Route::resource('category', 'CategoryController');
         Route::resource('promo', 'PromoController');

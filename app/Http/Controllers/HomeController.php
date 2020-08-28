@@ -9,9 +9,7 @@ use App\News;
 use App\Event;
 use App\User;
 use App\DeliveryOrder;
-use App\Coupon;
 use App\Voucher;
-use App\Delivery;
 use App\Customer;
 use App\SalesOrder;
 use App\Driver;
@@ -44,7 +42,7 @@ class HomeController extends Controller
         foreach ($agens as  $agen) {
             $data['label'][] = $agen->name;
             foreach ($agen->sales_orders as $sales_order ) {
-                $data['transaction'][] = $sales_order->delivery_orders()->sum('quantity');
+                $data['transaction'][] = $sales_order->delivery_orders()->where('status',2)->sum('quantity');
             }
 
         }
@@ -54,15 +52,22 @@ class HomeController extends Controller
 
     public function voucher()
     {
-        $vouchers = Voucher::orderBy('created_at','desc')->get();
+        $vouchers = Voucher::orderBy('created_at','desc')->paginate(10);
 
-        return view('voucher',compact('vouchers'));
+        return view('notification.voucher',compact('vouchers'));
     }
 
-    public function delivery()
+    public function do_darat()
     {
-        $deliveries = Delivery::orderBy('created_at','desc')->get();
+        $deliveries = DeliveryOrder::where([['status',2],['shipped_via',0]])->orderBy('updated_at','desc')->paginate(10);
 
-        return view('delivery',compact('deliveries'));
+        return view('notification.do_darat',compact('deliveries'));
+    }
+
+    public function do_laut()
+    {
+        $deliveries = DeliveryOrder::where([['status',2],['shipped_via',1]])->orderBy('updated_at','desc')->paginate(10);
+
+        return view('notification.do_laut',compact('deliveries'));
     }
 }
