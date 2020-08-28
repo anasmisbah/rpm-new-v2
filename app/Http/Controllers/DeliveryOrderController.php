@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\SalesOrder;
 use App\Customer;
 use App\DeliveryOrder;
+use GuzzleHttp\Client;
 class DeliveryOrderController extends Controller
 {
     /**
@@ -77,14 +78,31 @@ class DeliveryOrderController extends Controller
             $data['shipped_via'] = $request->shipped_via[0];
         }
 
-        $sales_order->delivery_orders()->create($data);
+        // $sales_order->delivery_orders()->create($data);
 
+        $fcm_token = [];
         if ($data['shipped_via'] == 0) {
             // SEND NOTIF TO JALUR DARAT
+            $drivers = $agen->drivers()->where('route',0)->get();
+            foreach ($drivers as $driver) {
+                $fcm_token[] = $driver->user->fcm_token;
+            }
+            // $this->sendNotif($message,$title,$fcm_token);
         }else if($data['shipped_via'] == 1){
             // SEND NOTIF TO JALUR LAUT
+
+            $drivers = $agen->drivers()->where('route',1)->get();
+            foreach ($drivers as $driver) {
+                $fcm_token[] = $driver->user->fcm_token;
+            }
+            // $this->sendNotif($message,$title,$fcm_token);
         }else{
             // SEND NOTIF TO BOTH ROUTE
+            $drivers = $agen->drivers;
+            foreach ($drivers as $driver) {
+                $fcm_token[] = $driver->user->fcm_token;
+            }
+            // $this->sendNotif($message,$title,$fcm_token);
         }
 
         return redirect()->back()->with('status','successfully created Sales Order');
