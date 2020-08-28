@@ -1,0 +1,1995 @@
+{
+	"info": {
+		"_postman_id": "19530062-5258-4623-9de8-a3f2e99d4e42",
+		"name": "rpm",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "driverdaratsumber@mail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123123",
+									"type": "text"
+								},
+								{
+									"key": "fcm_token",
+									"value": "1212123",
+									"type": "text"
+								}
+							],
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "admin@mail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 14 Feb 2020 15:49:56 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 14 Feb 2020 15:49:56 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.3.11"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"user\": {\n        \"id\": 1,\n        \"email\": \"admin@mail.com\",\n        \"role\": null,\n        \"access_token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNzg0ZmI0YzE1YTAwNTMwMDBjYmM2Y2JkNjgwMWJhMGE0YWI1M2EwMWVkN2Y1OTBlNmE5YzA5MTIzNGVhNDMyNjEyNTAzZjU5NzhkN2ZhNzEiLCJpYXQiOjE1ODE2OTUzOTYsIm5iZiI6MTU4MTY5NTM5NiwiZXhwIjoxNjEzMzE3Nzk2LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.DFfsdSUjPfPNvVf-LM1INvt7nU480hiHS6cCbfM_oMpfWhtvoVVGBRQfcu6uswsgufZRumqKMHpLp74rBgNw-w6Yu9Y6XUVsqGoXXyzxyFSiExTUoS67IbZWnsRdOn8Xoble-zIy9CyJ9CfOhVr6mEQt4Nggv-NIZWr9VwAycXCtEv8KAGqaVT1oZp213O1qqJ-k5zxwx_CYzuvXYEoddGaCUT0JhWyIroqp6Aqqx_3yl6fijr0TzPoOJ50znAGzgSUqSrcYKIJUqG_JXt6GJqtdd7Wwq86Hgtx1gFKheuNl9Oba8Hgg6-l5YqmijW2dPrOA-9nHxNBUY7Q3S-VYkjSUsdk91KlLiflleuZwD6FosAu0YZBRk_ZxJYIwI9ePD5lanIVe0FiV3IGw4AP7qPZrhgU_ZQgZUOvsQlpBVUvpxKQfpuonNZeQNCAbFwHyxM0DyAb741erQ_VMvsVqS2mn1rek9SNOhNXsv75fhqKtG_1v_Y-khTwS1ZaFxaOxtOa1UuFljFU_aS0-NAGPi6E4tb9B4WUAA-eNAMkcdJIZtoUe0FT6_iYHp20uy047iYC0RI4roykgk-1ajMgc1INn1yd8nZCR0h0jD1yCA_3WQeXf1ybmkdAwqnWWwChNKWffpr3TkVOFdRyPsihnAlaJcaNmSwB0sUEhHWul5SY\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMjNmNGIwYWFlZGQ4MjQzMTFiMjBmZjY1MmYzMDRhNjI5NDdkYWM4NzM0MDg0OGYyYTdiZWU4NjE5MTQwMjAyYTFlNWQ5MGJmMDI2NzhkN2MiLCJpYXQiOjE1OTgwNjY0MTcsIm5iZiI6MTU5ODA2NjQxNywiZXhwIjoxNjI5NjAyNDE3LCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.4XyZK81wZnREjD22rtS01Iq0DX3mO59qcPb--xBYfb9gANEUhs7NyPUDO5I6U2iDn6lEV6s2LeOy5FxHA4oeFNQfp4B1nsXIATXFvw8F6SzexOrDYK5AfpeSrFG1JUemoAoWxSm7R0-qWNK7mZ44RuiSphdnhQNELBI736vAr_sN27gL-Of3CgTeQyUm6n9mfTME7E0rajGuhu-CcjVMibFGEriZKFwmigE35X7ETNCn9v8gZi_0zui4a_XUQXrv7ScPoo_5Qct49zAfy0CI8m07Ri2yOZmQzjf-034LE7ta6BsU5RnsR1QHKsoENInBR2xILubTw-IhotnqVsmghjLUiMbRNdpsW0K9mMdYp71XUqnmLsE882xOiKi5tbGDKTnEIWm92D4GM15z_06w0nvPXuOc--9KlNeZae_hNOKvigV_WZNGKp1AE2wf8snZYQVCK7qazsx9IbhZbMIqzAlWliVPXIM4PXYjWYkjOnySPJ7u0jSo-eMb5gZkt4voB5gv1XI3C_L4XPxMNL3SLCJyXfzRiWTudjlfQztBZoSbgjeAN_KqQnRFc6G2bsqTdFlaQmuW8RuIsRbru_bK0wQy8zfGWONXcmmvM5bQhgEKKflBtgjo96wyvf7sPpFGViuvV-PAouzCLE9RvN6XdXoDxM30b9EtSvPF5-Y-v1A",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"logout"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "logout",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiOTljMDgyNzJhN2JjZDQ4OGVlZTljY2QxZTAyY2QzMzhmNThhNmQ1ZmNhOTQ5NGY0N2NkMDRkYjcwNDg5ODdiY2I5NjhhM2UyZWNmOTNjMGMiLCJpYXQiOjE1ODE2OTU1NjAsIm5iZiI6MTU4MTY5NTU2MCwiZXhwIjoxNjEzMzE3OTYwLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.ZPP5OwJMqDnrgQVGgn-wtpyGct989nN5flJEJ6aTC-fmupAbW88oFOMEinMaGwikCQGsps5q9e6rflzojb9WbGpUs4ENH2IG2NSMhpJsC70Iiv6OfA9j3SAOCFwJYZ9U_65qnoH1gTpSaPtbqVhsOmmn0ODXZsHTEmAA743x2RIQJSaRSg3cFUCnRv3hrMUbtw5B-7VmbinNJXdecevrnon80Qzf1ra4WnfM-rI94w0ATFZWWALM2gmz3gAURE9sFbHXFB-LEZxW9gEBX6RdJfAn_zpJw9ghQumoFFVD5JZvJJQywlSDfX17NzZ9DYL8I5-SYmOEeQOd0rxtKCPGXIlBHo-s-hBQ5yO_-K80HQhoRnDmwFrrZasaTM28C1HeqQFBIXjnKDN7e-fsonn8a3Pp75-zrYx-Ni__1wSEwJH1drPlmYQjHPaB8S7Mp0dRSR7gdd6HcYsEiGG2IlQUkeerrWyOUBqMo_yEbrOuzPQVYcYL_jTuH2RMgEMS5RDe0RPu1HNg8C71p8Y-xhyrSeOeg3L8XMO5QvIjGongLSJrsyUBtnUNdTrWmeKC8KrgdjHKaim-y0ByYapW9hEpjV-0NBQa3Up5HPP2LZFCW8fyAtrA0aUqNiwOE9o3cxm0l7Fd4uU61s2GwHuWwIdPu-wH2VYLApg3QumDxmMO8EA",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/api/logout",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"logout"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 14 Feb 2020 15:53:03 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 14 Feb 2020 15:53:03 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.3.11"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"user berhasil logout\"\n}"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "news",
+			"item": [
+				{
+					"name": "all news",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/news",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"news"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "all news",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/api/news",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"news"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 15 Feb 2020 13:11:22 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 15 Feb 2020 13:11:22 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.3.11"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"title\": \"Sang Ahli Kimia\",\n        \"image\": \"http://localhost:8000/storage/images/ny0rnQ5UYxQ2zO0eqv6OyW9POSNfP3ceafeHgqyn.jpeg\",\n        \"url\": \"http://localhost:8000/news/read/sang-ahli-kimia\",\n        \"created_at\": \"15 February 2020\",\n        \"category\": [\n            {\n                \"id\": 3,\n                \"name\": \"comedy\"\n            },\n            {\n                \"id\": 4,\n                \"name\": \"drama\"\n            }\n        ]\n    },\n    {\n        \"id\": 2,\n        \"title\": \"Hujan\",\n        \"image\": \"http://localhost:8000/storage/images/2zAG3C4Q2NxRMWm9l0gtqWZCpimkd8rR8kIb43zn.jpeg\",\n        \"url\": \"http://localhost:8000/news/read/hujan\",\n        \"created_at\": \"15 February 2020\",\n        \"category\": [\n            {\n                \"id\": 3,\n                \"name\": \"comedy\"\n            },\n            {\n                \"id\": 5,\n                \"name\": \"entertaiment\"\n            }\n        ]\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "detail",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/news/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"news",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "detail",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/api/news/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"news",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 15 Feb 2020 13:22:29 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 15 Feb 2020 13:22:29 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.3.11"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"title\": \"Sang Ahli Kimia\",\n    \"image\": \"http://localhost:8000/storage/images/ny0rnQ5UYxQ2zO0eqv6OyW9POSNfP3ceafeHgqyn.jpeg\",\n    \"url\": \"http://localhost:8000/news/read/sang-ahli-kimia\",\n    \"created_at\": \"15 February 2020\",\n    \"category\": [\n        {\n            \"id\": 3,\n            \"name\": \"comedy\"\n        },\n        {\n            \"id\": 4,\n            \"name\": \"drama\"\n        }\n    ]\n}"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "event",
+			"item": [
+				{
+					"name": "all event",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/event",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"event"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "all event",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/api/event",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"event"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 15 Feb 2020 13:07:01 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 15 Feb 2020 13:07:01 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.3.11"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"title\": \"Bad Boys 2\",\n        \"image\": \"http://localhost:8000/storage/images/xkykcbn8o7q4sNFCIwxcfNnUNyvdMvIoRRdqlsGW.jpeg\",\n        \"url\": \"http://localhost:8000/event/read/bad-boys-2\",\n        \"created_at\": \"15 February 2020\",\n        \"category\": [\n            {\n                \"id\": 2,\n                \"name\": \"politic\"\n            },\n            {\n                \"id\": 3,\n                \"name\": \"comedy\"\n            }\n        ]\n    },\n    {\n        \"id\": 2,\n        \"title\": \"LET ME BE WITH YOU\",\n        \"image\": \"http://localhost:8000/storage/images/iahPdwYEFWIq1tBCZLLX5VuBGvkgKBLDYAUaGBLn.jpeg\",\n        \"url\": \"http://localhost:8000/event/read/let-me-be-with-you\",\n        \"created_at\": \"15 February 2020\",\n        \"category\": [\n            {\n                \"id\": 3,\n                \"name\": \"comedy\"\n            },\n            {\n                \"id\": 5,\n                \"name\": \"entertaiment\"\n            }\n        ]\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "detail",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/event/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"event",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "detail",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/api/event/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"event",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 15 Feb 2020 13:19:32 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 15 Feb 2020 13:19:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.3.11"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"title\": \"Bad Boys 2\",\n    \"image\": \"http://localhost:8000/storage/images/xkykcbn8o7q4sNFCIwxcfNnUNyvdMvIoRRdqlsGW.jpeg\",\n    \"url\": \"http://localhost:8000/event/read/bad-boys-2\",\n    \"created_at\": \"15 February 2020\",\n    \"category\": [\n        {\n            \"id\": 2,\n            \"name\": \"politic\"\n        },\n        {\n            \"id\": 3,\n            \"name\": \"comedy\"\n        }\n    ]\n}"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "data user login",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiODkwZTk4OTlhODk3MzU2OTEzZDRlMTZjMzEyM2Y2NTI4ZTk1YWEzOGNmNjNjODFlMzIzYWM4ZDQyMGMwNmIyNmQ1M2FlMDZhZjFkNDZmMTMiLCJpYXQiOjE1OTgwNjcxMzMsIm5iZiI6MTU5ODA2NzEzMywiZXhwIjoxNjI5NjAzMTMzLCJzdWIiOiI0Iiwic2NvcGVzIjpbXX0.Ywk0l5POtkVOwn3sA-NZmzH3kUzoVWBJ84YV9-62PSmi8MzAQWtbPy57LHGApSxYMIdnbEMdxVY5WDOp-tdg7zMBYkiQ3rutQF907dZuchx9Aspl1zKAeYQsIzrLM4WWUaksLRsGydGzgJ5WO7GfQapbG09glV7_4AmAPJNZJ0X7RSIiq8JrLiu_hp6EL7IizSWHmDroMXledCdr9wN-mR8sxJtzG3o8shRp9TE8QkxdnvRSOKX2epNjnDKzrDDbEPzUV-gGS_fK5R9pzoIWQVzjssJfa3hP_lCm2qJ3vNsyqYOdVTrorv-t4WwpY37wFDJ7nuysGsSzWK4JV85ikFa_SB2GaNS1BLMl_tk9cy3fU_Vs55c18tGsX2leYGjG-cFzP82T956SVxRgQekkgzzEz9MGwdFTI2r91Mlm35Dyf57n-LTbG-56Xqz3yzyA2RnMuImsgZw8Oe8m3hdvILu1re4qpSq36cPsvhrQf3j4t1KGle-XcMJuFM5LzOhUiS-fKrf7fhEmz9OP-mLOYVRDL87dF4pr49FXFpK27KT3TjMGxrwmRKm57Y6W-4l78wWC9NEY2TIMGqO1kHVYsSTsXrBpZm2eDagThIsOCUAShty6EraYMjXoMboBUzNixLy0nFWbeHBMBWgUdY_zqxBWGjOdf9dF3hSkToYwNvE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/me",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "promo",
+			"item": [
+				{
+					"name": "allpromo",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/promo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"promo"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "allpromo",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/api/promo",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"promo"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 15 Feb 2020 13:33:28 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 15 Feb 2020 13:33:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.3.11"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"hiburan\",\n        \"status\": \"hot\",\n        \"image\": \"http://localhost:8000/storage/images/Pp9yjbn6Y2hfrquPbRM4doNfFpgjoEa6L2TypZxX.jpeg\",\n        \"point\": 3\n    },\n    {\n        \"id\": 2,\n        \"name\": \"hargain\",\n        \"status\": \"normal\",\n        \"image\": \"http://localhost:8000/storage/images/PHg6HsWOODL34Ev812tAmLKqZSYZpz7FM61IxcKw.jpeg\",\n        \"point\": 36\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "normal promo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/promo/normal",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"promo",
+								"normal"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "normal promo",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8000/api/promo/normal",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"promo",
+										"normal"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 15 Feb 2020 13:33:42 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 15 Feb 2020 13:33:42 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.3.11"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 2,\n        \"name\": \"hargain\",\n        \"image\": \"http://localhost:8000/storage/images/PHg6HsWOODL34Ev812tAmLKqZSYZpz7FM61IxcKw.jpeg\",\n        \"point\": 36\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "hot promo",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/promo/hot",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"promo",
+								"hot"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "hot promo",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/api/promo/hot",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"promo",
+										"hot"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 15 Feb 2020 13:33:46 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 15 Feb 2020 13:33:46 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.3.11"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "57"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"hiburan\",\n        \"image\": \"http://localhost:8000/storage/images/Pp9yjbn6Y2hfrquPbRM4doNfFpgjoEa6L2TypZxX.jpeg\",\n        \"point\": 3\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "detail",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/promo/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"promo",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "detail",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/api/promo/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"promo",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 15 Feb 2020 13:36:04 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 15 Feb 2020 13:36:04 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.3.11"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "57"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"name\": \"hiburan\",\n    \"description\": \"ertytr\",\n    \"status\": \"hot\",\n    \"image\": \"http://localhost:8000/storage/images/Pp9yjbn6Y2hfrquPbRM4doNfFpgjoEa6L2TypZxX.jpeg\",\n    \"point\": 3,\n    \"total\": 56,\n    \"created_at\": \"14 February 2020\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Take Promo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiODkwZTk4OTlhODk3MzU2OTEzZDRlMTZjMzEyM2Y2NTI4ZTk1YWEzOGNmNjNjODFlMzIzYWM4ZDQyMGMwNmIyNmQ1M2FlMDZhZjFkNDZmMTMiLCJpYXQiOjE1OTgwNjcxMzMsIm5iZiI6MTU5ODA2NzEzMywiZXhwIjoxNjI5NjAzMTMzLCJzdWIiOiI0Iiwic2NvcGVzIjpbXX0.Ywk0l5POtkVOwn3sA-NZmzH3kUzoVWBJ84YV9-62PSmi8MzAQWtbPy57LHGApSxYMIdnbEMdxVY5WDOp-tdg7zMBYkiQ3rutQF907dZuchx9Aspl1zKAeYQsIzrLM4WWUaksLRsGydGzgJ5WO7GfQapbG09glV7_4AmAPJNZJ0X7RSIiq8JrLiu_hp6EL7IizSWHmDroMXledCdr9wN-mR8sxJtzG3o8shRp9TE8QkxdnvRSOKX2epNjnDKzrDDbEPzUV-gGS_fK5R9pzoIWQVzjssJfa3hP_lCm2qJ3vNsyqYOdVTrorv-t4WwpY37wFDJ7nuysGsSzWK4JV85ikFa_SB2GaNS1BLMl_tk9cy3fU_Vs55c18tGsX2leYGjG-cFzP82T956SVxRgQekkgzzEz9MGwdFTI2r91Mlm35Dyf57n-LTbG-56Xqz3yzyA2RnMuImsgZw8Oe8m3hdvILu1re4qpSq36cPsvhrQf3j4t1KGle-XcMJuFM5LzOhUiS-fKrf7fhEmz9OP-mLOYVRDL87dF4pr49FXFpK27KT3TjMGxrwmRKm57Y6W-4l78wWC9NEY2TIMGqO1kHVYsSTsXrBpZm2eDagThIsOCUAShty6EraYMjXoMboBUzNixLy0nFWbeHBMBWgUdY_zqxBWGjOdf9dF3hSkToYwNvE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "promo_id",
+									"value": "1",
+									"type": "text"
+								}
+							],
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/promo/take",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"promo",
+								"take"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "home",
+			"item": [
+				{
+					"name": "home",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/home",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"home"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "home",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/api/home",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"home"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 19 Feb 2020 01:20:33 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 19 Feb 2020 01:20:33 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.3.11"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"news\": [\n        {\n            \"id\": 1,\n            \"title\": \"Produksi Anjlok karena Virus Corona, iPhone Bisa Langka di Pasaran?\",\n            \"image\": \"http://localhost:8000/storage/images/KsaZZpp3Pw93adNEfvQ7tMFoYibRoR5m0trIJeek.jpeg\",\n            \"url\": \"http://localhost:8000/news/read/produksi-anjlok-karena-virus-corona-iphone-bisa-langka-di-pasaran\",\n            \"view\": 0,\n            \"created_at\": \"18 February 2020\",\n            \"created_by\": \"administrator\",\n            \"category\": [\n                {\n                    \"id\": 1,\n                    \"name\": \"sport\"\n                },\n                {\n                    \"id\": 4,\n                    \"name\": \"love\"\n                }\n            ]\n        }\n    ],\n    \"event\": [\n        {\n            \"id\": 1,\n            \"title\": \"Jaga Kekebalan Tubuh dengan Asupan Buah dan Sayur\",\n            \"image\": \"http://localhost:8000/storage/images/LAiTWx1yT2c5OfvUhMoma1TCps4NLaStK7yhGIFh.jpeg\",\n            \"url\": \"http://localhost:8000/event/read/jaga-kekebalan-tubuh-dengan-asupan-buah-dan-sayur\",\n            \"view\": 0,\n            \"created_at\": \"18 February 2020\",\n            \"created_by\": \"administrator\",\n            \"category\": [\n                {\n                    \"id\": 7,\n                    \"name\": \"religi\"\n                },\n                {\n                    \"id\": 8,\n                    \"name\": \"food\"\n                }\n            ]\n        }\n    ],\n    \"promo\": [\n        {\n            \"id\": 1,\n            \"title\": \"Promo Hari Libur\",\n            \"image\": \"http://localhost:8000/storage/images/VX6b2DsZ5IsLLaTh8O45WnEj13ii7zsoT9PBSuiv.png\",\n            \"description\": \"Promo hari libur untuk kita semua\",\n            \"point\": 100,\n            \"total\": 100,\n            \"view\": 0,\n            \"created_at\": \"18 February 2020\",\n            \"created_by\": \"administrator\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "home user login",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNWMyM2YxNTdiNTAwN2Q2MjQyMDY1YzhjODBkMTljYjE5MDg4NzkxNjFmY2M2NmMxYzVkNmFlODgzMzBjZGVjMjI1NDM1ZmI5Y2FjY2ExN2QiLCJpYXQiOjE1OTgxNTc2ODAsIm5iZiI6MTU5ODE1NzY4MCwiZXhwIjoxNjI5NjkzNjgwLCJzdWIiOiI0Iiwic2NvcGVzIjpbXX0.P7GbPgpBmGffgZ6npaztQB3L5ZUN-iFYXKaOHzAWlwdf2r2TtTePdiJL44E4EafzFjeLKIdQtV9jW6D-QQy8z1PKRfjkyZvzy-TqzQgN7BF6_M1Jlv5JlrUdruJUn9eZymPW11f6uiSpDk6cQEMXvMlDK4-TDmdjOjEl1u9nzPO3yqP5ygu4QV4DCsdb265d3EDvHOKxxjNLamKN5hpRhWRoHAd6KQ8qmGcVHiRL783dfJz1fqmfkwDl25dOCpC3AlIY20Tqn-vj-G1u2L5K1D_WHeiXQhTDN7F16cXRsJCJ-IsKboYEHtDPShie_SL227bLSEPQl6VsEmYjnjrXiwWbxw8alvXvOlsozUttMdokP-rF66BKoO-uuHKAk0YEEvzL3b3mt3MWzZsqSMeLYl81HVE1kPrFnqvYh0KAW788nV-ADydf1wsFYZD1VoQbTDjzwf38JGJU9MlfZDe_ZsUIZ6y6VUq6IORWbwXTafZGA256BwS0keH1mtje_iV76TcvkpoWivBSWqA4ie-EEgiP6OsWzcrGP6UAhevpYb7NiWVmW9quiDruOE1WxNl3iHSPWMEG20PACqU7M-SeP2MmY-QEjCqv_4QEi7E6gNG6Vz6_TNHiBSQBX4HCd4px30Af0r7Yt6Feeq_tFR0qdbZm67IO6P04vA5XOD64vbc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/user/home",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"user",
+								"home"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "company",
+			"item": [
+				{
+					"name": "profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/company/profile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"company",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "voucher",
+			"item": [
+				{
+					"name": "voucher customer",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiN2Y1OWE0OTM1YmNkYjA2MzkyODk0YzU3N2U4NjA1ODk4MDFiMzIyNjc4Y2YxOWJjYjZiZDg5MmJiMzVmYWVmZGYxNmY1ZGMwMzUwYzI3MzMiLCJpYXQiOjE1OTgwNzA4NzAsIm5iZiI6MTU5ODA3MDg3MCwiZXhwIjoxNjI5NjA2ODcwLCJzdWIiOiI0Iiwic2NvcGVzIjpbXX0.C-N_lzVHp1s8TPNUMFngW1P68Nq1T6vck18lVQT-RkAQaTXG0_DIzI61nkuz25_y1KjYF9hxkvna8R9DD8TFb0RfwqUTtO3I1SzBgQ3M_f8Ga2G-w8rALlFEFnoRgLF1skvCIht5GXiwtYLkPa49sutK2dY1BnxDq4HaiH_B2PoaJsXbW4YGJDAEQhseiI-o5bdSLDLVYIMGl6ZxqJSYiWq74vh-EIX9RCXlzOVUqTD8MFA6j88Pwb6_9q_COH-HVsTw5kip19rq7oaQYsnqxgaUj1SG8ztxpr6FjKN5_dQgBlI59X16qi8I1TthMCpaqMN0WweslMHEtwMYOhtQ-oFadEpPHovbWHNkMD5hpvZgFbTblKr1J-QDnhikucckzZYXIHLvmhAU9vYpY7rBrtZoLI5rjv8RTBinPrG-lzBBOzg3sin21T2lIbDCDylSObEMn6oAtTOY2iX-XJKE6d3qqwmDJdHiNw6tN3xnSCGM7PErYyJ1hFyFxiwi6JGNFal0KtgZKSmWiT5l1MjyjdiCH7TQEkFHKCax5v-hRocJoAihZ1sNMtNAqUA31jxbi_dV2HWEULdAcLpnjNz0zM-66pADw5Iv9CAUhtJIN3DS0-JBCl04tFjxfGWiK9Rhc29UaZxXtm9SAzzCiZeYO7XjUY9iLQcCyp-JjbKvHTM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/voucher",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"voucher"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "detail voucher",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiN2Y1OWE0OTM1YmNkYjA2MzkyODk0YzU3N2U4NjA1ODk4MDFiMzIyNjc4Y2YxOWJjYjZiZDg5MmJiMzVmYWVmZGYxNmY1ZGMwMzUwYzI3MzMiLCJpYXQiOjE1OTgwNzA4NzAsIm5iZiI6MTU5ODA3MDg3MCwiZXhwIjoxNjI5NjA2ODcwLCJzdWIiOiI0Iiwic2NvcGVzIjpbXX0.C-N_lzVHp1s8TPNUMFngW1P68Nq1T6vck18lVQT-RkAQaTXG0_DIzI61nkuz25_y1KjYF9hxkvna8R9DD8TFb0RfwqUTtO3I1SzBgQ3M_f8Ga2G-w8rALlFEFnoRgLF1skvCIht5GXiwtYLkPa49sutK2dY1BnxDq4HaiH_B2PoaJsXbW4YGJDAEQhseiI-o5bdSLDLVYIMGl6ZxqJSYiWq74vh-EIX9RCXlzOVUqTD8MFA6j88Pwb6_9q_COH-HVsTw5kip19rq7oaQYsnqxgaUj1SG8ztxpr6FjKN5_dQgBlI59X16qi8I1TthMCpaqMN0WweslMHEtwMYOhtQ-oFadEpPHovbWHNkMD5hpvZgFbTblKr1J-QDnhikucckzZYXIHLvmhAU9vYpY7rBrtZoLI5rjv8RTBinPrG-lzBBOzg3sin21T2lIbDCDylSObEMn6oAtTOY2iX-XJKE6d3qqwmDJdHiNw6tN3xnSCGM7PErYyJ1hFyFxiwi6JGNFal0KtgZKSmWiT5l1MjyjdiCH7TQEkFHKCax5v-hRocJoAihZ1sNMtNAqUA31jxbi_dV2HWEULdAcLpnjNz0zM-66pADw5Iv9CAUhtJIN3DS0-JBCl04tFjxfGWiK9Rhc29UaZxXtm9SAzzCiZeYO7XjUY9iLQcCyp-JjbKvHTM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/voucher/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"voucher",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "coupon",
+			"item": [
+				{
+					"name": "all distributor coupon",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMmMzZDA5YjAyZDRmYWQ0NjAyNjIyZTQ0OTdiNThjYmE5ZDQzZTljZDhkYjkxZDM0NGQ5MWEzOTJhYTljZGFhMjUzNDcwOTI2NTgwNzU4OTEiLCJpYXQiOjE1OTgyNDYzMDksIm5iZiI6MTU5ODI0NjMwOSwiZXhwIjoxNjI5NzgyMzA5LCJzdWIiOiI0Iiwic2NvcGVzIjpbXX0.Adettg70DooB9GZWRx8lelrh6vChS2f1st6b-M3rqLjPSlhOg2Tg8aAdnWUOGQS805Jrr1M_vq4EMdzSihuBGO47sZX8COQtWBMUO5Q1od5zpof82Xobcq2_GnQQN9A03fOGe4xekd0JKETrqyar0J6aQBl2LQchSxRkNvQGW1gzdLi45pYxGLiYuWmIXc71iqhBbFhCZcuMUwlvlQSUJufa2IUHFtLqhLCqCgJuYO0jRXtmPmN93H8wH7rQT0FHqsb84c4Ua23SnfG_53vpBWo4i2y3fKLKvda4gFBbn12E7WwHpxRh5E4kymNNA83hKJmQSyUzJUB_xDiBLcfqDwnUUAc_zXGKOIN5Vn-iwnZFLqDyA8ueK81gSwji3SM_gvxuIG6MvhG8SAQZahmVIfnOXXw5YsuiKb09KUAjqiUlajMyVyArjxBfB01x5eb4YVQXD5B1KtZWioNInlENo1Dq1ukN757YduXIcpVbnY-3Fpf4KUOF0ujW65iZgRdtf0mfWdVgs6gOAp3BVDM5y6GbLrwNudqOte67woOo4zjoXt5w2b64pogt0V-cEM36JLak5UiMruJ5DMjAu3qIxa8jJxLnhU4XnQYskVcaOpsz8sdWjqGlLcZH0cAuc3r1s_QqtWISveEj_FmaxbjJTVJMPNjIxw_qp2uGqxo_Q2g",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/coupon",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"coupon"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "driver",
+			"item": [
+				{
+					"name": "driver user me",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiODA5NjBjZTFlZDZlMDJiNTZiMDkzNzVlMzYyNjFmODA0NTM3NWMzM2FlMTNmNzA1MTU1NzYyMDE5ZDc0ODgzZmQzZmM5Yjg4NTFlMWIzZDAiLCJpYXQiOjE1OTgxNDk3NTUsIm5iZiI6MTU5ODE0OTc1NSwiZXhwIjoxNjI5Njg1NzU1LCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.0zEIPZONPWKri3Tm8lGEJ5DGVkNi7_KkpUcShMea1iME1WH83jE_6MEef-S0JguZIVxTY_p13BGJxC5CM0gNNE2spzUNQi1j7aGaDj910h80VgdRRl-vXBGKd4ncoZltjdX6_qGFtjtErIxd_bRrN8okF_Zx4du44IjUii4AS5yyf-ERbZt3RlZ8dZt5SqxTgvzh5wsj1XTO4mG2ihmamoD_dlr5zL142xWnrq6GyTPSA5nAPt7MRtuKrtqAB-G597u1UF_UYgGnjY_6g88bqMg-L4ghMXiwD9FWAivJUe0530egXPtaTvgC0YPH9_wMsf_OHqG51bAluDr6iOaHqpNA8SBdOHz_igaX3-YI5qRmf5KKVrmopBIH5rugTMiwL945o52shdFzNnc7dURr39DlgIN0lbaghYICpkveF9YG9liUU0P0mYxrjblkYa7h_6m_MNBn9sJcRjxwszoksCR2Uo6b3zAohWda7u4jxg1GLYq_4KTgbcKtkVHEYUYQORSEJLpiIRkANNKxrmTLvIhLPxqfttFAjaE4-FR3IZHaI_c2fqom3jhqwwdRY9gl2X8u46EEzeysVB-F4P82ghVg_M93DHZiuRbNieucbsDB-MpWF7Ci5mDtpnSQ1p2u7d4WxLFN5YmdfcsxiIO4MVPq4TdwWerwh4cIXmux-6A",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/me",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "history driver",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMjBhNDg5OGZmNjMzMDdkODI2NjViMDA0YjEyNmQyM2YwMDM1ZDdjYWVmNzExNmVkNTU3MjdjY2NiM2ZkOTdjOTBjZTc3YWI0N2Q2YjRjOTIiLCJpYXQiOjE1OTgyNDY0MzcsIm5iZiI6MTU5ODI0NjQzNywiZXhwIjoxNjI5NzgyNDM3LCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.g9_3TYbBQoGRvEW8GNzIBvgwLhWonG3Cew9mmEztEMUXDvEdAN6T2S9oXNiEngd-t_0CHLiztEORav0ytcsQBHi_lmK_1c_1_L7AqOiK2TFqva1crb6GvB-VGAIl7SU909VE-0d5VDpflM_AZ2MwNVZlN7PfcsJEPdcBup6SEEqNsBYRPSMkv3-vY6Hk-rO8LDQJ2CQLdpop9y9elFxlu-N-pVAsTDp7diZanV0Z2VOkGRuJ6hBSqdadH7dTN691N4AUbPnZjfWQLpt4jvIm3BpABs4JyKgXF2ICDl7az5Mlhkww8AQ9R1crkabQms72e3cr0eHqkStIYmhDeJQ_cY_JLA8rsybX1BL1M1anbhgabZbZtJk3snpyNfAIbUu41aCrfdLjssxPIzJJG1GXyzmo71T5nyoZhPgPoms4aMiiAYUBv3SpmA_jF5Tk0DZ94yHKvS1Din8WhajlS1rd64ZXxMwlmq6TGtmyWDjwBjkT6EoShbyGosr8LNwrbSbrR04ypkGZc2ZpWV_mrig7-ksF97kQ5V1uFcoPZx-5sqcurSkfBrYUFUV9b7-LlUMB7EQ8u1Nuau-jHuSIyyXzjCAAy5Mn8J1_VkO_0paHMTswm0GA0X5cVsVuCTXuXzMEgkvfLPZT5jJlzDo1AmnMNm92HJl80artsno_ZOLvCYg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/driver/deliveryorder/history",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"driver",
+								"deliveryorder",
+								"history"
+							]
+						},
+						"description": "riwayat pengantaran driver"
+					},
+					"response": []
+				},
+				{
+					"name": "all driver for agen",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNzhlZmU5YjdkYmQyOTY5OWI0NTNiNjE5YmM1M2QyNTMyYWRjMmJiMTU2NmYzN2JhYmNlZGNjYWJmMjJmYThhYTg2MDM3NzA5ZmMxOGY1M2EiLCJpYXQiOjE1OTgyNDYwNDAsIm5iZiI6MTU5ODI0NjA0MCwiZXhwIjoxNjI5NzgyMDM5LCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.emoaQjHlQLbyULk_xPVUV38-B6RTkjhaOuMjBXjWgnzxvbJQWJJPQW3HYNkr2xHqNQGdnFBSlL5iZEml1XMDRh1QgV7BV-YgGD47Od3Q-pELz4fCjnfqvj12xnylR6Yr90ROvm5lh1PfYRebkTVHnHXAgXnMy2G4uJmaYyBZ-MGpRdYTAx743PlpbS9jEbZM25moP59j0U7sz1DUUQGankUNFWCVE5MQnlFbHJjxawxfFZ7r11TL9U8cMr6YgBJHy2yS9rRmAWaSeNhy6oSTkkf6UGfzAcndPvMCzZhRDDOyrnPGwuw8cWq2ll0gcKM0wDrcPXjza0EeTUyeorfuVHxhz5fxzNAY8v70_gjD40NB3t29_cedj3YiNv_Xo3jOlufv7GnDvJnyyZXlDWv0xLHcGxZAmvnjFa6whP7tQbP03g1G5hLFk_u5m_zSKSRySOIa2K1gGz-DqVO_Kt0GwGRigG3bGVKsf8C_HL2krZNevuDeUBP48LnsGwPHfnrrGklxdlNmrqG_MH_7vGqTLu5E2GlYjCKQs2KwmPzgoSAcUaJRHKDaog4EDZMEnctkecAhpy-hpiLWKDy94e9wOIMjztyCOQ6GuxRK6c553ZtaBnG8ObModCH5ttFFFFdIZPnWRF5ef8BjQuWyn5D0hTAs5jKJIdYgL6GBAq9vOGA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/agen/driver",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"agen",
+								"driver"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "detail driver for agen",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNzhlZmU5YjdkYmQyOTY5OWI0NTNiNjE5YmM1M2QyNTMyYWRjMmJiMTU2NmYzN2JhYmNlZGNjYWJmMjJmYThhYTg2MDM3NzA5ZmMxOGY1M2EiLCJpYXQiOjE1OTgyNDYwNDAsIm5iZiI6MTU5ODI0NjA0MCwiZXhwIjoxNjI5NzgyMDM5LCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.emoaQjHlQLbyULk_xPVUV38-B6RTkjhaOuMjBXjWgnzxvbJQWJJPQW3HYNkr2xHqNQGdnFBSlL5iZEml1XMDRh1QgV7BV-YgGD47Od3Q-pELz4fCjnfqvj12xnylR6Yr90ROvm5lh1PfYRebkTVHnHXAgXnMy2G4uJmaYyBZ-MGpRdYTAx743PlpbS9jEbZM25moP59j0U7sz1DUUQGankUNFWCVE5MQnlFbHJjxawxfFZ7r11TL9U8cMr6YgBJHy2yS9rRmAWaSeNhy6oSTkkf6UGfzAcndPvMCzZhRDDOyrnPGwuw8cWq2ll0gcKM0wDrcPXjza0EeTUyeorfuVHxhz5fxzNAY8v70_gjD40NB3t29_cedj3YiNv_Xo3jOlufv7GnDvJnyyZXlDWv0xLHcGxZAmvnjFa6whP7tQbP03g1G5hLFk_u5m_zSKSRySOIa2K1gGz-DqVO_Kt0GwGRigG3bGVKsf8C_HL2krZNevuDeUBP48LnsGwPHfnrrGklxdlNmrqG_MH_7vGqTLu5E2GlYjCKQs2KwmPzgoSAcUaJRHKDaog4EDZMEnctkecAhpy-hpiLWKDy94e9wOIMjztyCOQ6GuxRK6c553ZtaBnG8ObModCH5ttFFFFdIZPnWRF5ef8BjQuWyn5D0hTAs5jKJIdYgL6GBAq9vOGA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/agen/driver/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"agen",
+								"driver",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "accepted delivery",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMjBhNDg5OGZmNjMzMDdkODI2NjViMDA0YjEyNmQyM2YwMDM1ZDdjYWVmNzExNmVkNTU3MjdjY2NiM2ZkOTdjOTBjZTc3YWI0N2Q2YjRjOTIiLCJpYXQiOjE1OTgyNDY0MzcsIm5iZiI6MTU5ODI0NjQzNywiZXhwIjoxNjI5NzgyNDM3LCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.g9_3TYbBQoGRvEW8GNzIBvgwLhWonG3Cew9mmEztEMUXDvEdAN6T2S9oXNiEngd-t_0CHLiztEORav0ytcsQBHi_lmK_1c_1_L7AqOiK2TFqva1crb6GvB-VGAIl7SU909VE-0d5VDpflM_AZ2MwNVZlN7PfcsJEPdcBup6SEEqNsBYRPSMkv3-vY6Hk-rO8LDQJ2CQLdpop9y9elFxlu-N-pVAsTDp7diZanV0Z2VOkGRuJ6hBSqdadH7dTN691N4AUbPnZjfWQLpt4jvIm3BpABs4JyKgXF2ICDl7az5Mlhkww8AQ9R1crkabQms72e3cr0eHqkStIYmhDeJQ_cY_JLA8rsybX1BL1M1anbhgabZbZtJk3snpyNfAIbUu41aCrfdLjssxPIzJJG1GXyzmo71T5nyoZhPgPoms4aMiiAYUBv3SpmA_jF5Tk0DZ94yHKvS1Din8WhajlS1rd64ZXxMwlmq6TGtmyWDjwBjkT6EoShbyGosr8LNwrbSbrR04ypkGZc2ZpWV_mrig7-ksF97kQ5V1uFcoPZx-5sqcurSkfBrYUFUV9b7-LlUMB7EQ8u1Nuau-jHuSIyyXzjCAAy5Mn8J1_VkO_0paHMTswm0GA0X5cVsVuCTXuXzMEgkvfLPZT5jJlzDo1AmnMNm92HJl80artsno_ZOLvCYg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/driver/accept/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"driver",
+								"accept",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Finish delivery",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMjBhNDg5OGZmNjMzMDdkODI2NjViMDA0YjEyNmQyM2YwMDM1ZDdjYWVmNzExNmVkNTU3MjdjY2NiM2ZkOTdjOTBjZTc3YWI0N2Q2YjRjOTIiLCJpYXQiOjE1OTgyNDY0MzcsIm5iZiI6MTU5ODI0NjQzNywiZXhwIjoxNjI5NzgyNDM3LCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.g9_3TYbBQoGRvEW8GNzIBvgwLhWonG3Cew9mmEztEMUXDvEdAN6T2S9oXNiEngd-t_0CHLiztEORav0ytcsQBHi_lmK_1c_1_L7AqOiK2TFqva1crb6GvB-VGAIl7SU909VE-0d5VDpflM_AZ2MwNVZlN7PfcsJEPdcBup6SEEqNsBYRPSMkv3-vY6Hk-rO8LDQJ2CQLdpop9y9elFxlu-N-pVAsTDp7diZanV0Z2VOkGRuJ6hBSqdadH7dTN691N4AUbPnZjfWQLpt4jvIm3BpABs4JyKgXF2ICDl7az5Mlhkww8AQ9R1crkabQms72e3cr0eHqkStIYmhDeJQ_cY_JLA8rsybX1BL1M1anbhgabZbZtJk3snpyNfAIbUu41aCrfdLjssxPIzJJG1GXyzmo71T5nyoZhPgPoms4aMiiAYUBv3SpmA_jF5Tk0DZ94yHKvS1Din8WhajlS1rd64ZXxMwlmq6TGtmyWDjwBjkT6EoShbyGosr8LNwrbSbrR04ypkGZc2ZpWV_mrig7-ksF97kQ5V1uFcoPZx-5sqcurSkfBrYUFUV9b7-LlUMB7EQ8u1Nuau-jHuSIyyXzjCAAy5Mn8J1_VkO_0paHMTswm0GA0X5cVsVuCTXuXzMEgkvfLPZT5jJlzDo1AmnMNm92HJl80artsno_ZOLvCYg"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "delivery_order_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "bast",
+									"type": "file",
+									"src": "/D:/app/Backup 14 nov 2019/picturea/people/3.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/driver/finish",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"driver",
+								"finish"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delivery ready accept order for driver",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMjBhNDg5OGZmNjMzMDdkODI2NjViMDA0YjEyNmQyM2YwMDM1ZDdjYWVmNzExNmVkNTU3MjdjY2NiM2ZkOTdjOTBjZTc3YWI0N2Q2YjRjOTIiLCJpYXQiOjE1OTgyNDY0MzcsIm5iZiI6MTU5ODI0NjQzNywiZXhwIjoxNjI5NzgyNDM3LCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.g9_3TYbBQoGRvEW8GNzIBvgwLhWonG3Cew9mmEztEMUXDvEdAN6T2S9oXNiEngd-t_0CHLiztEORav0ytcsQBHi_lmK_1c_1_L7AqOiK2TFqva1crb6GvB-VGAIl7SU909VE-0d5VDpflM_AZ2MwNVZlN7PfcsJEPdcBup6SEEqNsBYRPSMkv3-vY6Hk-rO8LDQJ2CQLdpop9y9elFxlu-N-pVAsTDp7diZanV0Z2VOkGRuJ6hBSqdadH7dTN691N4AUbPnZjfWQLpt4jvIm3BpABs4JyKgXF2ICDl7az5Mlhkww8AQ9R1crkabQms72e3cr0eHqkStIYmhDeJQ_cY_JLA8rsybX1BL1M1anbhgabZbZtJk3snpyNfAIbUu41aCrfdLjssxPIzJJG1GXyzmo71T5nyoZhPgPoms4aMiiAYUBv3SpmA_jF5Tk0DZ94yHKvS1Din8WhajlS1rd64ZXxMwlmq6TGtmyWDjwBjkT6EoShbyGosr8LNwrbSbrR04ypkGZc2ZpWV_mrig7-ksF97kQ5V1uFcoPZx-5sqcurSkfBrYUFUV9b7-LlUMB7EQ8u1Nuau-jHuSIyyXzjCAAy5Mn8J1_VkO_0paHMTswm0GA0X5cVsVuCTXuXzMEgkvfLPZT5jJlzDo1AmnMNm92HJl80artsno_ZOLvCYg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/driver/deliveryorder",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"driver",
+								"deliveryorder"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "distributor",
+			"item": [
+				{
+					"name": "ditributor input code delivery driver",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiOTNjNDZmM2E5NjlkODExNThkOGJmM2U0NWM0ZGMzNjRkOTFmMTM5ZTk4OTI2OTUxZmU5MTUzMGM4ZDBjMTVkM2NjZTMxM2ZmYjdkOTE4OWEiLCJpYXQiOjE1ODMwNDQ1MjAsIm5iZiI6MTU4MzA0NDUyMCwiZXhwIjoxNjE0NTgwNTIwLCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.MvZZnrakzgMg0E-Q2a6hyGFeWy7kVY7H9vC9FAksoTmxT54cyPougao80FmI5j7xCIG96O5rpYMDw4BjwB-Eov-cCTz1rmIVOrYxZCI6LsbgEdRrr8YUKGY8Ggo_0Qo2D1FD73rebKxNDdulWPTWCWPT_A-Oas0lafCWr5GeHV8UBPmDSe-cgpteU45AB291jSfqmjD3pgaPe6pIGuUzmQr8aGWE1gat_BhmJpU6ht4I2sLF0XJPpTRaWdLtHJvVttr-W8a_66dQxVZC-ElRuu7mOjEnCMWBskTy9fj37OPnBSLuPVeNWsUBx_Q7JgQXf2owS9MTOKzrccv1lf3lAc7IdG0qN4JQRHlEyySHHXpTfXWavQq1v6rmlHRH2yIV9mQ4pcg9Aww6dj4g664t0lZHGi8gXBDqtMHhS6Va-_q9uaByy6LRdEQoqht0WRBROkplHd5rOuLPkWv2qtYYHRCLmSWAD-GOqrPzuoQaN6UqBzrn03I-UfP9mvKFQWEXwrifflt9guUB2Hqd5QR2kcnZ7ChpUHJKAAkuxVpylssZaOV4lA4y76p_A0UMC5Jr4F88HuDArwwQmSo5VkFsSbajXM_u7RXahCNa9B2JEgWXk8JMoBif4epvdSnvrU_olHBKMZQnz-pBNG1pktZBo72WqfWh43nIUxD4ixTqR60",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "code",
+									"value": "D10DFH8",
+									"type": "text"
+								}
+							],
+							"options": {
+								"formdata": {}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/delivery/code",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"delivery",
+								"code"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delivery history",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiOTNjNDZmM2E5NjlkODExNThkOGJmM2U0NWM0ZGMzNjRkOTFmMTM5ZTk4OTI2OTUxZmU5MTUzMGM4ZDBjMTVkM2NjZTMxM2ZmYjdkOTE4OWEiLCJpYXQiOjE1ODMwNDQ1MjAsIm5iZiI6MTU4MzA0NDUyMCwiZXhwIjoxNjE0NTgwNTIwLCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.MvZZnrakzgMg0E-Q2a6hyGFeWy7kVY7H9vC9FAksoTmxT54cyPougao80FmI5j7xCIG96O5rpYMDw4BjwB-Eov-cCTz1rmIVOrYxZCI6LsbgEdRrr8YUKGY8Ggo_0Qo2D1FD73rebKxNDdulWPTWCWPT_A-Oas0lafCWr5GeHV8UBPmDSe-cgpteU45AB291jSfqmjD3pgaPe6pIGuUzmQr8aGWE1gat_BhmJpU6ht4I2sLF0XJPpTRaWdLtHJvVttr-W8a_66dQxVZC-ElRuu7mOjEnCMWBskTy9fj37OPnBSLuPVeNWsUBx_Q7JgQXf2owS9MTOKzrccv1lf3lAc7IdG0qN4JQRHlEyySHHXpTfXWavQq1v6rmlHRH2yIV9mQ4pcg9Aww6dj4g664t0lZHGi8gXBDqtMHhS6Va-_q9uaByy6LRdEQoqht0WRBROkplHd5rOuLPkWv2qtYYHRCLmSWAD-GOqrPzuoQaN6UqBzrn03I-UfP9mvKFQWEXwrifflt9guUB2Hqd5QR2kcnZ7ChpUHJKAAkuxVpylssZaOV4lA4y76p_A0UMC5Jr4F88HuDArwwQmSo5VkFsSbajXM_u7RXahCNa9B2JEgWXk8JMoBif4epvdSnvrU_olHBKMZQnz-pBNG1pktZBo72WqfWh43nIUxD4ixTqR60",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/delivery/history",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"delivery",
+								"history"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "video",
+			"item": [
+				{
+					"name": "video detail",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/videos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"videos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all videos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/videos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"videos"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "sales order for agen",
+			"item": [
+				{
+					"name": "all sales order",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNzhlZmU5YjdkYmQyOTY5OWI0NTNiNjE5YmM1M2QyNTMyYWRjMmJiMTU2NmYzN2JhYmNlZGNjYWJmMjJmYThhYTg2MDM3NzA5ZmMxOGY1M2EiLCJpYXQiOjE1OTgyNDYwNDAsIm5iZiI6MTU5ODI0NjA0MCwiZXhwIjoxNjI5NzgyMDM5LCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.emoaQjHlQLbyULk_xPVUV38-B6RTkjhaOuMjBXjWgnzxvbJQWJJPQW3HYNkr2xHqNQGdnFBSlL5iZEml1XMDRh1QgV7BV-YgGD47Od3Q-pELz4fCjnfqvj12xnylR6Yr90ROvm5lh1PfYRebkTVHnHXAgXnMy2G4uJmaYyBZ-MGpRdYTAx743PlpbS9jEbZM25moP59j0U7sz1DUUQGankUNFWCVE5MQnlFbHJjxawxfFZ7r11TL9U8cMr6YgBJHy2yS9rRmAWaSeNhy6oSTkkf6UGfzAcndPvMCzZhRDDOyrnPGwuw8cWq2ll0gcKM0wDrcPXjza0EeTUyeorfuVHxhz5fxzNAY8v70_gjD40NB3t29_cedj3YiNv_Xo3jOlufv7GnDvJnyyZXlDWv0xLHcGxZAmvnjFa6whP7tQbP03g1G5hLFk_u5m_zSKSRySOIa2K1gGz-DqVO_Kt0GwGRigG3bGVKsf8C_HL2krZNevuDeUBP48LnsGwPHfnrrGklxdlNmrqG_MH_7vGqTLu5E2GlYjCKQs2KwmPzgoSAcUaJRHKDaog4EDZMEnctkecAhpy-hpiLWKDy94e9wOIMjztyCOQ6GuxRK6c553ZtaBnG8ObModCH5ttFFFFdIZPnWRF5ef8BjQuWyn5D0hTAs5jKJIdYgL6GBAq9vOGA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/agen/salesorder",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"agen",
+								"salesorder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "detail sales order",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNzhlZmU5YjdkYmQyOTY5OWI0NTNiNjE5YmM1M2QyNTMyYWRjMmJiMTU2NmYzN2JhYmNlZGNjYWJmMjJmYThhYTg2MDM3NzA5ZmMxOGY1M2EiLCJpYXQiOjE1OTgyNDYwNDAsIm5iZiI6MTU5ODI0NjA0MCwiZXhwIjoxNjI5NzgyMDM5LCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.emoaQjHlQLbyULk_xPVUV38-B6RTkjhaOuMjBXjWgnzxvbJQWJJPQW3HYNkr2xHqNQGdnFBSlL5iZEml1XMDRh1QgV7BV-YgGD47Od3Q-pELz4fCjnfqvj12xnylR6Yr90ROvm5lh1PfYRebkTVHnHXAgXnMy2G4uJmaYyBZ-MGpRdYTAx743PlpbS9jEbZM25moP59j0U7sz1DUUQGankUNFWCVE5MQnlFbHJjxawxfFZ7r11TL9U8cMr6YgBJHy2yS9rRmAWaSeNhy6oSTkkf6UGfzAcndPvMCzZhRDDOyrnPGwuw8cWq2ll0gcKM0wDrcPXjza0EeTUyeorfuVHxhz5fxzNAY8v70_gjD40NB3t29_cedj3YiNv_Xo3jOlufv7GnDvJnyyZXlDWv0xLHcGxZAmvnjFa6whP7tQbP03g1G5hLFk_u5m_zSKSRySOIa2K1gGz-DqVO_Kt0GwGRigG3bGVKsf8C_HL2krZNevuDeUBP48LnsGwPHfnrrGklxdlNmrqG_MH_7vGqTLu5E2GlYjCKQs2KwmPzgoSAcUaJRHKDaog4EDZMEnctkecAhpy-hpiLWKDy94e9wOIMjztyCOQ6GuxRK6c553ZtaBnG8ObModCH5ttFFFFdIZPnWRF5ef8BjQuWyn5D0hTAs5jKJIdYgL6GBAq9vOGA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/agen/salesorder/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"agen",
+								"salesorder",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Customer",
+			"item": [
+				{
+					"name": "all customer",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNzhlZmU5YjdkYmQyOTY5OWI0NTNiNjE5YmM1M2QyNTMyYWRjMmJiMTU2NmYzN2JhYmNlZGNjYWJmMjJmYThhYTg2MDM3NzA5ZmMxOGY1M2EiLCJpYXQiOjE1OTgyNDYwNDAsIm5iZiI6MTU5ODI0NjA0MCwiZXhwIjoxNjI5NzgyMDM5LCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.emoaQjHlQLbyULk_xPVUV38-B6RTkjhaOuMjBXjWgnzxvbJQWJJPQW3HYNkr2xHqNQGdnFBSlL5iZEml1XMDRh1QgV7BV-YgGD47Od3Q-pELz4fCjnfqvj12xnylR6Yr90ROvm5lh1PfYRebkTVHnHXAgXnMy2G4uJmaYyBZ-MGpRdYTAx743PlpbS9jEbZM25moP59j0U7sz1DUUQGankUNFWCVE5MQnlFbHJjxawxfFZ7r11TL9U8cMr6YgBJHy2yS9rRmAWaSeNhy6oSTkkf6UGfzAcndPvMCzZhRDDOyrnPGwuw8cWq2ll0gcKM0wDrcPXjza0EeTUyeorfuVHxhz5fxzNAY8v70_gjD40NB3t29_cedj3YiNv_Xo3jOlufv7GnDvJnyyZXlDWv0xLHcGxZAmvnjFa6whP7tQbP03g1G5hLFk_u5m_zSKSRySOIa2K1gGz-DqVO_Kt0GwGRigG3bGVKsf8C_HL2krZNevuDeUBP48LnsGwPHfnrrGklxdlNmrqG_MH_7vGqTLu5E2GlYjCKQs2KwmPzgoSAcUaJRHKDaog4EDZMEnctkecAhpy-hpiLWKDy94e9wOIMjztyCOQ6GuxRK6c553ZtaBnG8ObModCH5ttFFFFdIZPnWRF5ef8BjQuWyn5D0hTAs5jKJIdYgL6GBAq9vOGA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/agen/customer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"agen",
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "detail customer",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNzhlZmU5YjdkYmQyOTY5OWI0NTNiNjE5YmM1M2QyNTMyYWRjMmJiMTU2NmYzN2JhYmNlZGNjYWJmMjJmYThhYTg2MDM3NzA5ZmMxOGY1M2EiLCJpYXQiOjE1OTgyNDYwNDAsIm5iZiI6MTU5ODI0NjA0MCwiZXhwIjoxNjI5NzgyMDM5LCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.emoaQjHlQLbyULk_xPVUV38-B6RTkjhaOuMjBXjWgnzxvbJQWJJPQW3HYNkr2xHqNQGdnFBSlL5iZEml1XMDRh1QgV7BV-YgGD47Od3Q-pELz4fCjnfqvj12xnylR6Yr90ROvm5lh1PfYRebkTVHnHXAgXnMy2G4uJmaYyBZ-MGpRdYTAx743PlpbS9jEbZM25moP59j0U7sz1DUUQGankUNFWCVE5MQnlFbHJjxawxfFZ7r11TL9U8cMr6YgBJHy2yS9rRmAWaSeNhy6oSTkkf6UGfzAcndPvMCzZhRDDOyrnPGwuw8cWq2ll0gcKM0wDrcPXjza0EeTUyeorfuVHxhz5fxzNAY8v70_gjD40NB3t29_cedj3YiNv_Xo3jOlufv7GnDvJnyyZXlDWv0xLHcGxZAmvnjFa6whP7tQbP03g1G5hLFk_u5m_zSKSRySOIa2K1gGz-DqVO_Kt0GwGRigG3bGVKsf8C_HL2krZNevuDeUBP48LnsGwPHfnrrGklxdlNmrqG_MH_7vGqTLu5E2GlYjCKQs2KwmPzgoSAcUaJRHKDaog4EDZMEnctkecAhpy-hpiLWKDy94e9wOIMjztyCOQ6GuxRK6c553ZtaBnG8ObModCH5ttFFFFdIZPnWRF5ef8BjQuWyn5D0hTAs5jKJIdYgL6GBAq9vOGA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/agen/customer/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"agen",
+								"customer",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Delivery Order for cuutomer",
+			"item": [
+				{
+					"name": "all delivery order for customer",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMmMzZDA5YjAyZDRmYWQ0NjAyNjIyZTQ0OTdiNThjYmE5ZDQzZTljZDhkYjkxZDM0NGQ5MWEzOTJhYTljZGFhMjUzNDcwOTI2NTgwNzU4OTEiLCJpYXQiOjE1OTgyNDYzMDksIm5iZiI6MTU5ODI0NjMwOSwiZXhwIjoxNjI5NzgyMzA5LCJzdWIiOiI0Iiwic2NvcGVzIjpbXX0.Adettg70DooB9GZWRx8lelrh6vChS2f1st6b-M3rqLjPSlhOg2Tg8aAdnWUOGQS805Jrr1M_vq4EMdzSihuBGO47sZX8COQtWBMUO5Q1od5zpof82Xobcq2_GnQQN9A03fOGe4xekd0JKETrqyar0J6aQBl2LQchSxRkNvQGW1gzdLi45pYxGLiYuWmIXc71iqhBbFhCZcuMUwlvlQSUJufa2IUHFtLqhLCqCgJuYO0jRXtmPmN93H8wH7rQT0FHqsb84c4Ua23SnfG_53vpBWo4i2y3fKLKvda4gFBbn12E7WwHpxRh5E4kymNNA83hKJmQSyUzJUB_xDiBLcfqDwnUUAc_zXGKOIN5Vn-iwnZFLqDyA8ueK81gSwji3SM_gvxuIG6MvhG8SAQZahmVIfnOXXw5YsuiKb09KUAjqiUlajMyVyArjxBfB01x5eb4YVQXD5B1KtZWioNInlENo1Dq1ukN757YduXIcpVbnY-3Fpf4KUOF0ujW65iZgRdtf0mfWdVgs6gOAp3BVDM5y6GbLrwNudqOte67woOo4zjoXt5w2b64pogt0V-cEM36JLak5UiMruJ5DMjAu3qIxa8jJxLnhU4XnQYskVcaOpsz8sdWjqGlLcZH0cAuc3r1s_QqtWISveEj_FmaxbjJTVJMPNjIxw_qp2uGqxo_Q2g",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/deliveryorder",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"deliveryorder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "detail delivery order for cutomer",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMmMzZDA5YjAyZDRmYWQ0NjAyNjIyZTQ0OTdiNThjYmE5ZDQzZTljZDhkYjkxZDM0NGQ5MWEzOTJhYTljZGFhMjUzNDcwOTI2NTgwNzU4OTEiLCJpYXQiOjE1OTgyNDYzMDksIm5iZiI6MTU5ODI0NjMwOSwiZXhwIjoxNjI5NzgyMzA5LCJzdWIiOiI0Iiwic2NvcGVzIjpbXX0.Adettg70DooB9GZWRx8lelrh6vChS2f1st6b-M3rqLjPSlhOg2Tg8aAdnWUOGQS805Jrr1M_vq4EMdzSihuBGO47sZX8COQtWBMUO5Q1od5zpof82Xobcq2_GnQQN9A03fOGe4xekd0JKETrqyar0J6aQBl2LQchSxRkNvQGW1gzdLi45pYxGLiYuWmIXc71iqhBbFhCZcuMUwlvlQSUJufa2IUHFtLqhLCqCgJuYO0jRXtmPmN93H8wH7rQT0FHqsb84c4Ua23SnfG_53vpBWo4i2y3fKLKvda4gFBbn12E7WwHpxRh5E4kymNNA83hKJmQSyUzJUB_xDiBLcfqDwnUUAc_zXGKOIN5Vn-iwnZFLqDyA8ueK81gSwji3SM_gvxuIG6MvhG8SAQZahmVIfnOXXw5YsuiKb09KUAjqiUlajMyVyArjxBfB01x5eb4YVQXD5B1KtZWioNInlENo1Dq1ukN757YduXIcpVbnY-3Fpf4KUOF0ujW65iZgRdtf0mfWdVgs6gOAp3BVDM5y6GbLrwNudqOte67woOo4zjoXt5w2b64pogt0V-cEM36JLak5UiMruJ5DMjAu3qIxa8jJxLnhU4XnQYskVcaOpsz8sdWjqGlLcZH0cAuc3r1s_QqtWISveEj_FmaxbjJTVJMPNjIxw_qp2uGqxo_Q2g",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/deliveryorder/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"deliveryorder",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
