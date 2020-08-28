@@ -29,7 +29,10 @@ class HomeController extends Controller
 
         $total = DeliveryOrder::sum('quantity');
 
-        return view('home',compact('promo','agen','news','event','delivery_orders','total','customer','sales_order','driver'));
+        $new_promo = Promo::orderBy('created_at','desc')->limit(6)->get();
+        $new_do = DeliveryOrder::orderBy('created_at','desc')->limit(7)->get();
+
+        return view('home',compact('promo','agen','news','event','delivery_orders','total','customer','sales_order','driver','new_promo','new_do'));
     }
 
     public function chart()
