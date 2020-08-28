@@ -6,24 +6,21 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\DeliveryOrder;
-
+use App\Http\Resources\DeliveryOrder as DeliveryOrderResource;
 class DeliveryOrderController extends Controller
 {
     public function index()
     {
         $customer = Auth::user()->customer;
-        $delivery_orders = $customer->delivery_order;
-        foreach ($delivery_orders as $delivery_order) {
-            $delivery_order->sales_order;
-        }
+        $delivery_orders = DeliveryOrderResource::collection($customer->delivery_order);
         return response()->json($delivery_orders, 200);
     }
 
     public function detail($id)
     {
         $customer = Auth::user()->customer;
-        $delivery_order = $customer->delivery_order()->where('id',$id)->first();
-        $delivery_order->sales_order;
+        $result = $customer->delivery_order()->where('id',$id)->first();
+        $delivery_order = new DeliveryOrderResource($result);
         return response()->json($delivery_order, 200);
     }
 
@@ -38,7 +35,7 @@ class DeliveryOrderController extends Controller
         foreach ($sales_orders as $sales_order) {
             foreach ($sales_order->delivery_orders as $delivery_order) {
                 if (($route == $delivery_order->shipped_via || $delivery_order->shipped_via == 2) && $delivery_order->status == 0) {
-                    $delivery_orders[] = $delivery_order;
+                    $delivery_orders[] = new DeliveryOrderResource($delivery_order);
                 }
             }
         }
