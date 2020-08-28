@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Agen;
 use App\SalesOrder;
-
+use GuzzleHttp\Client;
 class SalesOrderController extends Controller
 {
     /**
@@ -44,12 +44,16 @@ class SalesOrderController extends Controller
             'sales_order_number'=>'required',
         ]);
 
-        SalesOrder::create([
+        $sales_order = SalesOrder::create([
             'sales_order_number'=>$request->sales_order_number,
             'agen_id'=>$agen->id
         ]);
 
-        // $this->sendNotif('message','title','fcm_token');
+
+        $title = 'Sales Order';
+        $message = "Agen {$agen->name}" . 'Sales Order '.$sales_order.' Telah dibuat';
+        $fcm_token[] = $agen->user->fcm_token;
+        // $this->sendNotif($message,$title,$fcm_token);
 
         return redirect()->back()->with('status','successfully created Sales Order');
     }
@@ -121,7 +125,7 @@ class SalesOrderController extends Controller
 
         // headers
         $headers  = [
-            'Authorization'   =>  'key=AIzaSyBeQAlvl7zDYR2JFrzPoeCmLq7YxOG-_jo',
+            'Authorization'   =>  'key=AIzaSyBeQAlvl7zDYR2J',
             'Content-Type'    =>  'application/json'
         ];
 
