@@ -78,7 +78,7 @@ class DeliveryOrderController extends Controller
             $data['shipped_via'] = $request->shipped_via[0];
         }
 
-        // $sales_order->delivery_orders()->create($data);
+        $sales_order->delivery_orders()->create($data);
 
         $fcm_token = [];
         if ($data['shipped_via'] == 0) {
