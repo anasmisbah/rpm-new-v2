@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\DriverCode;
 use App\Driver;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use App\DeliveryOrder;
+use App\Http\Resources\DeliveryOrder as DeliveryOrderResource;
 class DriverController extends Controller
 {
 
@@ -26,17 +26,20 @@ class DriverController extends Controller
         $delivery_order->update([
             'status'=>1,
             'driver_id'=>$user->driver->id,
-            'departure_time'=>$date
+            'departure_time'=>$date,
+            'shipped_via'=>$user->driver->route,
         ]);
 
         // Send notification to customer
         $customer = $delivery_order->customer;
+        $fcm_token[] = $customer->user->fcm_token;
 
+        // $this->sendNotif($message,$title,$fcm_token);
 
         return response()->json([
             'status'=>true,
             'message'=>'berhasil melakukan accept delivery order',
-            'delivery_order'=>$delivery_order
+            'delivery_order'=>new DeliveryOrderResource($delivery_order)
         ], 200);
 
     }
@@ -97,12 +100,15 @@ class DriverController extends Controller
         ]);
 
         // TODO notif to customer
+        $customer = $delivery_order->customer;
+        $fcm_token[] = $customer->user->fcm_token;
 
+        // $this->sendNotif($message,$title,$fcm_token);
 
         return response()->json([
             'status'=>true,
             'message'=>'berhasil melakukan finish delivery order',
-            'delivery_order'=>$delivery_order
+            'delivery_order'=>new DeliveryOrderResource($delivery_order)
         ], 200);
     }
 
@@ -122,6 +128,9 @@ class DriverController extends Controller
     {
         $agen = Auth::user()->agen;
         $drivers = $agen->drivers;
+        foreach ($drivers as  $driver) {
+            $driver->avatar = url('/uploads/' . $driver->avatar);
+        }
         return response()->json($drivers, 200);
     }
 
@@ -129,6 +138,7 @@ class DriverController extends Controller
     {
         $agen = Auth::user()->agen;
         $driver = $agen->drivers()->where('id',$id)->first();
+        $driver->avatar = url('/uploads/' . $driver->avatar);
         return response()->json($driver, 200);
     }
 

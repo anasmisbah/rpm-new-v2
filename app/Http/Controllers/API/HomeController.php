@@ -116,12 +116,15 @@ class HomeController extends Controller
             foreach ($user->agen->sales_orders as $key => $sales_order) {
                 $delivery_orders = [];
                 foreach ($sales_order->delivery_orders as $delivery_order) {
-                        $delivery_orders[] = new DeliveryOrderResource($delivery_order);
+                    $delivery_orders[] = new DeliveryOrderResource($delivery_order);
                 }
-                $user->agen->sales_orders[$key]['delivery_order'] =$delivery_orders;
+                $user->agen->sales_orders[$key]['delivery_orders'] =$delivery_orders;
             }
 
-            $user->agen->logo= url('/uploads/' . $user->agen->logo);
+            foreach ($user->agen->drivers as $key => $driver) {
+                $user->agen->drivers[$key]->avatar =url('/uploads/' . $driver->avatar);
+            }
+
             $news = News::limit(8)->get();
             $data['user']=$user;
             $data['news']=[];
@@ -135,7 +138,6 @@ class HomeController extends Controller
                     'created_at'=>$new->created_at->format('d F Y'),
                     'created_by'=>$new->createdby->admin->name,
                     'category'=>$new->category->makeHidden(['created_at','updated_at','pivot','slug'])
-
                 ];
             }
 
