@@ -215,8 +215,10 @@ class HomeController extends Controller
             $user->role;
             $user->customer->coupon = $user->customer->coupons()->count();
 
-            $user->customer->delivery_order= $user->customer->delivery_order()->sum('quantity');
-            $user->customer->delivery_order;
+            $user->customer->sum_delivery_order= $user->customer->delivery_order()->sum('quantity');
+            foreach ($user->customer->delivery_order as $key => $delivery_order) {
+                $user->customer->delivery_order[$key] = new DeliveryOrderResource($delivery_order);
+            }
             $user->customer->coupons;
             $user->customer->vouchers;
             $news = News::limit(8)->get();
