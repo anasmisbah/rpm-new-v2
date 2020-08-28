@@ -10,7 +10,7 @@ use App\Promo;
 use App\Company;
 use App\Video;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Resources\DeliveryOrder as DeliveryOrderResource;
 class HomeController extends Controller
 {
     public function home()
@@ -303,13 +303,27 @@ class HomeController extends Controller
         else{
 
             $user->driver->avatar = url('/uploads/' . $user->driver->avatar);
+            $user->driver->agen->logo = url('/uploads/' . $user->driver->agen->logo);
             $user->role;
             $user->driver->delivery_order;
-            // foreach ($user->driver->delivery as $key => $del) {
-            //     $user->driver->delivery[$key]->delivery_date = $del->delivery_at->format('l, d F Y H:i:s');
-            //     $user->driver->delivery[$key]->distributor->logo= url('/uploads/' . $del->distributor->logo);
-            // }
+            foreach ($user->driver->delivery_order as $key => $delivery_order) {
+                $user->driver->delivery_order[$key] = new DeliveryOrderResource($delivery_order);
+            }
             $data['user']=$user;
+
+            $agen = $user->driver->agen;
+            $route = $user->driver->route;
+            $sales_orders = $agen->sales_orders;
+
+            $delivery_orders = [];
+            foreach ($sales_orders as $sales_order) {
+                foreach ($sales_order->delivery_orders as $delivery_order) {
+                    if (($route == $delivery_order->shipped_via || $delivery_order->shipped_via == 2) && $delivery_order->status == 0) {
+                        $delivery_orders[] = new DeliveryOrderResource($delivery_order);
+                    }
+                }
+            }
+            $data['ready_delivery_order']=$delivery_orders;
             return response()->json($data, 200);
 
         }
