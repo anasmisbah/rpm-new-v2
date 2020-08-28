@@ -113,6 +113,14 @@ class HomeController extends Controller
             $user->agen->logo = url('/uploads/' . $user->agen->logo);
             $user->role;
             $user->agen->sales_orders;
+            foreach ($user->agen->sales_orders as $key => $sales_order) {
+                $delivery_orders = [];
+                foreach ($sales_order->delivery_orders as $delivery_order) {
+                        $delivery_orders[] = new DeliveryOrderResource($delivery_order);
+                }
+                $user->agen->sales_orders[$key]['delivery_order'] =$delivery_orders;
+            }
+
             $user->agen->logo= url('/uploads/' . $user->agen->logo);
             $news = News::limit(8)->get();
             $data['user']=$user;
