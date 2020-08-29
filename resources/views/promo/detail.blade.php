@@ -68,7 +68,7 @@
         </div>
         <div class="card-footer text-right">
           <span style="font-size: 14px">
-            <strong>Created At: </strong>{{$promo->created_at->format('l | d F Y')}} | {{$promo->created_at->format('h:i:s A')}}/ <strong>Updated At: </strong>{{$promo->updated_at->format('l | d F Y')}} | {{$promo->updated_at->format('h:i:s A')}}
+            <strong>Dibuat pada: </strong>{{$promo->created_at->dayName." | ".$promo->created_at->day." ".$promo->created_at->monthName." ".$promo->created_at->year}} | {{$promo->created_at->format('H:i:s')}} / <strong>Diubah pada: </strong>{{  $promo->updated_at->dayName." | ".$promo->updated_at->day." ".$promo->updated_at->monthName." ".$promo->updated_at->year}} | {{$promo->updated_at->format('H:i:s')}}
           </span>
         </div>
       </div>

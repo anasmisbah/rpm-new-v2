@@ -54,7 +54,7 @@
                 </tr>
                 <tr>
                     <td style="width:15%" class="text-bold">Tanggal SO dibuat</td>
-                    <td>{{$sales_order->created_at->format('d F Y')}}</td>
+                    <td>{{$sales_order->created_at->day." ".$sales_order->created_at->monthName." ".$sales_order->created_at->year}} </td>
                 </tr>
                 <tr>
                     <td style="width:15%" class="text-bold mt-2">Detail Delivery Order</td>
@@ -66,7 +66,7 @@
                 </tr>
                 <tr>
                     <td style="width:15%" class="text-bold">Tanggal DO dibuat</td>
-                    <td>{{$delivery_order->created_at->format('d F Y')}}</td>
+                    <td>{{$delivery_order->created_at->day." ".$delivery_order->created_at->monthName." ".$delivery_order->created_at->year}}</td>
                 </tr>
                 <tr>
                     <td style="width:15%" class="text-bold">Agen</td>
@@ -78,7 +78,7 @@
                 </tr>
                 <tr>
                     <td style="width:15%" class="text-bold">Tanggal Berlaku</td>
-                    <td>{{$delivery_order->effective_date_start->format('d F Y')}} - {{$delivery_order->effective_date_end->format('d F Y')}}</td>
+                    <td>{{$delivery_order->effective_date_start->day." ".$delivery_order->effective_date_start->monthName." ".$delivery_order->effective_date_start->year}} - {{$delivery_order->effective_date_start->day." ".$delivery_order->effective_date_start->monthName." ".$delivery_order->effective_date_start->year}}</td>
                 </tr>
                 <tr>
                     <td style="width:15%" class="text-bold">Produk</td>
@@ -86,7 +86,7 @@
                 </tr>
                 <tr>
                     <td style="width:15%" class="text-bold">Kwantitas</td>
-                    <td>{{$delivery_order->quantity}}</td>
+                    <td>{{$delivery_order->quantity}} Liter</td>
                 </tr>
                 <tr>
                     <td style="width:15%" class="text-bold">Segel Atas</td>
@@ -151,13 +151,17 @@
                     </tr>
                     <tr>
                         <td style="width:17%" class="text-bold">Waktu Keberangkatan</td>
-                        <td>{{$delivery_order->departure_time->format('d F Y')}} | {{$delivery_order->departure_time->format('h:i:s A')}}</td>
+                        <td>
+                        {{$delivery_order->departure_time->day." ".$delivery_order->departure_time->monthName." ".$delivery_order->departure_time->year}} | {{$delivery_order->departure_time->format('H:i:s')}}
+                        </td>
                     </tr>
                     @endif
                     @if ($delivery_order->status == 2)
                     <tr>
                         <td style="width:17%" class="text-bold">Waktu Kedatangan</td>
-                        <td>{{$delivery_order->arrival_time->format('d F Y')}} | {{$delivery_order->arrival_time->format('h:i:s A')}}</td>
+                        <td>
+                            {{$delivery_order->arrival_time->day." ".$delivery_order->arrival_time->monthName." ".$delivery_order->arrival_time->year}} | {{$delivery_order->arrival_time->format('H:i:s')}}
+                        </td>
                     </tr>
                     <tr>
                         <td style="width:15%" class="text-bold">BAST</td>
@@ -169,7 +173,7 @@
         </div>
         <div class="card-footer text-right">
           <span style="font-size: 14px">
-            <strong>Created At: </strong>{{$delivery_order->created_at->format('l | d F Y')}} | {{$delivery_order->created_at->format('h:i:s A')}}/ <strong>Updated At: </strong>{{$delivery_order->updated_at->format('l | d F Y')}} | {{$delivery_order->updated_at->format('h:i:s A')}}
+            <strong>Dibuat pada: </strong>{{$delivery_order->created_at->dayName." | ".$delivery_order->created_at->day." ".$delivery_order->created_at->monthName." ".$delivery_order->created_at->year}} | {{$delivery_order->created_at->format('H:i:s')}} / <strong>Diubah pada: </strong>{{  $delivery_order->updated_at->dayName." | ".$delivery_order->updated_at->day." ".$delivery_order->updated_at->monthName." ".$delivery_order->updated_at->year}} | {{$delivery_order->updated_at->format('H:i:s')}}
           </span>
         </div>
       </div>

@@ -75,7 +75,7 @@
         </div>
         <div class="card-footer text-right">
           <span style="font-size: 14px">
-            <strong>Created At: </strong>{{$driver->created_at->format('l | d F Y')}} | {{$driver->created_at->format('h:i:s A')}}/ <strong>Updated At: </strong>{{$driver->updated_at->format('l | d F Y')}} | {{$driver->updated_at->format('h:i:s A')}}
+            <strong>Dibuat pada: </strong>{{$driver->created_at->dayName." | ".$driver->created_at->day." ".$driver->created_at->monthName." ".$driver->created_at->year}} | {{$driver->created_at->format('H:i:s')}} / <strong>Diubah pada: </strong>{{  $driver->updated_at->dayName." | ".$driver->updated_at->day." ".$driver->updated_at->monthName." ".$driver->updated_at->year}} | {{$driver->updated_at->format('H:i:s')}}
           </span>
         </div>
       </div>

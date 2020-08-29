@@ -74,7 +74,7 @@
         </div>
         <div class="card-footer text-right">
           <span style="font-size: 14px">
-            <strong>Created At: </strong>{{$agen->created_at->format('l | d F Y')}} | {{$agen->created_at->format('h:i:s A')}}/ <strong>Updated At: </strong>{{$agen->updated_at->format('l | d F Y')}} | {{$agen->updated_at->format('h:i:s A')}}
+            <strong>Dibuat pada: </strong>{{$agen->created_at->dayName." | ".$agen->created_at->day." ".$agen->created_at->monthName." ".$agen->created_at->year}} | {{$agen->created_at->format('H:i:s')}} / <strong>Diubah pada: </strong>{{  $agen->updated_at->dayName." | ".$agen->updated_at->day." ".$agen->updated_at->monthName." ".$agen->updated_at->year}} | {{$agen->updated_at->format('H:i:s')}}
           </span>
         </div>
       </div>

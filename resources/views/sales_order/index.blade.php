@@ -56,7 +56,9 @@
                   <tr>
                     <td>{{$loop->iteration}}</td>
                     <td>{{$sales_order->sales_order_number}}</td>
-                    <td>{{$sales_order->created_at->format('l, d F Y')}}  {{$agen->created_at->format('h:i:s A')}}</td>
+                    <td>
+                        {{$sales_order->created_at->dayName.", ".$sales_order->created_at->day." ".$sales_order->created_at->monthName." ".$sales_order->created_at->year}} | {{$sales_order->created_at->format('H:i')}}
+                    </td>
                     <td>
                         <a href="{{route('salesorder.agen.edit',$sales_order->id)}}" data-placement="top" title="Edit" class="btn btn-warning btn-sm">
                             <i class="fas fa-edit"></i>

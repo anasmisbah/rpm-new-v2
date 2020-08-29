@@ -51,11 +51,11 @@
               </tr>
               <tr>
                 <td style="width:10%">Tanggal Mulai</td>
-                <td>{{$event->startdate->format('l, d F Y')}}</td>
+                <td>{{$event->startdate->dayName.", ".$event->startdate->day." ".$event->startdate->monthName." ".$event->startdate->year}}</td>
               </tr>
               <tr>
-                <td style="width:10%">Tanggal Berakhir</td>
-                <td>{{$event->enddate->format('l, d F Y')}}</td>
+                <td style="width:15%">Tanggal Berakhir</td>
+                <td>{{$event->enddate->dayName.", ".$event->enddate->day." ".$event->enddate->monthName." ".$event->enddate->year}}</td>
               </tr>
               <tr>
                 <td style="width:10%">Deskripsi</td>
@@ -67,7 +67,7 @@
         </div>
         <div class="card-footer text-right">
           <span style="font-size: 14px">
-            <strong>Created At: </strong>{{$event->created_at->format('l | d F Y')}} | {{$event->created_at->format('h:i:s A')}}/ <strong>Updated At: </strong>{{$event->updated_at->format('l | d F Y')}} | {{$event->updated_at->format('h:i:s A')}}
+            <strong>Dibuat pada: </strong>{{$event->created_at->dayName." | ".$event->created_at->day." ".$event->created_at->monthName." ".$event->created_at->year}} | {{$event->created_at->format('H:i:s')}} / <strong>Diubah pada: </strong>{{  $event->updated_at->dayName." | ".$event->updated_at->day." ".$event->updated_at->monthName." ".$event->updated_at->year}} | {{$event->updated_at->format('H:i:s')}}
           </span>
         </div>
       </div>

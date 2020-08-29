@@ -54,6 +54,7 @@
                 <tr>
                   <th>No</th>
                   <th>Kode Coupon</th>
+                  <th>Dibuat Pada</th>
                   <th>Aksi</th>
                 </tr>
                 </thead>
@@ -62,6 +63,7 @@
                   <tr>
                     <td>{{$loop->iteration}}</td>
                     <td>{{$coupon->code_coupon}}</td>
+                    <td>{{$coupon->created_at->dayName.", ".$coupon->created_at->day." ".$coupon->created_at->monthName." ".$coupon->created_at->year}}</td>
                     <td>
                         <form class="d-inline"
                             onsubmit="return confirm('Apakah anda ingin menghapus coupon secara permanen?')"

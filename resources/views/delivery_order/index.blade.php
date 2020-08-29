@@ -59,7 +59,7 @@
                   <tr>
                     <td>{{$loop->iteration}}</td>
                     <td>{{$delivery_order->delivery_order_number}}</td>
-                    <td>{{$delivery_order->effective_date_start->format('d F Y')}} - {{$delivery_order->effective_date_end->format('d F Y')}}</td>
+                    <td>{{$delivery_order->effective_date_start->day." ".$delivery_order->effective_date_start->monthName." ".$delivery_order->effective_date_start->year}} - {{$delivery_order->effective_date_start->day." ".$delivery_order->effective_date_start->monthName." ".$delivery_order->effective_date_start->year}}</td>
                     <td>
                         @if ($delivery_order->shipped_via == 0)
                         <small class="badge badge-warning"></i> Jalur Darat </small>

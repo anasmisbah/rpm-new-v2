@@ -59,7 +59,7 @@
         </div>
         <div class="card-footer text-right">
           <span style="font-size: 14px">
-            <strong>Created At: </strong>{{$news->created_at->format('l | d F Y')}} | {{$news->created_at->format('h:i:s A')}}/ <strong>Updated At: </strong>{{$news->updated_at->format('l | d F Y')}} | {{$news->updated_at->format('h:i:s A')}}
+            <strong>Dibuat pada: </strong>{{$news->created_at->dayName." | ".$news->created_at->day." ".$news->created_at->monthName." ".$news->created_at->year}} | {{$news->created_at->format('H:i:s')}} / <strong>Diubah pada: </strong>{{  $news->updated_at->dayName." | ".$news->updated_at->day." ".$news->updated_at->monthName." ".$news->updated_at->year}} | {{$news->updated_at->format('H:i:s')}}
           </span>
         </div>
       </div>

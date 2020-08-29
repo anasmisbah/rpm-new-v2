@@ -43,7 +43,7 @@
         </div>
         <div class="card-footer text-right">
           <span style="font-size: 14px">
-            <strong>Created At: </strong>{{$sales_order->created_at->format('l | d F Y')}} | {{$sales_order->created_at->format('h:i:s A')}}/ <strong>Updated At: </strong>{{$sales_order->updated_at->format('l | d F Y')}} | {{$sales_order->updated_at->format('h:i:s A')}}
+            <strong>Dibuat pada: </strong>{{$sales_order->created_at->dayName." | ".$sales_order->created_at->day." ".$sales_order->created_at->monthName." ".$sales_order->created_at->year}} | {{$sales_order->created_at->format('H:i:s')}} / <strong>Diubah pada: </strong>{{  $sales_order->updated_at->dayName." | ".$sales_order->updated_at->day." ".$sales_order->updated_at->monthName." ".$sales_order->updated_at->year}} | {{$sales_order->updated_at->format('H:i:s')}}
           </span>
         </div>
       </div>

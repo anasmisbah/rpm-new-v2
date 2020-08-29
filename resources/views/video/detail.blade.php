@@ -50,7 +50,7 @@
         </div>
         <div class="card-footer text-right">
           <span style="font-size: 14px">
-            <strong>Created At: </strong>{{$video->created_at->format('l | d F Y')}} | {{$video->created_at->format('h:i:s A')}}/ <strong>Updated At: </strong>{{$video->updated_at->format('l | d F Y')}} | {{$video->updated_at->format('h:i:s A')}}
+            <strong>Dibuat pada: </strong>{{$video->created_at->dayName." | ".$video->created_at->day." ".$video->created_at->monthName." ".$video->created_at->year}} | {{$video->created_at->format('H:i:s')}} / <strong>Diubah pada: </strong>{{  $video->updated_at->dayName." | ".$video->updated_at->day." ".$video->updated_at->monthName." ".$video->updated_at->year}} | {{$video->updated_at->format('H:i:s')}}
           </span>
         </div>
       </div>
