@@ -7,6 +7,8 @@ use App\SalesOrder;
 use App\Customer;
 use App\DeliveryOrder;
 use GuzzleHttp\Client;
+use App\Company;
+use Carbon\Carbon;
 class DeliveryOrderController extends Controller
 {
     /**
@@ -186,6 +188,16 @@ class DeliveryOrderController extends Controller
 
       return response()->json($response->getBody()->getContents());
 
+    }
+
+    public function print($id)
+    {
+        $delivery_order = DeliveryOrder::findOrFail($id);
+        $sales_order = $delivery_order->sales_order;
+        $agen = $sales_order->agen;
+        $company = Company::first();
+        $date = Carbon::now();
+        return view('delivery_order.print',compact('sales_order','agen','delivery_order','company','date'));
     }
 
 

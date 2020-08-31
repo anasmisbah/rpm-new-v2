@@ -45,7 +45,7 @@
                     <td>{{$company->email}}</td>
                 </tr>
                 <tr>
-                    <td style="width:10%">Nomor Telepon</td>
+                    <td style="width:15%">Nomor Telepon</td>
                     <td>{{$company->phone}}</td>
                 </tr>
                 <tr>

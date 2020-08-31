@@ -87,6 +87,7 @@ Route::middleware(['auth','admin'])->group(function (){
         Route::delete('deliveryorder/agen/{id}','DeliveryOrderController@destroy')->name('deliveryorder.agen.destroy');
         Route::post('deliveryorder/agen/store/{id}','DeliveryOrderController@store')->name('deliveryorder.agen.store');
         Route::put('deliveryorder/agen/update/{id}','DeliveryOrderController@update')->name('deliveryorder.agen.update');
+        Route::get('deliveryorder/agen/print/{id}','DeliveryOrderController@print')->name('deliveryorder.agen.print');
 
         Route::get('/user','UserController@index')->name('user.index');
         Route::get('/user/{id}','UserController@show')->name('user.show');

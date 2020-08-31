@@ -84,7 +84,7 @@
                             <i class="fas fa-edit"></i>
                         </a>
                         @elseif ($delivery_order->status == 2)
-                        <a class="btn btn-info btn-sm" href="{{route('deliveryorder.agen.edit',$delivery_order->id)}}"><i class="fas fa-print"></i></a>
+                        <a class="btn btn-info btn-sm" href="{{route('deliveryorder.agen.print',$delivery_order->id)}}" data-placement="top" title="Print"><i class="fas fa-print"></i></a>
                         @endif
 
                         {{-- <form class="d-inline"
