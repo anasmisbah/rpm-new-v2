@@ -45,7 +45,6 @@ class AgenController extends Controller
         $request->validate([
             'name'=>'required',
             'address'=>'required',
-            'member'=>'required',
             'phone'=>'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
             'email_user'=>'required|email|unique:users,email',
             'password_user'=>'required'
@@ -118,7 +117,6 @@ class AgenController extends Controller
         $request->validate([
             'name'=>'required',
             'address'=>'required',
-            'member'=>'required',
             'phone'=>'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
             'email_user'=>'required|email|unique:users,email,'.$agen->user->id,
         ]);
@@ -152,7 +150,6 @@ class AgenController extends Controller
         $agen->update([
             'name'=>$request->name,
             'address'=>$request->address,
-            'member'=>$request->member,
             'phone'=>$request->phone,
             'website'=>$request->website,
             'npwp'=>$request->npwp

@@ -198,6 +198,7 @@
 
         const error = '{{ $errors->first() }}'
         if (error) {
+            console.log(error);
             Toast.fire({
                 type: 'error',
                 title: 'Agen create failed'
