@@ -40,6 +40,7 @@ class DeliveryOrder extends JsonResource
                         break;
                 }
         return [
+            'id'=>$this->id,
             'delivery_order_number'=>$this->delivery_order_number,
             'effective_date_start'=>$this->effective_date_start->format('l, d F Y'),
             'effective_date_end'=>$this->effective_date_end->format('l, d F Y'),
