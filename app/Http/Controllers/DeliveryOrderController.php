@@ -9,6 +9,7 @@ use App\DeliveryOrder;
 use GuzzleHttp\Client;
 use App\Company;
 use Carbon\Carbon;
+use App\Notifdo;
 class DeliveryOrderController extends Controller
 {
     /**
@@ -41,6 +42,7 @@ class DeliveryOrderController extends Controller
     {
         $sales_order = SalesOrder::findOrFail($id);
         $agen = $sales_order->agen;
+        $date = Carbon::now();
         $request->validate([
             'delivery_order_number'=>'required',
             'effective_date_start'=>'required',
@@ -80,9 +82,11 @@ class DeliveryOrderController extends Controller
             $data['shipped_via'] = $request->shipped_via[0];
         }
 
-        $sales_order->delivery_orders()->create($data);
+        $delivery_order = $sales_order->delivery_orders()->create($data);
 
         $fcm_token = [];
+        $title = 'Delivery Order';
+        $message = 'Delivery Order Telah, menunggu konfirmasi driver';
         if ($data['shipped_via'] == 0) {
             // SEND NOTIF TO JALUR DARAT
             $drivers = $agen->drivers()->where('route',0)->get();
@@ -106,6 +110,12 @@ class DeliveryOrderController extends Controller
             }
             // $this->sendNotif($message,$title,$fcm_token);
         }
+
+        Notifdo::create([
+            'date'=>$date,
+            'description'=>$message,
+            'delivery_order_id'=>$delivery_order->id
+        ]);
 
         return redirect()->back()->with('status','successfully created Sales Order');
     }

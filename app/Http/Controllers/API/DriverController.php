@@ -34,7 +34,15 @@ class DriverController extends Controller
         $customer = $delivery_order->customer;
         $fcm_token[] = $customer->user->fcm_token;
 
+        $title = 'Konfirmasi Driver';
+        $message = 'Driver telah melakukan konfirmasi, delivery order dalam pengantaran';
         // $this->sendNotif($message,$title,$fcm_token);
+
+        $delivery_order->notifs()->create([
+            'date'=>$date,
+            'description'=>$message,
+            'driver'=>$user->driver->name,
+        ]);
 
         return response()->json([
             'status'=>true,
@@ -103,7 +111,15 @@ class DriverController extends Controller
         $customer = $delivery_order->customer;
         $fcm_token[] = $customer->user->fcm_token;
 
+        $title = 'Pengantaran selesai';
+        $message = 'Driver telah selesai melakukan pengantaran';
         // $this->sendNotif($message,$title,$fcm_token);
+
+        $delivery_order->notifs()->create([
+            'date'=>$date,
+            'description'=>$message,
+            'driver'=>$user->driver->name,
+        ]);
 
         return response()->json([
             'status'=>true,
