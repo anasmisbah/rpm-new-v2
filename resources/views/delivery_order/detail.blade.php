@@ -36,7 +36,7 @@
                     </li>
                 @elseif ($delivery_order->status == 2)
                     <li class="nav-item mr-1">
-                        <a class="btn btn-info" href="{{route('deliveryorder.agen.edit',$delivery_order->id)}}"><i class="fas fa-print"></i></a>
+                        <a class="btn btn-info" href="{{route('deliveryorder.agen.print',$delivery_order->id)}}"><i class="fas fa-print"></i></a>
                     </li>
                 @endif
               <li class="nav-item">
@@ -144,7 +144,7 @@
                         @endif
                     </td>
                 </tr>
-                    @if ($delivery_order->status == 1 || $delivery_order->status == 2)
+                @if ($delivery_order->status == 1 || $delivery_order->status == 2)
                     <tr>
                         <td style="width:15%" class="text-bold">Driver</td>
                         <td><a href="{{route('driver.agen.show',$delivery_order->driver->id)}}">{{$delivery_order->driver->name}}</a></td>
@@ -155,8 +155,8 @@
                         {{$delivery_order->departure_time->day." ".$delivery_order->departure_time->monthName." ".$delivery_order->departure_time->year}} | {{$delivery_order->departure_time->format('H:i:s')}}
                         </td>
                     </tr>
-                    @endif
-                    @if ($delivery_order->status == 2)
+                @endif
+                @if ($delivery_order->status == 2)
                     <tr>
                         <td style="width:17%" class="text-bold">Waktu Kedatangan</td>
                         <td>
@@ -166,8 +166,42 @@
                     <tr>
                         <td style="width:15%" class="text-bold">BAST</td>
                         <td><a href="{{asset("/uploads/".$delivery_order->bast)}}" class="foto"><img class="img-thumbnail" width="150px" src="{{asset("/uploads/".$delivery_order->bast)}}" alt=""></a></td>
-                      </tr>
-                    @endif
+                    </tr>
+                @endif
+                <tr>
+                    <td style="width:15%" colspan="2" class="text-bold">
+                        <!-- Timelime example  -->
+                        <div class="row">
+                            <div class="col-md-12">
+                            <!-- The time line -->
+                                <div class="timeline">
+                                    <!-- timeline time label -->
+                                    <div class="time-label">
+                                        <span class="bg-green">Timeline</span>
+                                    </div>
+                                    <!-- /.timeline-label -->
+                                    <!-- timeline item -->
+                                    @foreach ($delivery_order->notifs->sortByDesc('id') as $notif)
+                                        <div>
+                                            <i class="fas fa-bell bg-blue"></i>
+                                            <div class="timeline-item">
+                                                <span class="time"><i class="fas fa-clock"></i> {{$notif->date->format('H:i:s')}}</span>
+                                                <h3 class="timeline-header">{{$notif->date->dayName.", ".$notif->date->day." ".$notif->date->monthName." ".$notif->date->year}}</h3>
+
+                                                <div class="timeline-body">{{$notif->description}}</div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                    <!-- END timeline item -->
+                                    <div>
+                                        <i class="fas fa-clock bg-gray"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                    </td>
+                </tr>
             </tbody>
           </table>
         </div>

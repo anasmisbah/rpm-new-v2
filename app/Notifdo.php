@@ -12,6 +12,10 @@ class Notifdo extends Model
         'description','driver','date','delivery_order_id'
     ];
 
+    protected $dates =[
+        'date'
+    ];
+
     public function delivery_order()
     {
         return $this->belongsTo('App\DeliveryOrder');

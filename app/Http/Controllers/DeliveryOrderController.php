@@ -86,7 +86,7 @@ class DeliveryOrderController extends Controller
 
         $fcm_token = [];
         $title = 'Delivery Order';
-        $message = 'Delivery Order Telah, menunggu konfirmasi driver';
+        $message = 'Delivery order telah dibuat, menunggu konfirmasi driver';
         if ($data['shipped_via'] == 0) {
             // SEND NOTIF TO JALUR DARAT
             $drivers = $agen->drivers()->where('route',0)->get();
