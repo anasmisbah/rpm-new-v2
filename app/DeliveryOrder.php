@@ -53,4 +53,9 @@ class DeliveryOrder extends Model
     {
         return $this->belongsTo('App\SalesOrder');
     }
+
+    public function notifs()
+    {
+        return $this->hasMany('App\Notifdo');
+    }
 }
