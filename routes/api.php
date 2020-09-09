@@ -90,6 +90,9 @@ Route::group(['middleware' => ['auth:api']], function () {
     // SEE DELIVERY ORDER HISTORY
     Route::get('/driver/deliveryorder/history','API\DriverController@history');
 
+    // API SEE HISTORY NOTIF
+    Route::get('/notif/deliveryorder/{id}','API\DeliveryOrderController@historynotifdo');
+
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

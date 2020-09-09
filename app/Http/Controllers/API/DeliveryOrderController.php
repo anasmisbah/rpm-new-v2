@@ -41,6 +41,21 @@ class DeliveryOrderController extends Controller
         }
 
         return response()->json($delivery_orders, 200);
+    }
 
+    public function historynotifdo($id)
+    {
+        $result = DeliveryOrder::where('id',$id)->first();
+        $data = [];
+        foreach ($result->notifs->sortByDesc('id') as $notif) {
+            $data[] = [
+                'id'=>$notif->id,
+                'time'=>$notif->date->format('H:i:s'),
+                'date'=>$notif->date->dayName.", ".$notif->date->day." ".$notif->date->monthName." ".$notif->date->year,
+                'description'=>$notif->description,
+                'driver'=>$notif->driver
+            ];
+        }
+        return response()->json($data, 200);
     }
 }
