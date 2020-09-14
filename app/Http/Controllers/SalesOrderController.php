@@ -53,7 +53,7 @@ class SalesOrderController extends Controller
         $title = 'Sales Order';
         $message = "Agen {$agen->name}" . 'Sales Order '.$sales_order.' Telah dibuat';
         $fcm_token[] = $agen->user->fcm_token;
-        // $this->sendNotif($message,$title,$fcm_token);
+        $this->sendNotif($message,$title,$fcm_token);
 
         return redirect()->back()->with('status','successfully created Sales Order');
     }
@@ -125,7 +125,7 @@ class SalesOrderController extends Controller
 
         // headers
         $headers  = [
-            'Authorization'   =>  'key=AIzaSyBCGnf2IgVibMjhzHaTxIzdg9TDXLTdyH8',
+            'Authorization'   =>  'key=AAAAI51BmkM:APA91bHi553h03fliFvw5fN-AWhW1evqqnFzhc3YmnrqI4FBcZh1DhJsMQHQc2hW8GcblxdYyvqR2GzJBEK1vW3V3brsGlriDryBc3A6HArZDbnk4C506AaqjrbTEr7NO72mKKZ-TPkU',
             'Content-Type'    =>  'application/json'
         ];
 

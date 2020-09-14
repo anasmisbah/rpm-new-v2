@@ -93,22 +93,21 @@ class DeliveryOrderController extends Controller
             foreach ($drivers as $driver) {
                 $fcm_token[] = $driver->user->fcm_token;
             }
-            // $this->sendNotif($message,$title,$fcm_token);
+            $this->sendNotif($message,$title,$fcm_token);
         }else if($data['shipped_via'] == 1){
             // SEND NOTIF TO JALUR LAUT
-
             $drivers = $agen->drivers()->where('route',1)->get();
             foreach ($drivers as $driver) {
                 $fcm_token[] = $driver->user->fcm_token;
             }
-            // $this->sendNotif($message,$title,$fcm_token);
+            $this->sendNotif($message,$title,$fcm_token);
         }else{
             // SEND NOTIF TO BOTH ROUTE
             $drivers = $agen->drivers;
             foreach ($drivers as $driver) {
                 $fcm_token[] = $driver->user->fcm_token;
             }
-            // $this->sendNotif($message,$title,$fcm_token);
+            $this->sendNotif($message,$title,$fcm_token);
         }
 
         Notifdo::create([
@@ -182,7 +181,7 @@ class DeliveryOrderController extends Controller
 
         // headers
         $headers  = [
-            'Authorization'   =>  'key=AIzaSyBCGnf2IgVibMjhzHaTxIzdg9TDXLTdyH8',
+            'Authorization'   =>  'key=AAAAI51BmkM:APA91bHi553h03fliFvw5fN-AWhW1evqqnFzhc3YmnrqI4FBcZh1DhJsMQHQc2hW8GcblxdYyvqR2GzJBEK1vW3V3brsGlriDryBc3A6HArZDbnk4C506AaqjrbTEr7NO72mKKZ-TPkU',
             'Content-Type'    =>  'application/json'
         ];
 

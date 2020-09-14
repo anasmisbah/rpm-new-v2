@@ -36,7 +36,7 @@ class DriverController extends Controller
 
         $title = 'Konfirmasi Driver';
         $message = 'Driver telah melakukan konfirmasi, delivery order dalam pengantaran';
-        // $this->sendNotif($message,$title,$fcm_token);
+        $this->sendNotif($message,$title,$fcm_token);
 
         $delivery_order->notifs()->create([
             'date'=>$date,
@@ -58,7 +58,7 @@ class DriverController extends Controller
 
         // headers
         $headers  = [
-            'Authorization'   =>  'key=AIzaSyBCGnf2IgVibMjhzHaTxIzdg9TDXLTdyH8',
+            'Authorization'   =>  'key=AAAAI51BmkM:APA91bHi553h03fliFvw5fN-AWhW1evqqnFzhc3YmnrqI4FBcZh1DhJsMQHQc2hW8GcblxdYyvqR2GzJBEK1vW3V3brsGlriDryBc3A6HArZDbnk4C506AaqjrbTEr7NO72mKKZ-TPkU',
             'Content-Type'    =>  'application/json'
         ];
 
@@ -113,7 +113,7 @@ class DriverController extends Controller
 
         $title = 'Pengantaran selesai';
         $message = 'Driver telah selesai melakukan pengantaran';
-        // $this->sendNotif($message,$title,$fcm_token);
+        $this->sendNotif($message,$title,$fcm_token);
 
         $delivery_order->notifs()->create([
             'date'=>$date,
