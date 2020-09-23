@@ -13,6 +13,8 @@ use App\Voucher;
 use App\Customer;
 use App\SalesOrder;
 use App\Driver;
+use Carbon\Carbon;
+
 
 class HomeController extends Controller
 {
@@ -33,6 +35,74 @@ class HomeController extends Controller
         $new_do = DeliveryOrder::orderBy('created_at','desc')->limit(7)->get();
 
         return view('home',compact('promo','agen','news','event','delivery_orders','total','customer','sales_order','driver','new_promo','new_do'));
+    }
+    public function chartagen($id)
+    {
+        return view('agen.chartagen',compact('id'));
+    }
+
+    public function datachartagen($id)
+    {
+        $date = Carbon::now();
+        $agen = Agen::where('id',$id)->first();
+        $data['label']=[];
+        $data['transaction']=[];
+        $months=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+        $tempTotalPerMonth=[];
+        foreach ($months as $key => $month) {
+            $tempTotalPerMonth[$key] = 0;
+        }
+        $totalMonth = 0;
+
+        foreach ($agen->sales_orders as $sales_order ) {
+            foreach ($months as $key => $month) {
+                $totalMonth = $sales_order->delivery_orders()->where('status', 2)->whereMonth('created_at', $key+1)->whereYear('created_at', $date->year)->sum('quantity');
+                $tempTotalPerMonth[$key] += $totalMonth;
+            }
+        }
+
+        foreach ($months as $key => $month) {
+            if ($tempTotalPerMonth[$key] > 0) {
+                $data['label'][] = $month;
+                $data['transaction'][] = $tempTotalPerMonth[$key];
+            }
+        }
+
+
+        return response()->json($data, 200);
+    }
+
+    public function chartcustomer($id)
+    {
+        return view('customer.chartcus',compact('id'));
+    }
+
+    public function datachartcustomer($id)
+    {
+        $date = Carbon::now();
+        $customer = Customer::where('id',$id)->first();
+        $data['label']=[];
+        $data['transaction']=[];
+        $months=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+        $tempTotalPerMonth=[];
+        foreach ($months as $key => $month) {
+            $tempTotalPerMonth[$key] = 0;
+        }
+        $totalMonth = 0;
+        foreach ($months as $key => $month) {
+            $totalMonth = $customer->delivery_order()->where('status', 2)->whereMonth('created_at', $key+1)->whereYear('created_at', $date->year)->sum('quantity');
+            $tempTotalPerMonth[$key] += $totalMonth;
+        }
+
+        foreach ($months as $key => $month) {
+            if ($tempTotalPerMonth[$key] > 0) {
+                $data['label'][] = $month;
+                $data['transaction'][] = $tempTotalPerMonth[$key];
+            }
+        }
+
+
+        return response()->json($data, 200);
     }
 
     public function chart()

@@ -28,6 +28,12 @@ Route::get('401', function () {
 })->name('error.401');
 Route::get('/company/profile/download','CompanyController@download')->name('company.profile.download');
 
+Route::get('chart/agen/{id}','HomeController@chartagen');
+Route::get('data/chart/agen/{id}','HomeController@datachartagen')->name('data.agen.chart');
+
+Route::get('chart/customer/{id}','HomeController@chartcustomer');
+Route::get('data/chart/customer/{id}','HomeController@datachartcustomer')->name('data.customer.chart');
+
 Route::middleware(['auth','admin'])->group(function (){
     Route::get('/', 'HomeController@index')->name('home.index');
 
