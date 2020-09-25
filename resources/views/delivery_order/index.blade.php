@@ -33,7 +33,7 @@
               <div class="card-tools">
                 <ul class="nav nav-pills ml-auto">
                   <li class="nav-item">
-                    <a class="btn btn-primary mr-1" href="{{route('deliveryorder.agen.create',$agen->id)}}"><i class="fas fa-plus"></i></a>
+                    <a class="btn btn-primary mr-1" href="{{route('deliveryorder.agen.create',$sales_order->id)}}"><i class="fas fa-plus"></i></a>
                   </li>
                   <li class="nav-item">
                     <a class="btn btn-danger" href="{{ route('salesorder.agen.index',$agen->id) }}"><i class=" fas fa-times"></i></a>
