@@ -30,7 +30,9 @@ class DeliveryOrder extends Model
         'sales_order_id',
         'customer_id',
         'driver_id',
-        'bast'
+        'bast',
+        'estimate'
+
     ];
 
     protected $dates = [
@@ -57,5 +59,10 @@ class DeliveryOrder extends Model
     public function notifs()
     {
         return $this->hasMany('App\Notifdo');
+    }
+
+    public function critics()
+    {
+        return $this->hasOne('App\Critic');
     }
 }

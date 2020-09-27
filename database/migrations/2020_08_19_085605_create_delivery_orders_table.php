@@ -36,6 +36,7 @@ class CreateDeliveryOrdersTable extends Migration
             $table->timestamp('departure_time_depot')->nullable();
             $table->tinyInteger('status');
             $table->text('bast')->nullable();
+            $table->time('estimate')->nullable();
             $table->unsignedBigInteger('sales_order_id');
             $table->foreign('sales_order_id')->references('id')->on('sales_orders')->onDelete('cascade');
             $table->unsignedBigInteger('customer_id');

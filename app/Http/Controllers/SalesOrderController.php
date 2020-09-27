@@ -51,7 +51,7 @@ class SalesOrderController extends Controller
 
 
         $title = 'Sales Order';
-        $message = "Agen {$agen->name}" . 'Sales Order '.$sales_order.' Telah dibuat';
+        $message = "SO No $sales_order->sales_order_number telah terbit";
         $fcm_token[] = $agen->user->fcm_token;
         $this->sendNotif($message,$title,$fcm_token);
 

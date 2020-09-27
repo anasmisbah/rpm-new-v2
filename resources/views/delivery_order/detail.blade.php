@@ -144,6 +144,12 @@
                         @endif
                     </td>
                 </tr>
+                <tr>
+                    <td style="width:15%" class="text-bold">Estimasi Waktu</td>
+                    <td>
+                        {{$estimate}}
+                    </td>
+                </tr>
                 @if ($delivery_order->status == 1 || $delivery_order->status == 2)
                     <tr>
                         <td style="width:15%" class="text-bold">Driver</td>

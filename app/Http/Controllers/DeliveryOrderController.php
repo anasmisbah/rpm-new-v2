@@ -28,7 +28,17 @@ class DeliveryOrderController extends Controller
         $delivery_order = DeliveryOrder::findOrFail($id);
         $sales_order = $delivery_order->sales_order;
         $agen = $sales_order->agen;
-        return view('delivery_order.detail',compact('sales_order','agen','delivery_order'));
+        $time = Carbon::createFromTimeString($delivery_order->estimate);
+        $jam = '';
+        if ($time->hour != 0) {
+            $jam = "$time->hour jam";
+        }
+        $menit = '';
+        if ($time->minute != 0) {
+            $menit = "$time->minute menit";
+        }
+        $estimate = $jam.' '.$menit;
+        return view('delivery_order.detail',compact('sales_order','agen','delivery_order','estimate'));
     }
 
     public function create($id)
@@ -40,6 +50,7 @@ class DeliveryOrderController extends Controller
 
     public function store(Request $request,$id)
     {
+
         $sales_order = SalesOrder::findOrFail($id);
         $agen = $sales_order->agen;
         $date = Carbon::now();
@@ -55,7 +66,9 @@ class DeliveryOrderController extends Controller
             'top_seal'=>'required',
             'bottom_seal'=>'required',
             'temperature'=>'required',
-            'customer_id'=>'required'
+            'customer_id'=>'required',
+            'jam'=>'required',
+            'menit'=>'required'
         ]);
 
         $data = [
@@ -74,6 +87,7 @@ class DeliveryOrderController extends Controller
             'km_end'=>$request->km_end,
             'sg_meter'=>$request->sg_meter,
             'status'=>0,
+            'estimate'=>$request->jam.':'.$request->menit
         ];
 
         if (count($request->shipped_via) == 2) {
@@ -86,7 +100,7 @@ class DeliveryOrderController extends Controller
 
         $fcm_token = [];
         $title = 'Delivery Order';
-        $message = 'Delivery order telah dibuat, menunggu konfirmasi driver';
+        $message = "DO No $delivery_order->delivery_order_number telah terbit";
         if ($data['shipped_via'] == 0) {
             // SEND NOTIF TO JALUR DARAT
             $drivers = $agen->drivers()->where('route',0)->get();
@@ -124,7 +138,8 @@ class DeliveryOrderController extends Controller
         $delivery_order = DeliveryOrder::findOrFail($id);
         $sales_order = $delivery_order->sales_order;
         $agen = $sales_order->agen;
-        return view('delivery_order.edit',compact('sales_order','agen','delivery_order'));
+        $estimate = Carbon::createFromTimeString($delivery_order->estimate);
+        return view('delivery_order.edit',compact('sales_order','agen','delivery_order','estimate'));
     }
 
     public function update(Request $request,$id)
@@ -142,6 +157,8 @@ class DeliveryOrderController extends Controller
             'top_seal'=>'required',
             'bottom_seal'=>'required',
             'temperature'=>'required',
+            'jam'=>'required',
+            'menit'=>'required'
         ]);
 
         $data = [
@@ -158,7 +175,7 @@ class DeliveryOrderController extends Controller
             'km_start'=>$request->km_start,
             'km_end'=>$request->km_end,
             'sg_meter'=>$request->sg_meter,
-            'status'=>0,
+            'estimate'=>$request->jam.':'.$request->menit
         ];
         if (count($request->shipped_via) == 2) {
             $data['shipped_via'] = 2;

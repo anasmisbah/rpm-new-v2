@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\DeliveryOrder;
+use Carbon\Carbon;
 use App\Http\Resources\DeliveryOrder as DeliveryOrderResource;
 class DeliveryOrderController extends Controller
 {
@@ -47,13 +48,16 @@ class DeliveryOrderController extends Controller
     {
         $result = DeliveryOrder::where('id',$id)->first();
         $data = [];
+        $time = Carbon::createFromTimeString($result->estimate);
+        $estimate = ($time->hour*3600) + ($time->minute*60);
         foreach ($result->notifs->sortByDesc('id') as $notif) {
             $data[] = [
                 'id'=>$notif->id,
                 'time'=>$notif->date->format('H:i:s'),
                 'date'=>$notif->date->dayName.", ".$notif->date->day." ".$notif->date->monthName." ".$notif->date->year,
                 'description'=>$notif->description,
-                'driver'=>$notif->driver
+                'driver'=>$notif->driver,
+                'estimate'=>$estimate
             ];
         }
         return response()->json($data, 200);

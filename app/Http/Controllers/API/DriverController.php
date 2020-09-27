@@ -20,8 +20,27 @@ class DriverController extends Controller
         $user= Auth::user();
         $delivery_order = DeliveryOrder::findOrFail($id);
 
+
+
         // Get time server
         $date = Carbon::now();
+        $estimasi_waktu = Carbon::now();
+        $time = Carbon::createFromTimeString($delivery_order->estimate);
+
+
+        $jam = '';
+        if ($time->hour != 0) {
+            $jam = "$time->hour jam";
+        }
+        $menit = '';
+        if ($time->minute != 0) {
+            $menit = "$time->minute menit";
+        }
+        $estimasi = $jam.' '.$menit;
+        $estimasi_waktu->addHours($time->hour);
+        $estimasi_waktu->addMinutes($time->minute);
+        $waktuStr = $estimasi_waktu->format('H:i');
+
         // TODO driver start delivery
         $delivery_order->update([
             'status'=>1,
@@ -34,8 +53,8 @@ class DriverController extends Controller
         $customer = $delivery_order->customer;
         $fcm_token[] = $customer->user->fcm_token;
 
-        $title = 'Konfirmasi Driver';
-        $message = 'Driver telah melakukan konfirmasi, delivery order dalam pengantaran';
+        $title = 'Delivery Order';
+        $message = "Proses Pengisian BBM telah selesai ($delivery_order->no_vehicles) sedang menuju lokasi anda (Estimasi Perjalanan $estimasi) tiba jam $waktuStr WITA";
         $this->sendNotif($message,$title,$fcm_token);
 
         $delivery_order->notifs()->create([
@@ -85,6 +104,12 @@ class DriverController extends Controller
             'bast'=>'required|mimes:jpeg,bmp,png,jpg',
         ]);
         $delivery_order = $driver->delivery_order()->where('id',$request->delivery_order_id)->first();
+        if (!$delivery_order) {
+            return response()->json([
+                'status'=>false,
+                'message'=>'delivery order tidak ditemukan',
+            ], 404);
+        }
 
         // TODO upload
         if ($request->file('bast')) {
@@ -111,8 +136,8 @@ class DriverController extends Controller
         $customer = $delivery_order->customer;
         $fcm_token[] = $customer->user->fcm_token;
 
-        $title = 'Pengantaran selesai';
-        $message = 'Driver telah selesai melakukan pengantaran';
+        $title = 'Delivery Order';
+        $message = "Proses Pembongkaran $delivery_order->shipped_with $delivery_order->no_vehicles telah selesai (BAST, Terlampir)";
         $this->sendNotif($message,$title,$fcm_token);
 
         $delivery_order->notifs()->create([

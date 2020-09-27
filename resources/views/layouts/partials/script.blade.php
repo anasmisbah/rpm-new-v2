@@ -10,10 +10,5 @@
 <script src="{{asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
 
 <script src="{{asset('dist/js/adminlte.js')}}"></script>
-<script>
-    $(window).on('load', function() {
-        $(".se-pre-con").fadeOut('slow');
-    });
-</script>
 <script src="{{asset('plugins/moment/moment.min.js')}}"></script>
 @stack('script')
