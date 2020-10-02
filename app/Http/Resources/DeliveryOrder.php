@@ -30,12 +30,15 @@ class DeliveryOrder extends JsonResource
                 $status = '';
                 switch ($this->status) {
                     case 0:
-                        $status = 'Belum Dikirim';
+                        $status = 'Menunggu persutujuan agen';
                         break;
                     case 1:
-                        $status = 'Sedang Dikirim';
+                        $status = 'menunggu driver';
                         break;
                     case 2:
+                        $status = 'dalam pengiriman';
+                        break;
+                    case 3:
                         $status = 'Telah Dikirim';
                         break;
                 }

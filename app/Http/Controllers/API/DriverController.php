@@ -43,7 +43,7 @@ class DriverController extends Controller
 
         // TODO driver start delivery
         $delivery_order->update([
-            'status'=>1,
+            'status'=>2,
             'driver_id'=>$user->driver->id,
             'departure_time'=>$date,
             'shipped_via'=>$user->driver->route,
@@ -121,7 +121,7 @@ class DriverController extends Controller
         $delivery_order->update([
             'bast'=>$bast,
             'arrival_time'=>$date,
-            'status'=>2
+            'status'=>3
         ]);
 
         // UPDATE POINT REWARD CUSTOMER

@@ -34,7 +34,7 @@
                     <li class="nav-item">
                     <a class="btn btn-warning mr-1" href="{{route('deliveryorder.agen.edit',$delivery_order->id)}}"><i class="fas fa-edit"></i></a>
                     </li>
-                @elseif ($delivery_order->status == 2)
+                @elseif ($delivery_order->status == 3)
                     <li class="nav-item mr-1">
                         <a class="btn btn-info" href="{{route('deliveryorder.agen.print',$delivery_order->id)}}"><i class="fas fa-print"></i></a>
                     </li>
@@ -136,9 +136,11 @@
                     <td style="width:15%" class="text-bold">Status</td>
                     <td>
                         @if ($delivery_order->status == 0)
-                        <small class="badge badge-warning"></i> Belum Dikirim </small>
+                        <small class="badge badge-warning"></i> Menunggu Konfirmasi oleh agen </small>
                         @elseif($delivery_order->status == 1)
-                        <small class="badge badge-info"></i> Sedang Dikirim</small>
+                        <small class="badge badge-info"></i> Menunggu Konfirmasi oleh Driver</small>
+                        @elseif($delivery_order->status == 2)
+                        <small class="badge badge-info"></i> Dalam Pengiriman</small>
                         @else
                         <small class="badge badge-success"></i> Telah Dikirim</small>
                         @endif
@@ -150,7 +152,7 @@
                         {{$estimate}}
                     </td>
                 </tr>
-                @if ($delivery_order->status == 1 || $delivery_order->status == 2)
+                @if ($delivery_order->status == 2 || $delivery_order->status == 3)
                     <tr>
                         <td style="width:15%" class="text-bold">Driver</td>
                         <td><a href="{{route('driver.agen.show',$delivery_order->driver->id)}}">{{$delivery_order->driver->name}}</a></td>
@@ -162,7 +164,7 @@
                         </td>
                     </tr>
                 @endif
-                @if ($delivery_order->status == 2)
+                @if ($delivery_order->status == 3)
                     <tr>
                         <td style="width:17%" class="text-bold">Waktu Kedatangan</td>
                         <td>

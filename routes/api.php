@@ -58,6 +58,11 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('agen/driver','API\DriverController@index');
     Route::get('agen/driver/{id}','API\DriverController@detail');
 
+    // AGEN SEE DO READY TO APPROVE
+    Route::get('agen/deliveryorder','API\DeliveryOrderController@deliveryforagen');
+    // AGEN APPROVE DELIVERY ORDER
+    Route::get('agen/deliveryorder/approve/{id}','API\DeliveryOrderController@agenApproveDO');
+
 
 
     // *****LIST API CUSTOMER*********

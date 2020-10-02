@@ -101,28 +101,12 @@ class DeliveryOrderController extends Controller
         $fcm_token = [];
         $title = 'Delivery Order';
         $message = "DO No $delivery_order->delivery_order_number telah terbit";
-        if ($data['shipped_via'] == 0) {
-            // SEND NOTIF TO JALUR DARAT
-            $drivers = $agen->drivers()->where('route',0)->get();
-            foreach ($drivers as $driver) {
-                $fcm_token[] = $driver->user->fcm_token;
-            }
-            $this->sendNotif($message,$title,$fcm_token);
-        }else if($data['shipped_via'] == 1){
-            // SEND NOTIF TO JALUR LAUT
-            $drivers = $agen->drivers()->where('route',1)->get();
-            foreach ($drivers as $driver) {
-                $fcm_token[] = $driver->user->fcm_token;
-            }
-            $this->sendNotif($message,$title,$fcm_token);
-        }else{
-            // SEND NOTIF TO BOTH ROUTE
-            $drivers = $agen->drivers;
-            foreach ($drivers as $driver) {
-                $fcm_token[] = $driver->user->fcm_token;
-            }
-            $this->sendNotif($message,$title,$fcm_token);
-        }
+
+        // SEND NOTIF TO AGEN TO GET ACCEPTED
+        $fcm_token[] = $agen->user->fcm_token;
+        $this->sendNotif($message,$title,$fcm_token);
+
+       
 
         Notifdo::create([
             'date'=>$date,
