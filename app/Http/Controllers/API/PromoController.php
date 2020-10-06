@@ -7,71 +7,35 @@ use Illuminate\Http\Request;
 use App\Promo;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-
+use App\Http\Resources\PromoResource;
 class PromoController extends Controller
 {
     public function allpromos()
     {
-        $promos = Promo::all();
+        $promos = Promo::orderBy('created_at','desc')->get();
         $data = [];
         foreach ($promos as $key => $promo) {
-            $data[]=[
-                'id'=> $promo->id,
-                'title'=> $promo->name,
-                'image'=> url('/uploads/' . $promo->image),
-                'description'=> $promo->description,
-                'terms'=>$promo->terms,
-                'point'=>$promo->point,
-                'total'=>$promo->total,
-                'view'=>$promo->view,
-                'status'=>$promo->status,
-                'created_at'=>$promo->created_at->format('d F Y'),
-                'created_by'=>$promo->createdby->admin->name,
-            ];
+            $data[]=new PromoResource($promo);
         }
         return response()->json($data,200);
     }
 
     public function promonormal()
     {
-        $promo = Promo::where('status','normal')->get();
+        $promo = Promo::where('status','normal')->orderBy('created_at','asc')->get();
         $data = [];
         foreach ($promo as $key => $promo) {
-            $data[]=[
-                'id'=> $promo->id,
-                'title'=> $promo->name,
-                'image'=> url('/uploads/' . $promo->image),
-                'description'=> $promo->description,
-                'terms'=>$promo->terms,
-                'point'=>$promo->point,
-                'total'=>$promo->total,
-                'view'=>$promo->view,
-                'status'=>$promo->status,
-                'created_at'=>$promo->created_at->format('d F Y'),
-                'created_by'=>$promo->createdby->admin->name,
-            ];
+            $data[]=new PromoResource($promo);
         }
         return response()->json($data,200);
     }
 
     public function promohot()
     {
-        $promo = Promo::where('status','hot')->get();
+        $promo = Promo::where('status','hot')->orderBy('created_at','asc')->get();
         $data = [];
         foreach ($promo as $key => $promo) {
-            $data[]=[
-                'id'=> $promo->id,
-                'title'=> $promo->name,
-                'image'=> url('/uploads/' . $promo->image),
-                'description'=> $promo->description,
-                'terms'=>$promo->terms,
-                'point'=>$promo->point,
-                'total'=>$promo->total,
-                'view'=>$promo->view,
-                'status'=>$promo->status,
-                'created_at'=>$promo->created_at->format('d F Y'),
-                'created_by'=>$promo->createdby->admin->name,
-            ];
+            $data[]=new PromoResource($promo);
         }
         return response()->json($data,200);
     }
@@ -89,26 +53,13 @@ class PromoController extends Controller
         $promo->update([
             'view'=>$view+1
         ]);
-        $data=[
-            'id'=> $promo->id,
-            'title'=> $promo->name,
-            'image'=> url('/uploads/' . $promo->image),
-            'description'=> $promo->description,
-            'terms'=>$promo->terms,
-            'point'=>$promo->point,
-            'total'=>$promo->total,
-            'view'=>$promo->view,
-            'status'=>$promo->status,
-            'created_at'=>$promo->created_at->format('d F Y'),
-            'created_by'=>$promo->createdby->admin->name,
-        ];
+        $data=new PromoResource($promo);
         return response()->json($data,200);
     }
 
     public function takepromo(Request $request)
     {
         $customer = Auth::user()->customer;
-        $agen = $customer->agen;
         $date = Carbon::now();
 
         $promo = Promo::where('id',$request->promo_id)->first();
@@ -137,7 +88,7 @@ class PromoController extends Controller
         ]);
 
         $customer->update([
-            'reward'=>($agen->reward) - ($promo->point)
+            'reward'=>($customer->reward) - ($promo->point)
         ]);
         $promo->update([
             'total'=>($promo->total - 1)
@@ -145,16 +96,7 @@ class PromoController extends Controller
          return response()->json([
             'status'=>true,
             'message'=>'Successfully take promo',
-            'data'=>[
-                'title'=> $promo->name,
-                'image'=> url('/uploads/' . $promo->image),
-                'description'=> $promo->description,
-                'terms'=>$promo->terms,
-                'point'=>$promo->point,
-                'total'=>$promo->total,
-                'status'=>$promo->status,
-                'date'=>$date->format('l, d F Y')
-            ]
+            'data'=>new PromoResource($promo)
         ], 200);
     }
 }

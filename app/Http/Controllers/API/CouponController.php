@@ -13,8 +13,17 @@ class CouponController extends Controller
         public function index()
         {
             $customer = Auth::user()->customer;
-            $coupon = $customer->coupons()->get();
-
-            return response()->json($coupon, 200);
+            $coupons = $customer->coupons()->orderBy('created_at','desc')->get();
+            $data = [];
+            foreach ($coupons as $key => $coupon) {
+                $data[] = [
+                    "id"=> $coupon->id,
+                    "code_coupon"=> $coupon->code_coupon,
+                    "customer_id"=> $coupon->customer_id,
+                    'created_at'=>$coupon->created_at->format('d F Y'),
+                    "updated_at"=> $coupon->updated_at->format('d F Y'),
+                ];
+            }
+            return response()->json($data, 200);
         }
 }

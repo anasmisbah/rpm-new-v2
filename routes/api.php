@@ -38,7 +38,7 @@ Route::get('videos/{id}','API\VideoController@detail');
 
 Route::group(['middleware' => ['auth:api']], function () {
     Route::get('user/home','API\HomeController@homelogin');
-    Route::get('/me','API\UserController@me');
+    // Route::get('/me','API\UserController@me');
 
 
     // customer

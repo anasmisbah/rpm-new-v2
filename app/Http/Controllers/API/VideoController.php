@@ -5,20 +5,15 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Video;
+use App\Http\Resources\VideoResource;
 class VideoController extends Controller
 {
     public function allvideos()
     {
-        $videos = Video::limit(8)->get();
+        $videos = Video::orderBy('created_at','desc')->get();
         $data=[];
         foreach ($videos as $key => $video) {
-            $data[]=[
-                'id'=> $video->id,
-                'title'=> $video->title,
-                'url'=> $video->url,
-                'image'=> url('/uploads/' . $video->image),
-                'created_at'=>$video->created_at->format('d F Y'),
-            ];
+            $data[]=new VideoResource($video);
         }
         return response()->json($data,200);
     }
@@ -31,13 +26,7 @@ class VideoController extends Controller
                     'message'=>'video not found'
                 ],404);
         }
-        $data=[
-            'id'=> $video->id,
-            'title'=> $video->title,
-            'image'=> url('/uploads/' . $video->image),
-            'url'=> $video->url,
-            'created_at'=>$video->created_at->format('d F Y'),
-        ];
+        $data=new VideoResource($video);;
         return response()->json($data,200);
     }
 }

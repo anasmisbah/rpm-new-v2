@@ -5,26 +5,15 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Event;
-
+use App\Http\Resources\EventResource;
 class EventController extends Controller
 {
     public function allevents()
     {
-        $events = Event::all();
+        $events = Event::orderBy('created_at','desc')->get();
         $data =[];
         foreach ($events as $key => $event) {
-            $data[]=[
-                'id'=> $event->id,
-                'title'=> $event->title,
-                'image'=> url('/uploads/' . $event->image),
-                'url'=> url('/event/read/'.$event->slug),
-                'view'=>$event->view,
-                'start'=>$event->startdate->format('l, d F Y'),
-                'end'=>$event->enddate->format('l, d F Y'),
-                'created_at'=>$event->created_at->format('d F Y'),
-                'created_by'=>$event->createdby->admin->name,
-                'category'=>$event->category->makeHidden(['created_at','updated_at','pivot','slug'])
-            ];
+            $data[]=new EventResource($event);
         }
 
         return response()->json($data,200);
@@ -43,18 +32,7 @@ class EventController extends Controller
         $event->update([
             'view'=>$view+1
         ]);
-        $data=[
-            'id'=> $event->id,
-            'title'=> $event->title,
-            'image'=> url('/uploads/' . $event->image),
-            'url'=> url('/event/read/'.$event->slug),
-            'view'=>$event->view,
-            'start'=>$event->startdate->format('l, d F Y'),
-            'end'=>$event->enddate->format('l, d F Y'),
-            'created_at'=>$event->created_at->format('d F Y'),
-            'created_by'=>$event->createdby->admin->name,
-            'category'=>$event->category->makeHidden(['created_at','updated_at','pivot','slug'])
-        ];
+        $data=new EventResource($event);;
         return response()->json($data,200);
     }
 }
