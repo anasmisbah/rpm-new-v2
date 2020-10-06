@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
 @push('css')
+<meta name="url_data" content="{{ route('ajax.data.promo') }}">
     <!-- DataTables -->
     <link rel="stylesheet" href="{{asset('plugins/datatables-bs4/css/dataTables.bootstrap4.css')}}">
     <link rel="stylesheet" href="{{asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
@@ -48,35 +49,6 @@
                 </tr>
                 </thead>
                 <tbody>
-                  @foreach ($promos as $promo)
-                  <tr>
-                    <td>{{$loop->iteration}}</td>
-                    <td>{{$promo->name}}</td>
-                    <td>{{$promo->point}}</td>
-                    <td>{{$promo->total}}</td>
-                    <td>
-                        <small class="badge {{$promo->status == 'normal'?'badge-info':'badge-danger'}}">{{$promo->status}}</small>
-                    </td>
-                    <td>
-                      <a href="{{route('promo.edit',$promo->id)}}" class="btn btn-warning btn-sm">
-                        <i class="fas fa-edit"></i>
-                      </a>
-                      <form class="d-inline"
-                          onsubmit="return confirm('Apakah anda ingin menghapus promo secara permanen?')"
-                          action="{{route('promo.destroy',$promo->id)}}"
-                          method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                      </form>
-                      <a href="{{route('promo.show',$promo->id)}}" class="btn btn-info btn-sm">
-                        <i class="fas fa-eye"></i>
-                      </a>
-                    </td>
-                  </tr>
-                  @endforeach
                 </tbody>
               </table>
             </div>
@@ -85,6 +57,10 @@
           <!-- /.card -->
     </div>
 </div>
+<form class="d-inline" id="form-delete" style="display: none" action="" method="POST">
+    @csrf
+    @method('DELETE')
+</form>
 @endsection
 
 @push('script')
@@ -97,7 +73,86 @@
 <script src="{{asset('plugins/sweetalert2/sweetalert2.min.js')}}"></script>
 <script>
     $(function () {
-      $("#example1").DataTable();
+        let url = $('meta[name="url_data"]').attr('content');
+      $("#example1").DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: url,
+                data: function (d) {
+                    d.keyword = $('input[name=keyword]').val();
+                }
+            },
+            order:[[0,'asc']],
+            columns: [
+                {data: 'id', name: 'id'},
+                {data: 'name', name: 'name'},
+                {data: 'point', name: 'point'},
+                {data: 'total', name: 'total'},
+                {data: 'status', name: 'status'},
+                {data: 'aksi', name: 'aksi', searchable: false},
+            ],
+            columnDefs:[
+                {
+                    targets: 4,
+					title: 'Status',
+					render: function(data, type, full, meta) {
+                        var status = {
+							'hot': {
+                                'title': 'Hot',
+                                'class': ' badge-danger'
+                            },
+							'normal': {
+                                'title': 'Normal',
+                                'class': ' badge-info'
+                            }
+						};
+						return '<small class="badge' + status[full.status].class + '">' + status[full.status].title + '</small>';
+                    }
+                },
+                {
+                    targets: 5,
+					title: 'Aksi',
+                    orderable: false,
+					render: function(data, type, full, meta) {
+                        var output =`
+                                    <a href="${full.url_edit}" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="javascript:;" data-action="${full.url_delete}" class="btn btn-sm btn-danger btn-delete">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                    <a href="${full.url_detail}" class="btn btn-info btn-sm">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    `;
+                        return output;
+
+                    }
+                }
+            ]
+        });
+
+        $(document).on('click','.btn-delete',function(e){
+            e.preventDefault()
+            let action = $(this).data('action')
+
+            let form = $('#form-delete')
+            form.attr('action',action)
+
+            Swal.fire({
+                title: "Apakah anda yakin ingin menghapus?",
+                text: "Anda tidak dapat mengembalikan data setelah dihapus",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Iya, Hapus",
+                cancelButtonText : "Tidak"
+            }).then(function(result) {
+                if (result.value) {
+                    form.submit()
+                }
+            });
+        });
     });
   </script>
   <script>

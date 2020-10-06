@@ -8,10 +8,10 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use File;
-
+use DataTables;
 class PromoController extends Controller
 {
-        /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -20,7 +20,32 @@ class PromoController extends Controller
     {
         $promos = Promo::all();
 
-        return view('promo.index',compact('promos'));    }
+        return view('promo.index', compact('promos'));
+    }
+
+    public function promo_data()
+    {
+        $promos = Promo::select(['id','name','image','point','total','status']);
+
+        // if ($keyword = $request->keyword) {
+        //     $alumni->where(function ($query) use ($keyword) {
+        //         $query->where('alumni_pendaftar.nama', 'like', "%$keyword%")->orWhere('alumni_pendaftar.nim', 'like', "%$keyword%");
+        //     });
+        // }
+
+        $dataTable = DataTables::of($promos)
+        ->addColumn('url_detail', function ($data) {
+            return route('promo.show',$data->id);
+        })
+        ->addColumn('url_edit', function ($data) {
+            return route('promo.edit',$data->id);
+        })
+        ->addColumn('url_delete', function ($data) {
+            return route('promo.destroy',$data->id);
+        });
+
+        return $dataTable->make(true);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -29,7 +54,8 @@ class PromoController extends Controller
      */
     public function create()
     {
-        return view('promo.create');    }
+        return view('promo.create');
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -70,7 +96,7 @@ class PromoController extends Controller
         ]);
 
 
-        return redirect()->back()->with('status','Successfully Added Promo');
+        return redirect()->back()->with('status', 'Successfully Added Promo');
     }
 
     /**
@@ -82,7 +108,7 @@ class PromoController extends Controller
     public function show($id)
     {
         $promo = Promo::findOrFail($id);
-        return view('promo.detail',compact('promo'));
+        return view('promo.detail', compact('promo'));
     }
 
     /**
@@ -95,7 +121,7 @@ class PromoController extends Controller
     {
         $promo = Promo::findOrFail($id);
 
-        return view('promo.edit',compact('promo'));
+        return view('promo.edit', compact('promo'));
     }
 
     /**
@@ -141,7 +167,7 @@ class PromoController extends Controller
             'created_by'=>Auth::user()->id
         ]);
 
-        return redirect()->back()->with('status','Successfully Updated Promo');
+        return redirect()->back()->with('status', 'Successfully Updated Promo');
     }
 
     /**

@@ -52,7 +52,10 @@ Route::middleware(['auth','admin'])->group(function (){
         Route::get('home/deliveryorder/darat','HomeController@do_darat')->name('home.delivery.darat');
 
         Route::resource('category', 'CategoryController');
+
         Route::resource('promo', 'PromoController');
+        Route::get('ajax/promo','PromoController@promo_data')->name('ajax.data.promo');
+
         Route::resource('agen', 'AgenController');
 
         Route::get('customer/coupon/{id}','CouponController@index')->name('customer.coupon.index');
