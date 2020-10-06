@@ -3,7 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use App\Http\Resources\DriverResource;
 class DeliveryOrder extends JsonResource
 {
     /**
@@ -66,7 +66,7 @@ class DeliveryOrder extends JsonResource
             'status'=>$status,
             'sales_order'=>$this->sales_order,
             'customer'=>$this->customer,
-            'driver'=>$this->driver,
+            'driver'=>new DriverResource($this->driver),
             'bast'=>url('/uploads/' . $this->bast)
         ];
     }

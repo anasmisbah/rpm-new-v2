@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use GuzzleHttp\Client;
 use App\DeliveryOrder;
 use App\Http\Resources\DeliveryOrder as DeliveryOrderResource;
+use App\Http\Resources\DriverResource;
 class DriverController extends Controller
 {
 
@@ -157,31 +158,33 @@ class DriverController extends Controller
     public function history()
     {
         $user = Auth::user();
-        $delivery_orders = $user->driver->delivery_order()->where('status',2)->get();
-        // foreach ($deliveries as $key => $del) {
-        //     $deliveries[$key]->delivery_date = $del->delivery_at->format('l, d F Y H:i:s');
-        //     $deliveries[$key]->distributor->logo= url('/uploads/' . $del->distributor->logo);;
-        // }
+        $delivery_orders = $user->driver->delivery_order()->where('status',3)->orderBy('arrival_time','desc')->get();
+        $data = [];
+        foreach ($delivery_orders as $key => $delivery_order) {
+            $data[] = new DeliveryOrderResource($delivery_order);
+        }
 
-        return response()->json($delivery_orders);
+        return response()->json($data);
     }
 
     public function index()
     {
         $agen = Auth::user()->agen;
         $drivers = $agen->drivers;
+        $data = [];
         foreach ($drivers as  $driver) {
-            $driver->avatar = url('/uploads/' . $driver->avatar);
+            $data[] = new DriverResource($driver);
         }
-        return response()->json($drivers, 200);
+
+        return response()->json($data, 200);
     }
 
     public function detail($id)
     {
         $agen = Auth::user()->agen;
         $driver = $agen->drivers()->where('id',$id)->first();
-        $driver->avatar = url('/uploads/' . $driver->avatar);
-        return response()->json($driver, 200);
+        $data = new DriverResource($driver);
+        return response()->json($data, 200);
     }
 
 

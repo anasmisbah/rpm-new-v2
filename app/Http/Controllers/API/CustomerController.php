@@ -11,14 +11,43 @@ class CustomerController extends Controller
     public function index()
     {
         $agen = Auth::user()->agen;
-        $customers = $agen->customers;
-        return response()->json($customers, 200);
+        $customers = $agen->customers()->orderBy('created_at','desc')->get();
+        $data = [];
+        foreach ($customers as $key => $customer) {
+            $data[] = [
+                "id"=> $customer->id,
+                "name"=> $customer->name ,
+                "address"=> $customer->address,
+                "npwp"=> $customer->npwp ,
+                "phone"=> $customer->phone ,
+                "website"=> $customer->website ,
+                "reward"=> $customer->reward ,
+                "logo"=> url('/uploads/' . $customer->logo) ,
+                "user_id"=> $customer->user_id ,
+                "created_at"=> $customer->created_at->format('d F Y') ,
+                "updated_at"=> $customer->updated_at->format('d F Y') ,
+            ];
+        }
+        return response()->json($data, 200);
     }
 
     public function detail($id)
     {
         $agen = Auth::user()->agen;
         $customer = $agen->customers()->where('id',$id)->first();
-        return response()->json($customer, 200);
+        $data = [
+            "id"=> $customer->id,
+            "name"=> $customer->name ,
+            "address"=> $customer->address,
+            "npwp"=> $customer->npwp ,
+            "phone"=> $customer->phone ,
+            "website"=> $customer->website ,
+            "reward"=> $customer->reward ,
+            "logo"=> url('/uploads/' . $customer->logo) ,
+            "user_id"=> $customer->user_id ,
+            "created_at"=> $customer->created_at->format('d F Y') ,
+            "updated_at"=> $customer->updated_at->format('d F Y') ,
+        ];
+        return response()->json($data, 200);
     }
 }

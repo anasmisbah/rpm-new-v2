@@ -11,97 +11,50 @@ use App\Company;
 use App\Video;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\DeliveryOrder as DeliveryOrderResource;
+use App\Http\Resources\EventResource;
+use App\Http\Resources\NewsResource;
+use App\Http\Resources\PromoResource;
+use App\Http\Resources\VideoResource;
+use App\Http\Resources\DriverResource;
 class HomeController extends Controller
 {
     public function home()
     {
-        $news = News::limit(8)->get();
+        $news = News::orderBy('created_at', 'desc')->limit(8)->get();
         $data = [];
         $data['news']=[];
         foreach ($news as $key => $new) {
-            $data['news'][]=[
-                'id'=> $new->id,
-                'title'=> $new->title,
-                'image'=> url('/uploads/' . $new->image),
-                'url'=> url('/news/read/'.$new->slug),
-                'view'=>$new->view,
-                'created_at'=>$new->created_at->format('d F Y'),
-                'created_by'=>$new->createdby->admin->name,
-                'category'=>$new->category->makeHidden(['created_at','updated_at','pivot','slug'])
-
-            ];
+            $data['news'][]=new NewsResource($new);
         }
 
-        $events = Event::limit(8)->get();
+        $events = Event::orderBy('created_at', 'desc')->limit(8)->get();
         $data['event']=[];
         foreach ($events as $key => $event) {
-            $data['event'][]=[
-                'id'=> $event->id,
-                'title'=> $event->title,
-                'start'=>$event->startdate->format('l, d F Y'),
-                'end'=>$event->enddate->format('l, d F Y'),
-                'image'=> url('/uploads/' . $event->image),
-                'url'=> url('/event/read/'.$event->slug),
-                'view'=>$event->view,
-                'created_at'=>$event->created_at->format('d F Y'),
-                'created_by'=>$event->createdby->admin->name,
-                'category'=>$event->category->makeHidden(['created_at','updated_at','pivot','slug'])
-            ];
+            $data['event'][]=new EventResource($event);
         }
 
-        $promos = Promo::where('status','hot')->limit(8)->get();
+        $promos = Promo::orderBy('created_at', 'desc')->where('status', 'hot')->limit(8)->get();
         $data['hot']=[];
         foreach ($promos as $key => $promo) {
-            $data['hot'][]=[
-                'id'=> $promo->id,
-                'title'=> $promo->name,
-                'image'=> url('/uploads/' . $promo->image),
-                'description'=> $promo->description,
-                'terms'=> $promo->terms,
-                'point'=>$promo->point,
-                'total'=>$promo->total,
-                'view'=>$promo->view,
-                'status'=>$promo->status,
-                'created_at'=>$promo->created_at->format('d F Y'),
-                'created_by'=>$promo->createdby->admin->name,
-            ];
+            $data['hot'][]=new PromoResource($promo);
         }
 
-        $promos = Promo::where('status','normal')->limit(8)->get();
+        $promos = Promo::where('status', 'normal')->orderBy('created_at', 'desc')->limit(8)->get();
         $data['normal']=[];
         foreach ($promos as $key => $promo) {
-            $data['normal'][]=[
-                'id'=> $promo->id,
-                'title'=> $promo->name,
-                'image'=> url('/uploads/' . $promo->image),
-                'description'=> $promo->description,
-                'terms'=> $promo->terms,
-                'point'=>$promo->point,
-                'total'=>$promo->total,
-                'view'=>$promo->view,
-                'status'=>$promo->status,
-                'created_at'=>$promo->created_at->format('d F Y'),
-                'created_by'=>$promo->createdby->admin->name,
-            ];
+            $data['normal'][]= new PromoResource($promo);
         }
-        $videos = Video::limit(8)->get();
+        $videos = Video::orderBy('created_at', 'desc')->limit(8)->get();
         $data['videos']=[];
         foreach ($videos as $key => $video) {
-            $data['videos'][]=[
-                'id'=> $video->id,
-                'title'=> $video->title,
-                'url'=> $video->url,
-                'image'=> url('/uploads/' . $video->image),
-                'created_at'=>$video->created_at->format('d F Y'),
-            ];
+            $data['videos'][]=new VideoResource($video);
         }
         $company = Company::first();
-        $company->profile =  url('/uploads/' . $company->profile );
+        $company->profile =  url('/uploads/' . $company->profile);
         $company->profiledownload = url('/company/profile/download');
         $data['company'] = $company;
         $data['contact'] = $company;
         return response()->json($data, 200);
-
     }
 
     public function homelogin()
@@ -109,236 +62,216 @@ class HomeController extends Controller
         $data = [];
         $user = Auth::user();
         if ($user->role_id ==3) {
-
-            $user->agen->logo = url('/uploads/' . $user->agen->logo);
-            $user->role;
-            $user->agen->sales_orders;
+            $agen = $user->agen;
+            $sales_orders = [];
             foreach ($user->agen->sales_orders as $key => $sales_order) {
                 $delivery_orders = [];
+                $item = [
+                    "id"=>$sales_order->id,
+                    "sales_order_number"=>$sales_order->sales_order_number,
+                    "agen_id"=>$sales_order->agen_id,
+                    "created_at"=>$sales_order->created_at->format('d F Y') ,
+                    "updated_at"=>$sales_order->updated_at->format('d F Y'),
+                ];
                 foreach ($sales_order->delivery_orders as $delivery_order) {
-                    $delivery_orders[] = new DeliveryOrderResource($delivery_order);
+                    $item['delivery_orders'][] = new DeliveryOrderResource($delivery_order);
                 }
-                $user->agen->sales_orders[$key]['delivery_orders'] =$delivery_orders;
+                $sales_orders[] = $item;
             }
 
-            foreach ($user->agen->drivers as $key => $driver) {
-                $user->agen->drivers[$key]->avatar =url('/uploads/' . $driver->avatar);
-            }
+            $data['user'] = [
+                "id"=> $user->id,
+                "email"=> $user->email,
+                "role_id"=> $user->role_id,
+                "fcm_token"=> $user->fcm_token,
+                "created_at"=> $user->created_at->format('d F Y'),
+                "updated_at"=> $user->updated_at->format('d F Y'),
+                'agen'=>[
+                    "id"=> $agen->id,
+                    "name"=> $agen->name ,
+                    "address"=> $agen->address,
+                    "npwp"=> $agen->npwp ,
+                    "phone"=> $agen->phone ,
+                    "website"=> $agen->website ,
+                    "logo"=> url('/uploads/' . $agen->logo) ,
+                    "user_id"=> $agen->user_id ,
+                    "created_at"=> $agen->created_at->format('d F Y') ,
+                    "updated_at"=> $agen->updated_at->format('d F Y') ,
+                    "sales_order"=>$sales_orders
+                ]
+            ];
 
-            $news = News::limit(8)->get();
-            $data['user']=$user;
+            // $data['user']=$user;
+            $news = News::orderBy('created_at', 'desc')->limit(8)->get();
             $data['news']=[];
             foreach ($news as $key => $new) {
-                $data['news'][]=[
-                    'id'=> $new->id,
-                    'title'=> $new->title,
-                    'image'=> url('/uploads/' . $new->image),
-                    'url'=> url('/news/read/'.$new->slug),
-                    'view'=>$new->view,
-                    'created_at'=>$new->created_at->format('d F Y'),
-                    'created_by'=>$new->createdby->admin->name,
-                    'category'=>$new->category->makeHidden(['created_at','updated_at','pivot','slug'])
-                ];
+                $data['news'][]=new NewsResource($new);
             }
-
-            $events = Event::limit(8)->get();
+            $events = Event::orderBy('created_at', 'desc')->limit(8)->get();
             $data['event']=[];
             foreach ($events as $key => $event) {
-                $data['event'][]=[
-                    'id'=> $event->id,
-                    'title'=> $event->title,
-                    'image'=> url('/uploads/' . $event->image),
-                    'url'=> url('/event/read/'.$event->slug),
-                    'view'=>$event->view,
-                    'start'=>$event->startdate->format('l, d F Y'),
-                    'end'=>$event->enddate->format('l, d F Y'),
-                    'created_at'=>$event->created_at->format('d F Y'),
-                    'created_by'=>$event->createdby->admin->name,
-                    'category'=>$event->category->makeHidden(['created_at','updated_at','pivot','slug'])
-                ];
+                $data['event'][]=new EventResource($event);
             }
-
-            $promos = Promo::where('status','hot')->limit(8)->get();
+            $promos = Promo::orderBy('created_at', 'desc')->where('status', 'hot')->limit(8)->get();
             $data['hot']=[];
             foreach ($promos as $key => $promo) {
-                $data['hot'][]=[
-                    'id'=> $promo->id,
-                    'title'=> $promo->name,
-                    'image'=> url('/uploads/' . $promo->image),
-                    'description'=> $promo->description,
-                    'terms'=> $promo->terms,
-                    'point'=>$promo->point,
-                    'total'=>$promo->total,
-                    'view'=>$promo->view,
-                    'status'=>$promo->status,
-                    'created_at'=>$promo->created_at->format('d F Y'),
-                    'created_by'=>$promo->createdby->admin->name,
-                ];
+                $data['hot'][]=new PromoResource($promo);
             }
-
-            $promos = Promo::where('status','normal')->limit(8)->get();
+            $promos = Promo::where('status', 'normal')->orderBy('created_at', 'desc')->limit(8)->get();
             $data['normal']=[];
             foreach ($promos as $key => $promo) {
-                $data['normal'][]=[
-                    'id'=> $promo->id,
-                    'title'=> $promo->name,
-                    'image'=> url('/uploads/' . $promo->image),
-                    'description'=> $promo->description,
-                    'terms'=> $promo->terms,
-                    'point'=>$promo->point,
-                    'total'=>$promo->total,
-                    'view'=>$promo->view,
-                    'status'=>$promo->status,
-                    'created_at'=>$promo->created_at->format('d F Y'),
-                    'created_by'=>$promo->createdby->admin->name,
-                ];
+                $data['normal'][]=new PromoResource($promo);
             }
-            $videos = Video::limit(8)->get();
+            $videos = Video::orderBy('created_at', 'desc')->limit(8)->get();
             $data['videos']=[];
             foreach ($videos as $key => $video) {
-                $data['videos'][]=[
-                    'id'=> $video->id,
-                    'title'=> $video->title,
-                    'url'=> $video->url,
-                    'image'=> url('/uploads/' . $video->image),
-                    'created_at'=>$video->created_at->format('d F Y'),
-                ];
+                $data['videos'][]=new VideoResource($video);
             }
             $company = Company::first();
-            $company->profile =  url('/uploads/' . $company->profile );
+            $company->profile =  url('/uploads/' . $company->profile);
             $company->profiledownload = url('/company/profile/download');
             $data['company'] = $company;
             $data['contact'] = $company;
             return response()->json($data, 200);
-
-        }elseif ($user->role_id ==4) {
-
+        } elseif ($user->role_id ==4) {
+            $customer = $user->customer;
             $user->customer->logo = url('/uploads/' . $user->customer->logo);
             $user->role;
-            $user->customer->coupon = $user->customer->coupons()->count();
+            $coupon_count = $user->customer->coupons()->count();
 
-            $user->customer->sum_delivery_order= $user->customer->delivery_order()->sum('quantity');
+            $sum_delivery_order= $user->customer->delivery_order()->sum('quantity');
+
+            $delivery_orders = [];
             foreach ($user->customer->delivery_order as $key => $delivery_order) {
-                $user->customer->delivery_order[$key] = new DeliveryOrderResource($delivery_order);
+                $delivery_orders[] = new DeliveryOrderResource($delivery_order);
             }
-            $user->customer->coupons;
-            $user->customer->vouchers;
+            $coupons = $user->customer->coupons()->orderBy('created_at','desc')->get();
+            $data_coupons = [];
+            foreach ($coupons as $key => $coupon) {
+                $data_coupons[] = [
+                    "id"=> $coupon->id,
+                    "code_coupon"=> $coupon->code_coupon,
+                    "customer_id"=> $coupon->customer_id,
+                    'created_at'=>$coupon->created_at->format('d F Y'),
+                    "updated_at"=> $coupon->updated_at->format('d F Y'),
+                ];
+            }
+
+            $vouchers =$user->customer->vouchers()->orderBy('created_at','desc')->get();
+            $data_vouchers = [];
+            foreach ($vouchers as $key => $voucher) {
+                $data_vouchers[] = [
+                    'id'=>$voucher->id,
+                    'promo_id'=>$voucher->promo_id,
+                    'customer_id'=>$voucher->customer_id,
+                    'created_at'=>$voucher->created_at->format('d F Y'),
+                    'promo'=> new  PromoResource($voucher->promo)
+                ];
+            }
+            $data['user'] = [
+                "id"=> $user->id,
+                "email"=> $user->email,
+                "role_id"=> $user->role_id,
+                "fcm_token"=> $user->fcm_token,
+                "created_at"=> $user->created_at->format('d F Y'),
+                "updated_at"=> $user->updated_at->format('d F Y'),
+                'customer'=>[
+                    "id"=> $customer->id,
+                    "name"=> $customer->name ,
+                    "address"=> $customer->address,
+                    "npwp"=> $customer->npwp ,
+                    "phone"=> $customer->phone ,
+                    "website"=> $customer->website ,
+                    "reward"=> $customer->reward ,
+                    "logo"=> url('/uploads/' . $customer->logo) ,
+                    "user_id"=> $customer->user_id ,
+                    "created_at"=> $customer->created_at->format('d F Y') ,
+                    "updated_at"=> $customer->updated_at->format('d F Y') ,
+                    "coupon"=>$coupon_count,
+                    "sum_delivery_order"=>$sum_delivery_order,
+                    "delivery_orders"=>$delivery_orders,
+                    'coupons'=>$data_coupons,
+                    'vouchers'=>$data_vouchers
+                ]
+            ];
+
             $news = News::limit(8)->get();
-            $data['user']=$user;
+            $news = News::orderBy('created_at', 'desc')->limit(8)->get();
             $data['news']=[];
             foreach ($news as $key => $new) {
-                $data['news'][]=[
-                    'id'=> $new->id,
-                    'title'=> $new->title,
-                    'image'=> url('/uploads/' . $new->image),
-                    'url'=> url('/news/read/'.$new->slug),
-                    'view'=>$new->view,
-                    'created_at'=>$new->created_at->format('d F Y'),
-                    'created_by'=>$new->createdby->admin->name,
-                    'category'=>$new->category->makeHidden(['created_at','updated_at','pivot','slug'])
-
-                ];
+                $data['news'][]=new NewsResource($new);
             }
-
-            $events = Event::limit(8)->get();
+            $events = Event::orderBy('created_at', 'desc')->limit(8)->get();
             $data['event']=[];
             foreach ($events as $key => $event) {
-                $data['event'][]=[
-                    'id'=> $event->id,
-                    'title'=> $event->title,
-                    'image'=> url('/uploads/' . $event->image),
-                    'url'=> url('/event/read/'.$event->slug),
-                    'view'=>$event->view,
-                    'start'=>$event->startdate->format('l, d F Y'),
-                    'end'=>$event->enddate->format('l, d F Y'),
-                    'created_at'=>$event->created_at->format('d F Y'),
-                    'created_by'=>$event->createdby->admin->name,
-                    'category'=>$event->category->makeHidden(['created_at','updated_at','pivot','slug'])
-                ];
+                $data['event'][]=new EventResource($event);
             }
-
-            $promos = Promo::where('status','hot')->limit(8)->get();
+            $promos = Promo::orderBy('created_at', 'desc')->where('status', 'hot')->limit(8)->get();
             $data['hot']=[];
             foreach ($promos as $key => $promo) {
-                $data['hot'][]=[
-                    'id'=> $promo->id,
-                    'title'=> $promo->name,
-                    'image'=> url('/uploads/' . $promo->image),
-                    'description'=> $promo->description,
-                    'terms'=> $promo->terms,
-                    'point'=>$promo->point,
-                    'total'=>$promo->total,
-                    'view'=>$promo->view,
-                    'status'=>$promo->status,
-                    'created_at'=>$promo->created_at->format('d F Y'),
-                    'created_by'=>$promo->createdby->admin->name,
-                ];
+                $data['hot'][]=new PromoResource($promo);
             }
-
-            $promos = Promo::where('status','normal')->limit(8)->get();
+            $promos = Promo::where('status', 'normal')->orderBy('created_at', 'desc')->limit(8)->get();
             $data['normal']=[];
             foreach ($promos as $key => $promo) {
-                $data['normal'][]=[
-                    'id'=> $promo->id,
-                    'title'=> $promo->name,
-                    'image'=> url('/uploads/' . $promo->image),
-                    'description'=> $promo->description,
-                    'terms'=> $promo->terms,
-                    'point'=>$promo->point,
-                    'total'=>$promo->total,
-                    'view'=>$promo->view,
-                    'status'=>$promo->status,
-                    'created_at'=>$promo->created_at->format('d F Y'),
-                    'created_by'=>$promo->createdby->admin->name,
-                ];
+                $data['normal'][]=new PromoResource($promo);
             }
-            $videos = Video::limit(8)->get();
+            $videos = Video::orderBy('created_at', 'desc')->limit(8)->get();
             $data['videos']=[];
             foreach ($videos as $key => $video) {
-                $data['videos'][]=[
-                    'id'=> $video->id,
-                    'title'=> $video->title,
-                    'url'=> $video->url,
-                    'image'=> url('/uploads/' . $video->image),
-                    'created_at'=>$video->created_at->format('d F Y'),
-                ];
+                $data['videos'][]=new VideoResource($video);
             }
             $company = Company::first();
-            $company->profile =  url('/uploads/' . $company->profile );
+            $company->profile =  url('/uploads/' . $company->profile);
             $company->profiledownload = url('/company/profile/download');
             $data['company'] = $company;
             $data['contact'] = $company;
             return response()->json($data, 200);
-
-        }
-
-        else{
-
-            $user->driver->avatar = url('/uploads/' . $user->driver->avatar);
-            $user->driver->agen->logo = url('/uploads/' . $user->driver->agen->logo);
-            $user->role;
-            $user->driver->delivery_order;
-            foreach ($user->driver->delivery_order as $key => $delivery_order) {
-                $user->driver->delivery_order[$key] = new DeliveryOrderResource($delivery_order);
-            }
-            $data['user']=$user;
-
+        } else {
             $agen = $user->driver->agen;
             $route = $user->driver->route;
             $sales_orders = $agen->sales_orders;
 
+            $dos = $user->driver->delivery_order()->orderBy('created_at','desc')->get();
             $delivery_orders = [];
+            foreach ($dos as $key => $delivery_order) {
+                $delivery_orders[] = new DeliveryOrderResource($delivery_order);
+            }
+            $delivery_orders_ready = [];
             foreach ($sales_orders as $sales_order) {
-                foreach ($sales_order->delivery_orders as $delivery_order) {
+                foreach ($sales_order->delivery_orders()->orderBy('created_at','desc')->get() as $delivery_order) {
                     if (($route == $delivery_order->shipped_via || $delivery_order->shipped_via == 2) && $delivery_order->status == 0) {
-                        $delivery_orders[] = new DeliveryOrderResource($delivery_order);
+                        $delivery_orders_ready[] = new DeliveryOrderResource($delivery_order);
                     }
                 }
             }
-            $data['ready_delivery_order']=$delivery_orders;
+
+            $data['user'] = [
+                "id"=> $user->id,
+                "email"=> $user->email,
+                "role_id"=> $user->role_id,
+                "fcm_token"=> $user->fcm_token,
+                "created_at"=> $user->created_at->format('d F Y'),
+                "updated_at"=> $user->updated_at->format('d F Y'),
+                'driver'=> new DriverResource($user->driver),
+                'agen'=>[
+                    "id"=> $agen->id,
+                    "name"=> $agen->name ,
+                    "address"=> $agen->address,
+                    "npwp"=> $agen->npwp ,
+                    "phone"=> $agen->phone ,
+                    "website"=> $agen->website ,
+                    "logo"=> url('/uploads/' . $agen->logo) ,
+                    "user_id"=> $agen->user_id ,
+                    "created_at"=> $agen->created_at->format('d F Y') ,
+                    "updated_at"=> $agen->updated_at->format('d F Y') ,
+                ],
+                'ready_delivery_order'=>$delivery_orders_ready,
+                'delivery_orders'=>$delivery_orders
+
+            ];
+
             return response()->json($data, 200);
-
         }
-
     }
 }
