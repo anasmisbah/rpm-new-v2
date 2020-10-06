@@ -100,17 +100,29 @@ class DeliveryOrderController extends Controller
 
         $fcm_token = [];
         $title = 'Delivery Order';
-        $message = "DO No $delivery_order->delivery_order_number telah terbit";
+        $message = "Dari Patra Niaga - Agent. DO No $delivery_order->delivery_order_number telah terbit. $delivery_order->shipped_with $delivery_order->no_vehicles sudah dapat melakukan Proses Pengisian BBM ";
 
         // SEND NOTIF TO AGEN TO GET ACCEPTED
         $fcm_token[] = $agen->user->fcm_token;
         $this->sendNotif($message,$title,$fcm_token);
 
-       
-
         Notifdo::create([
             'date'=>$date,
             'description'=>$message,
+            'delivery_order_id'=>$delivery_order->id
+        ]);
+
+        // SEND NOTIF TO CUSTOMER
+        $fcm_token_customer = [
+            $delivery_order->customer->user->fcm_token
+        ];
+        $title_customer = 'Delivery Order';
+        $message_customer = 'SO No '. $delivery_order->sales_order->sales_order_number .' telah terbit';
+        $this->sendNotif($message_customer,$title_customer,$fcm_token_customer);
+
+        Notifdo::create([
+            'date'=>$delivery_order->sales_order->created_at,
+            'description'=>$message_customer,
             'delivery_order_id'=>$delivery_order->id
         ]);
 

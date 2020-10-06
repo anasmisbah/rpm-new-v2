@@ -2,8 +2,8 @@
     use App\Voucher;
     use App\DeliveryOrder;
     $vouchers = Voucher::orderBy('id','desc')->limit(3)->get();
-    $delivery_darat = DeliveryOrder::where([['status',2],['shipped_via',0]])->orderBy('updated_at','desc')->limit(3)->get();
-    $delivery_laut = DeliveryOrder::where([['status',2],['shipped_via',1]])->orderBy('updated_at','desc')->limit(3)->get();
+    $delivery_darat = DeliveryOrder::where([['status',3],['shipped_via',0]])->orderBy('updated_at','desc')->limit(3)->get();
+    $delivery_laut = DeliveryOrder::where([['status',3],['shipped_via',1]])->orderBy('updated_at','desc')->limit(3)->get();
 @endphp
 <nav class="main-header navbar navbar-expand navbar-white navbar-light border-bottom-0">
     <!-- Left navbar links -->

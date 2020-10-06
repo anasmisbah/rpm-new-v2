@@ -62,6 +62,8 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('agen/deliveryorder','API\DeliveryOrderController@deliveryforagen');
     // AGEN APPROVE DELIVERY ORDER
     Route::get('agen/deliveryorder/approve/{id}','API\DeliveryOrderController@agenApproveDO');
+    // AGEN SEE DO DETAIL
+    Route::get('agen/detail/deliveryorder/{id}','API\DeliveryOrderController@detailForAgen');
 
 
 

@@ -71,9 +71,11 @@
                     </td>
                     <td>
                         @if ($delivery_order->status == 0)
-                        <small class="badge badge-warning"></i> Belum Dikirim </small>
+                        <small class="badge badge-warning"></i> Menunggu Konfirmasi oleh agen </small>
                         @elseif($delivery_order->status == 1)
-                        <small class="badge badge-info"></i> Sedang Dikirim</small>
+                        <small class="badge badge-info"></i> Menunggu Konfirmasi oleh Driver</small>
+                        @elseif($delivery_order->status == 2)
+                        <small class="badge badge-primary"></i> Dalam Pengiriman</small>
                         @else
                         <small class="badge badge-success"></i> Telah Dikirim</small>
                         @endif

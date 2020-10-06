@@ -140,7 +140,7 @@
                         @elseif($delivery_order->status == 1)
                         <small class="badge badge-info"></i> Menunggu Konfirmasi oleh Driver</small>
                         @elseif($delivery_order->status == 2)
-                        <small class="badge badge-info"></i> Dalam Pengiriman</small>
+                        <small class="badge badge-primary"></i> Dalam Pengiriman</small>
                         @else
                         <small class="badge badge-success"></i> Telah Dikirim</small>
                         @endif
@@ -189,7 +189,7 @@
                                     </div>
                                     <!-- /.timeline-label -->
                                     <!-- timeline item -->
-                                    @foreach ($delivery_order->notifs->sortByDesc('id') as $notif)
+                                    @foreach ($delivery_order->notifs->sortByDesc('date') as $notif)
                                         <div>
                                             <i class="fas fa-bell bg-blue"></i>
                                             <div class="timeline-item">

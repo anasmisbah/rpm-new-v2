@@ -27,6 +27,14 @@ class DeliveryOrderController extends Controller
         return response()->json($delivery_order, 200);
     }
 
+    public function detailForAgen($id)
+    {
+        $agen = Auth::user()->agen;
+        $result = $customer->delivery_order()->where('id',$id)->first();
+        $delivery_order = new DeliveryOrderResource($result);
+        return response()->json($delivery_order, 200);
+    }
+
     public function deliveryfordriver()
     {
         $driver = Auth::user()->driver;
@@ -52,7 +60,7 @@ class DeliveryOrderController extends Controller
         $data = [];
         $time = Carbon::createFromTimeString($result->estimate);
         $estimate = ($time->hour*3600) + ($time->minute*60);
-        foreach ($result->notifs->sortByDesc('id') as $notif) {
+        foreach ($result->notifs->sortByDesc('date') as $notif) {
             $data[] = [
                 'id'=>$notif->id,
                 'time'=>$notif->date->format('H:i:s'),
@@ -93,7 +101,7 @@ class DeliveryOrderController extends Controller
 
         $fcm_token = [];
         $title = 'Delivery Order';
-        $message = "DO No $delivery_order->delivery_order_number telah disetujui oleh agen";
+        $message = "Dari Agent - Driver. DO No $delivery_order->delivery_order_number telah terbit. $delivery_order->shipped_with $delivery_order->no_vehicles sudah dapat melakukan Proses Pengisian BBM ";
         if ($delivery_order->shipped_via == 0) {
             // SEND NOTIF TO JALUR DARAT
             $drivers = $agen->drivers()->where('route',0)->get();
@@ -123,6 +131,20 @@ class DeliveryOrderController extends Controller
             'description'=>$message,
             'delivery_order_id'=>$delivery_order->id
         ]);
+
+        // SEND NOTIFICATION TO CUSTOMER
+        $fcm_token_customer = [
+            $delivery_order->customer->user->fcm_token
+        ];
+        $title_customer = 'Delivery Order';
+        $message_customer = "DO No $delivery_order->delivery_order_number telah terbit. $delivery_order->shipped_with $delivery_order->no_vehicles sedang melakukan Proses Pengisian BBM ";
+        $this->sendNotif($message_customer,$title_customer,$fcm_token_customer);
+        Notifdo::create([
+            'date'=>$date,
+            'description'=>$message_customer,
+            'delivery_order_id'=>$delivery_order->id
+        ]);
+
         return response()->json([
             'status'=>true,
             'message'=>'berhasil melakukan approve delivery order',

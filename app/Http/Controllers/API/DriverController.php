@@ -121,6 +121,7 @@ class DriverController extends Controller
         $delivery_order->update([
             'bast'=>$bast,
             'arrival_time'=>$date,
+            'unloading_end_time'=>$date,
             'status'=>3
         ]);
 
