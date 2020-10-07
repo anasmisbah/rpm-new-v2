@@ -42,7 +42,11 @@ Route::middleware(['auth','admin'])->group(function (){
     Route::put('/user/profile','UserController@profileupdate')->name('profile.update');
 
     Route::resource('news', 'NewsController');
+    Route::get('ajax/news','NewsController@news_data')->name('ajax.data.news');
+
     Route::resource('event', 'EventController');
+    Route::get('ajax/event','EventController@event_data')->name('ajax.data.event');
+
 
     Route::middleware(['superadmin'])->group(function (){
 
@@ -72,6 +76,7 @@ Route::middleware(['auth','admin'])->group(function (){
         Route::delete('customer/agen/{id}','CustomerController@destroy')->name('customer.agen.destroy');
         Route::post('customer/agen/store/{id}','CustomerController@store')->name('customer.agen.store');
         Route::put('customer/agen/update/{id}','CustomerController@update')->name('customer.agen.update');
+        Route::get('ajax/customer/agen/{id}','CustomerController@customer_data')->name('ajax.data.customer.agen');
 
         Route::get('driver/agen/{id}','DriverController@index')->name('driver.agen.index');
         Route::get('driver/agen/create/{id}','DriverController@create')->name('driver.agen.create');
@@ -88,6 +93,7 @@ Route::middleware(['auth','admin'])->group(function (){
         Route::delete('salesorder/agen/{id}','SalesOrderController@destroy')->name('salesorder.agen.destroy');
         Route::post('salesorder/agen/store/{id}','SalesOrderController@store')->name('salesorder.agen.store');
         Route::put('salesorder/agen/update/{id}','SalesOrderController@update')->name('salesorder.agen.update');
+        Route::get('ajax/salesorder/agen/{id}','SalesOrderController@salesorder_data')->name('ajax.data.salesorder.agen');
 
         Route::get('deliveryorder/agen/{id}','DeliveryOrderController@index')->name('deliveryorder.agen.index');
         Route::get('deliveryorder/agen/create/{id}','DeliveryOrderController@create')->name('deliveryorder.agen.create');
@@ -97,13 +103,16 @@ Route::middleware(['auth','admin'])->group(function (){
         Route::post('deliveryorder/agen/store/{id}','DeliveryOrderController@store')->name('deliveryorder.agen.store');
         Route::put('deliveryorder/agen/update/{id}','DeliveryOrderController@update')->name('deliveryorder.agen.update');
         Route::get('deliveryorder/agen/print/{id}','DeliveryOrderController@print')->name('deliveryorder.agen.print');
+        Route::get('ajax/deliveryorder/agen/{id}','DeliveryOrderController@deliveryorder_data')->name('ajax.data.deliveryorder.agen');
 
         Route::get('/user','UserController@index')->name('user.index');
         Route::get('/user/{id}','UserController@show')->name('user.show');
+        Route::get('ajax/user','UserController@user_data')->name('ajax.data.user');
 
         Route::resource('admin', 'AdminController');
 
         Route::resource('video', 'VideoController');
+        Route::get('ajax/video','VideoController@video_data')->name('ajax.data.video');
 
         Route::get('/company','CompanyController@index')->name('company.index');
         Route::get('/company/edit','CompanyController@edit')->name('company.edit');

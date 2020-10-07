@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
-
+use DataTables;
 class UserController extends Controller
 {
     /**
@@ -18,6 +18,18 @@ class UserController extends Controller
         $users = User::all();
 
         return view('user.index',compact('users'));
+    }
+    public function user_data()
+    {
+        $users = User::select(['id','email','role_id']);
+
+        $dataTable = DataTables::of($users)
+            ->addIndexColumn()
+            ->addColumn('url_detail', function ($data) {
+                return route('user.show', $data->id);
+            });
+
+        return $dataTable->make(true);
     }
 
     /**

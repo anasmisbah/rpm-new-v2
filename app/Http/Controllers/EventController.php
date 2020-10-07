@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use File;
+use DataTables;
 
 class EventController extends Controller
 {
@@ -19,10 +20,33 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Event::all();
 
-        return view('event.index',compact('events'));    }
 
+        return view('event.index');
+    }
+
+    public function event_data()
+    {
+        $event = Event::select(['id','title','image']);
+
+        $dataTable = DataTables::of($event)
+        ->addIndexColumn()
+        ->editColumn('image', function ($data)
+        {
+            return url('/uploads/'.$data->image);
+        })
+        ->addColumn('url_detail', function ($data) {
+            return route('event.show',$data->id);
+        })
+        ->addColumn('url_edit', function ($data) {
+            return route('event.edit',$data->id);
+        })
+        ->addColumn('url_delete', function ($data) {
+            return route('event.destroy',$data->id);
+        });
+
+        return $dataTable->make(true);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -32,7 +56,8 @@ class EventController extends Controller
     {
         $categories = Category::all();
 
-        return view('event.create',compact('categories'));    }
+        return view('event.create', compact('categories'));
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -72,7 +97,7 @@ class EventController extends Controller
         $event->category()->attach($request->category);
 
 
-        return redirect()->back()->with('status','Successfully Added Event');
+        return redirect()->back()->with('status', 'Successfully Added Event');
     }
 
     /**
@@ -84,7 +109,7 @@ class EventController extends Controller
     public function show($id)
     {
         $event = Event::findOrFail($id);
-        return view('event.detail',compact('event'));
+        return view('event.detail', compact('event'));
     }
 
     /**
@@ -98,7 +123,7 @@ class EventController extends Controller
         $event = Event::findOrFail($id);
         $categories = Category::all();
 
-        return view('event.edit',compact('event','categories'));
+        return view('event.edit', compact('event', 'categories'));
     }
 
     /**
@@ -143,7 +168,7 @@ class EventController extends Controller
 
         $event->category()->sync($request->category);
 
-        return redirect()->back()->with('status','Successfully Updated Event');
+        return redirect()->back()->with('status', 'Successfully Updated Event');
     }
 
     /**
@@ -160,13 +185,13 @@ class EventController extends Controller
         }
         $event->delete();
 
-        return redirect()->back()->with('status','Successfully Deleted Event');
+        return redirect()->back()->with('status', 'Successfully Deleted Event');
     }
 
     public function read($slug)
     {
-        $event = Event::where('slug',$slug)->first();
+        $event = Event::where('slug', $slug)->first();
 
-        return view('event.read',compact('event'));
+        return view('event.read', compact('event'));
     }
 }

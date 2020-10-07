@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
 @push('css')
+<meta name="url_data" content="{{ route('ajax.data.salesorder.agen',$agen->id) }}">
     <!-- DataTables -->
     <link rel="stylesheet" href="{{asset('plugins/datatables-bs4/css/dataTables.bootstrap4.css')}}">
     <!-- SweetAlert2 -->
@@ -52,35 +53,6 @@
                 </tr>
                 </thead>
                 <tbody>
-                  @foreach ($agen->sales_orders as $sales_order)
-                  <tr>
-                    <td>{{$loop->iteration}}</td>
-                    <td>{{$sales_order->sales_order_number}}</td>
-                    <td>
-                        {{$sales_order->created_at->dayName.", ".$sales_order->created_at->day." ".$sales_order->created_at->monthName." ".$sales_order->created_at->year}} | {{$sales_order->created_at->format('H:i')}}
-                    </td>
-                    <td>
-                        <a href="{{route('salesorder.agen.edit',$sales_order->id)}}" data-placement="top" title="Edit" class="btn btn-warning btn-sm">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <form class="d-inline"
-                            onsubmit="return confirm('Apakah anda ingin menghapus sales orders secara permanen?')"
-                            action="{{route('salesorder.agen.destroy',$sales_order->id)}}"
-                            method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" data-placement="top" title="Delete" class="btn btn-danger btn-sm">
-                                    <i class="fas fa-trash"></i></button>
-                        </form>
-                        <a href="{{route('salesorder.agen.show',$sales_order->id)}}" data-placement="top" title="Detail" class="btn btn-info btn-sm">
-                            <i class="fas fa-eye"></i>
-                        </a>
-                        <a href="{{route('deliveryorder.agen.index',$sales_order->id)}}" data-placement="top" title="Delivery Order" class="btn btn-success btn-sm">
-                            <i class="fas fa-notes-medical"></i>
-                        </a>
-                    </td>
-                  </tr>
-                  @endforeach
                 </tbody>
               </table>
             </div>
@@ -89,6 +61,10 @@
           <!-- /.card -->
     </div>
 </div>
+<form class="d-inline" id="form-delete" style="display: none" action="" method="POST">
+    @csrf
+    @method('DELETE')
+</form>
 @endsection
 
 @push('script')
@@ -102,8 +78,82 @@
 <script src="{{asset('plugins/sweetalert2/sweetalert2.min.js')}}"></script>
 <script>
     $(function () {
-      $("#example1").DataTable();
-      $('.btn').tooltip({ boundary: 'window' })
+        let url = $('meta[name="url_data"]').attr('content');
+      $("#example1").DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: url,
+                data: function (d) {
+                    d.keyword = $('input[name=keyword]').val();
+                }
+            },
+            order:[[0,'asc']],
+            columns: [
+                {data: 'DT_RowIndex', name: 'DT_RowIndex',orderable: false,searchable: false},
+                {data: 'sales_order_number', name: 'sales_order_number'},
+                {data: 'created_at', name: 'created_at'},
+                {data: 'aksi', name: 'aksi', searchable: false},
+            ],
+            columnDefs:[
+                {
+                    targets: 2,
+					title: 'Dibuat pada',
+                    orderable: false,
+					render: function(data, type, full, meta) {
+                        var output =data
+                        return output;
+
+                    }
+                },
+                {
+                    targets: 3,
+					title: 'Aksi',
+                    orderable: false,
+					render: function(data, type, full, meta) {
+                        var output =`
+                                    <a href="${full.url_edit}" title="Edit" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="javascript:;" title="Delete" data-action="${full.url_delete}" class="btn btn-sm btn-danger btn-delete">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                    <a href="${full.url_detail}" title="Detail" class="btn btn-info btn-sm">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="${full.url_do}" title="Delivery Order" data-placement="top" title="Delivery Order" class="btn btn-success btn-sm">
+                                        <i class="fas fa-notes-medical"></i>
+                                    </a>
+                                    `;
+                        return output;
+
+                    }
+                }
+            ],
+            drawCallback: function( row, data, dataIndex ) {
+                $('.btn').tooltip({ boundary: 'window' })
+            }
+        });
+      $(document).on('click','.btn-delete',function(e){
+            e.preventDefault()
+            let action = $(this).data('action')
+
+            let form = $('#form-delete')
+            form.attr('action',action)
+
+            Swal.fire({
+                title: "Apakah anda yakin ingin menghapus?",
+                text: "Anda tidak dapat mengembalikan data setelah dihapus",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Iya, Hapus",
+                cancelButtonText : "Tidak"
+            }).then(function(result) {
+                if (result.value) {
+                    form.submit()
+                }
+            });
+        });
     });
   </script>
 <script>

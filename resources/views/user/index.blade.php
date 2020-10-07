@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
 @push('css')
+<meta name="url_data" content="{{ route('ajax.data.user') }}">
     <!-- DataTables -->
     <link rel="stylesheet" href="{{asset('plugins/datatables-bs4/css/dataTables.bootstrap4.css')}}">
     <!-- SweetAlert2 -->
@@ -41,20 +42,6 @@
                 </tr>
                 </thead>
                 <tbody>
-                  @foreach ($users as $user)
-                  <tr>
-                    <td>{{$loop->iteration}}</td>
-                    <td>{{$user->email}}</td>
-                    <td>
-                        <small class="badge {{$user->role->id == 1 || $user->role->id == 2 ?'badge-danger':'badge-info'}}"> {{$user->role->name}}</small>
-                    </td>
-                    <td>
-                        <a href="{{route('user.show',$user->id)}}" class="btn btn-info btn-sm">
-                            <i class="fas fa-eye"></i>
-                        </a>
-                    </td>
-                  </tr>
-                  @endforeach
                 </tbody>
               </table>
             </div>
@@ -76,7 +63,74 @@
 
 <script>
     $(function () {
-      $("#example1").DataTable();
+        let url = $('meta[name="url_data"]').attr('content');
+      $("#example1").DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: url,
+                data: function (d) {
+                    d.keyword = $('input[name=keyword]').val();
+                }
+            },
+            order:[[0,'asc']],
+            columns: [
+                {data: 'DT_RowIndex', name: 'DT_RowIndex',orderable: false,
+                    searchable: false},
+                {data: 'email', name: 'email'},
+                {data: 'role_id', name: 'role_id'},
+                {data: 'aksi', name: 'aksi', searchable: false},
+            ],
+            columnDefs:[
+
+                {
+                    targets: 2,
+					title: 'Role',
+					render: function(data, type, full, meta) {
+                        var role = {
+							1: {
+                                'title': 'Admin',
+                                'class': ' badge-danger'
+                            },
+							2: {
+                                'title': 'Adminsub',
+                                'class': ' badge-warning'
+                            }
+                            ,
+							3: {
+                                'title': 'Agen',
+                                'class': ' badge-success'
+                            }
+                            ,
+							4: {
+                                'title': 'Customer',
+                                'class': ' badge-info'
+                            }
+                            ,
+							5: {
+                                'title': 'Driver',
+                                'class': ' badge-primary'
+                            }
+						};
+						return '<small class="badge' + role[full.role_id].class + '">' + role[full.role_id].title + '</small>';
+                    }
+                },
+                {
+                    targets: 3,
+					title: 'Aksi',
+                    orderable: false,
+					render: function(data, type, full, meta) {
+                        var output =`
+                                    <a href="${full.url_detail}" class="btn btn-info btn-sm">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    `;
+                        return output;
+
+                    }
+                }
+            ]
+        });
     });
   </script>
 <script>

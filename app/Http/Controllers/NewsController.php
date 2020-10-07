@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use File;
-
+use DataTables;
 
 class NewsController extends Controller
 {
@@ -20,9 +20,32 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = News::all();
 
-        return view('news.index',compact('news'));
+
+        return view('news.index');
+    }
+
+    public function news_data()
+    {
+        $news = News::select(['id','title','image']);
+
+        $dataTable = DataTables::of($news)
+        ->addIndexColumn()
+        ->editColumn('image', function ($data)
+        {
+            return url('/uploads/'.$data->image);
+        })
+        ->addColumn('url_detail', function ($data) {
+            return route('news.show',$data->id);
+        })
+        ->addColumn('url_edit', function ($data) {
+            return route('news.edit',$data->id);
+        })
+        ->addColumn('url_delete', function ($data) {
+            return route('news.destroy',$data->id);
+        });
+
+        return $dataTable->make(true);
     }
 
     /**

@@ -6,19 +6,40 @@ use App\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use File;
+use DataTables;
 class VideoController extends Controller
 {
-            /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $videos = Video::all();
+        return view('video.index');
+    }
 
-        return view('video.index',compact('videos'));    }
+    public function video_data()
+    {
+        $videos = Video::select(['id','title','image']);
 
+        $dataTable = DataTables::of($videos)
+            ->addIndexColumn()
+            ->editColumn('image', function ($data) {
+                return url('/uploads/'.$data->image);
+            })
+            ->addColumn('url_detail', function ($data) {
+                return route('video.show', $data->id);
+            })
+            ->addColumn('url_edit', function ($data) {
+                return route('video.edit', $data->id);
+            })
+            ->addColumn('url_delete', function ($data) {
+                return route('video.destroy', $data->id);
+            });
+
+        return $dataTable->make(true);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -26,7 +47,8 @@ class VideoController extends Controller
      */
     public function create()
     {
-        return view('video.create');    }
+        return view('video.create');
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -55,7 +77,7 @@ class VideoController extends Controller
         ]);
 
 
-        return redirect()->back()->with('status','Successfully Added video');
+        return redirect()->back()->with('status', 'Successfully Added video');
     }
 
     /**
@@ -67,7 +89,7 @@ class VideoController extends Controller
     public function show($id)
     {
         $video = Video::findOrFail($id);
-        return view('video.detail',compact('video'));
+        return view('video.detail', compact('video'));
     }
 
     /**
@@ -80,7 +102,7 @@ class VideoController extends Controller
     {
         $video = Video::findOrFail($id);
 
-        return view('video.edit',compact('video'));
+        return view('video.edit', compact('video'));
     }
 
     /**
@@ -116,7 +138,7 @@ class VideoController extends Controller
             'url'=>$request->url,
         ]);
 
-        return redirect()->back()->with('status','Successfully Updated video');
+        return redirect()->back()->with('status', 'Successfully Updated video');
     }
 
     /**

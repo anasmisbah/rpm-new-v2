@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
 @push('css')
+<meta name="url_data" content="{{ route('ajax.data.customer.agen',$agen->id) }}">
     <!-- DataTables -->
     <link rel="stylesheet" href="{{asset('plugins/datatables-bs4/css/dataTables.bootstrap4.css')}}">
     <!-- SweetAlert2 -->
@@ -55,44 +56,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                  @foreach ($agen->customers as $customer)
-                  <tr>
-                    <td>{{$loop->iteration}}</td>
-                    <td>{{$customer->name}}</td>
-                    <td>
-                        @if ($customer->member == 'silver')
-                        <small class="badge badge-info"> {{$customer->member}}</small>
-                        @elseif($customer->member == 'gold')
-                        <small class="badge badge-warning"> {{$customer->member}}</small>
-                        @else
-                        <small class="badge badge-danger"> {{$customer->member}}</small>
-                        @endif
-                    </td>
-                    <td>{{$customer->reward}}</td>
-                    <td>{{$customer->address}}</td>
-                    <td><img class="img-thumbnail" width="50px" src="{{asset("/uploads/".$customer->logo)}}" alt=""></td>
-                    <td>
-                        <a data-toggle="tooltip" data-placement="top" title="Edit" href="{{route('customer.agen.edit',$customer->id)}}" class="btn btn-warning btn-sm">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <form class="d-inline"
-                            onsubmit="return confirm('Apakah anda ingin menghapus customers secara permanen?')"
-                            action="{{route('customer.agen.destroy',$customer->id)}}"
-                            method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button data-toggle="tooltip" data-placement="top" title="Delete" type="submit" class="btn btn-danger btn-sm">
-                                    <i class="fas fa-trash"></i></button>
-                        </form>
-                        <a data-toggle="tooltip" data-placement="top" title="Detail"  href="{{route('customer.agen.show',$customer->id)}}" class="btn btn-info btn-sm">
-                            <i class="fas fa-eye"></i>
-                        </a>
-                        <a data-toggle="tooltip" data-placement="top" title="Coupon" href="{{route('customer.coupon.index',$customer->id)}}" class="btn btn-info btn-sm">
-                            <i class="fas fa-credit-card"></i>
-                        </a>
-                    </td>
-                  </tr>
-                  @endforeach
+
                 </tbody>
               </table>
             </div>
@@ -101,6 +65,10 @@
           <!-- /.card -->
     </div>
 </div>
+<form class="d-inline" id="form-delete" style="display: none" action="" method="POST">
+    @csrf
+    @method('DELETE')
+</form>
 @endsection
 
 @push('script')
@@ -114,8 +82,106 @@
 <script src="{{asset('plugins/sweetalert2/sweetalert2.min.js')}}"></script>
 <script>
     $(function () {
-      $("#example1").DataTable();
-      $('.btn').tooltip({ boundary: 'window' })
+        let url = $('meta[name="url_data"]').attr('content');
+      $("#example1").DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: url,
+                data: function (d) {
+                    d.keyword = $('input[name=keyword]').val();
+                }
+            },
+            order:[[0,'asc']],
+            columns: [
+                {data: 'DT_RowIndex', name: 'DT_RowIndex',orderable: false,searchable: false},
+                {data: 'name', name: 'name'},
+                {data: 'member', name: 'member'},
+                {data: 'reward', name: 'reward'},
+                {data: 'address', name: 'address'},
+                {data: 'logo', name: 'logo',orderable: false,searchable: false},
+                {data: 'aksi', name: 'aksi', searchable: false},
+            ],
+            columnDefs:[
+                {
+                    targets: 2,
+					title: 'Tipe Member',
+					render: function(data, type, full, meta) {
+                        var member = {
+							'gold': {
+                                'title': 'Gold',
+                                'class': ' badge-warning'
+                            },
+							'silver': {
+                                'title': 'Silver',
+                                'class': ' badge-default'
+                            },
+							'platinum': {
+                                'title': 'Platinum',
+                                'class': ' badge-info'
+                            }
+						};
+						return '<small class="badge' + member[full.member].class + '">' + member[full.member].title + '</small>';
+                    }
+                },
+                {
+                    targets: 5,
+					title: 'Logo',
+					render: function(data, type, full, meta) {
+                        console.log(meta);
+                        return '<img class="img-thumbnail" width="100px" src="'+full.logo+'" alt="">';
+
+                    }
+                },
+                {
+                    targets: 6,
+					title: 'Aksi',
+                    orderable: false,
+					render: function(data, type, full, meta) {
+                        var output =`
+                                    <a href="${full.url_edit}" class="btn btn-warning btn-sm" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="javascript:;" data-action="${full.url_delete}" title="Delete" class="btn btn-sm btn-danger btn-delete">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                    <a href="${full.url_detail}" title="Detail" class="btn btn-info btn-sm">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="${full.url_coupon}" title="Coupon" class="btn btn-info btn-sm">
+                                        <i class="fas fa-credit-card"></i>
+                                    </a>
+                                    `;
+                        return output;
+
+                    }
+                }
+            ],
+            drawCallback: function( row, data, dataIndex ) {
+                $('.btn').tooltip({ boundary: 'window' })
+            }
+        });
+
+      $(document).on('click','.btn-delete',function(e){
+            e.preventDefault()
+            let action = $(this).data('action')
+
+            let form = $('#form-delete')
+            form.attr('action',action)
+
+            Swal.fire({
+                title: "Apakah anda yakin ingin menghapus?",
+                text: "Anda tidak dapat mengembalikan data setelah dihapus",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Iya, Hapus",
+                cancelButtonText : "Tidak"
+            }).then(function(result) {
+                if (result.value) {
+                    form.submit()
+                }
+            });
+        });
     });
   </script>
 <script>

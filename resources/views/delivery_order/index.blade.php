@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
 @push('css')
+    <meta name="url_data" content="{{ route('ajax.data.deliveryorder.agen',$sales_order->id) }}">
     <!-- DataTables -->
     <link rel="stylesheet" href="{{asset('plugins/datatables-bs4/css/dataTables.bootstrap4.css')}}">
     <!-- SweetAlert2 -->
@@ -55,56 +56,6 @@
                 </tr>
                 </thead>
                 <tbody>
-                  @foreach ($sales_order->delivery_orders as $delivery_order)
-                  <tr>
-                    <td>{{$loop->iteration}}</td>
-                    <td>{{$delivery_order->delivery_order_number}}</td>
-                    <td>{{$delivery_order->effective_date_start->day." ".$delivery_order->effective_date_start->monthName." ".$delivery_order->effective_date_start->year}} - {{$delivery_order->effective_date_start->day." ".$delivery_order->effective_date_start->monthName." ".$delivery_order->effective_date_start->year}}</td>
-                    <td>
-                        @if ($delivery_order->shipped_via == 0)
-                        <small class="badge badge-warning"></i> Jalur Darat </small>
-                        @elseif($delivery_order->shipped_via == 1)
-                        <small class="badge badge-info"></i> Jalur Laut</small>
-                        @else
-                        <small class="badge badge-success"></i> Jalur Darat Atau Jalur Laut</small>
-                        @endif
-                    </td>
-                    <td>
-                        @if ($delivery_order->status == 0)
-                        <small class="badge badge-warning"></i> Menunggu Konfirmasi oleh agen </small>
-                        @elseif($delivery_order->status == 1)
-                        <small class="badge badge-info"></i> Menunggu Konfirmasi oleh Driver</small>
-                        @elseif($delivery_order->status == 2)
-                        <small class="badge badge-primary"></i> Dalam Pengiriman</small>
-                        @else
-                        <small class="badge badge-success"></i> Telah Dikirim</small>
-                        @endif
-                    </td>
-                    <td>
-                        @if ($delivery_order->status == 0)
-                        <a href="{{route('deliveryorder.agen.edit',$delivery_order->id)}}" data-placement="top" title="Edit" class="btn btn-warning btn-sm">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        @elseif ($delivery_order->status == 2)
-                        <a class="btn btn-info btn-sm" href="{{route('deliveryorder.agen.print',$delivery_order->id)}}" data-placement="top" title="Print"><i class="fas fa-print"></i></a>
-                        @endif
-
-                        {{-- <form class="d-inline"
-                            onsubmit="return confirm('Apakah anda ingin menghapus sales orders secara permanen?')"
-                            action="{{route('deliveryorder.agen.destroy',$delivery_order->id)}}"
-                            method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" data-placement="top" title="Delete" class="btn btn-danger btn-sm">
-                                    <i class="fas fa-trash"></i></button>
-                        </form>
-                        --}}
-                        <a href="{{route('deliveryorder.agen.show',$delivery_order->id)}}" data-placement="top" title="Detail" class="btn btn-info btn-sm">
-                            <i class="fas fa-eye"></i>
-                        </a>
-                    </td>
-                  </tr>
-                  @endforeach
                 </tbody>
               </table>
             </div>
@@ -113,6 +64,10 @@
           <!-- /.card -->
     </div>
 </div>
+<form class="d-inline" id="form-delete" style="display: none" action="" method="POST">
+    @csrf
+    @method('DELETE')
+</form>
 @endsection
 
 @push('script')
@@ -126,8 +81,147 @@
 <script src="{{asset('plugins/sweetalert2/sweetalert2.min.js')}}"></script>
 <script>
     $(function () {
-      $("#example1").DataTable();
-      $('.btn').tooltip({ boundary: 'window' })
+        let url = $('meta[name="url_data"]').attr('content');
+      $("#example1").DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: url,
+                data: function (d) {
+                    d.keyword = $('input[name=keyword]').val();
+                }
+            },
+            order:[[0,'asc']],
+            columns: [
+                {data: 'DT_RowIndex', name: 'DT_RowIndex',orderable: false,searchable: false},
+                {data: 'delivery_order_number', name: 'delivery_order_number'},
+                {data: 'effective_date', name: 'effective_date'},
+                {data: 'shipped_via', name: 'shipped_via'},
+                {data: 'status', name: 'status'},
+                {data: 'aksi', name: 'aksi', searchable: false},
+            ],
+            columnDefs:[
+                {
+                    targets: 2,
+					title: 'Tanggal Berlaku',
+                    orderable: false,
+					render: function(data, type, full, meta) {
+                        var output =data
+                        return output;
+
+                    }
+                },
+                {
+                    targets: 3,
+					title: 'Dikirim via',
+					render: function(data, type, full, meta) {
+                        var shipped_via = {
+							0: {
+                                'title': 'Jalur Darat',
+                                'class': ' badge-warning'
+                            },
+							1: {
+                                'title': 'Jalur Laut',
+                                'class': ' badge-info'
+                            },
+							2: {
+                                'title': 'Jalur Darat / Jalur Laut',
+                                'class': ' badge-success'
+                            },
+						};
+						return '<small class="badge' + shipped_via[full.shipped_via].class + '">' + shipped_via[full.shipped_via].title + '</small>';
+                    }
+                },
+                {
+                    targets: 4,
+					title: 'Status',
+					render: function(data, type, full, meta) {
+                        var status = {
+							0: {
+                                'title': 'Menunggu Konfirmasi oleh agen',
+                                'class': ' badge-warning'
+                            },
+							1: {
+                                'title': 'Menunggu Konfirmasi oleh Driver',
+                                'class': ' badge-info'
+                            },
+							2: {
+                                'title': 'Dalam Pengiriman',
+                                'class': ' badge-primary'
+                            },
+							3: {
+                                'title': 'Telah Dikirim',
+                                'class': ' badge-success'
+                            }
+						};
+						return '<small class="badge' + status[full.status].class + '">' + status[full.status].title + '</small>';
+                    }
+                },
+                {
+                    targets: 5,
+					title: 'Aksi',
+                    orderable: false,
+					render: function(data, type, full, meta) {
+                        var output ={
+
+                            0: {
+                                'html': `<a href="${full.url_edit}" title="Edit" class="btn btn-warning btn-sm">
+                                        <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="${full.url_detail}" title="Detail" class="btn btn-info btn-sm">
+                                            <i class="fas fa-eye"></i>
+                                        </a>`,
+                            },
+							1: {
+                                'html': `<a href="${full.url_detail}" title="Detail" class="btn btn-info btn-sm">
+                                            <i class="fas fa-eye"></i>
+                                        </a>`,
+                            },
+							2: {
+                                'html': `<a href="${full.url_detail}" title="Detail" class="btn btn-info btn-sm">
+                                            <i class="fas fa-eye"></i>
+                                        </a>`,
+                            },
+							3: {
+                                'html': `
+                                        <a href="${full.url_detail}" title="Detail" class="btn btn-info btn-sm">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="${full.url_print}" title="Print" data-placement="top" title="Delivery Order" class="btn btn-primary btn-sm">
+                                            <i class="fas fa-print"></i>
+                                        </a>
+                                        `,
+                            }
+                        }
+                        return output[full.status].html;
+
+                    }
+                }
+            ],
+            drawCallback: function( row, data, dataIndex ) {
+                $('.btn').tooltip({ boundary: 'window' })
+            }
+        });
+        $(document).on('click','.btn-delete',function(e){
+            e.preventDefault()
+            let action = $(this).data('action')
+
+            let form = $('#form-delete')
+            form.attr('action',action)
+
+            Swal.fire({
+                title: "Apakah anda yakin ingin menghapus?",
+                text: "Anda tidak dapat mengembalikan data setelah dihapus",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Iya, Hapus",
+                cancelButtonText : "Tidak"
+            }).then(function(result) {
+                if (result.value) {
+                    form.submit()
+                }
+            });
+        });
     });
   </script>
 <script>

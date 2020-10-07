@@ -9,7 +9,7 @@ use App\User;
 use Illuminate\Support\Facades\Storage;
 use File;
 use Illuminate\Support\Facades\Hash;
-
+use DataTables;
 class CustomerController extends Controller
 {
          /**
@@ -22,6 +22,34 @@ class CustomerController extends Controller
         $agen = Agen::findOrFail($id);
 
         return view('customer.index',compact('agen'));
+    }
+
+    public function customer_data($id)
+    {
+        $promos = Customer::select(['id','name','address','member','reward','logo'])
+                    ->where('agen_id',$id);
+
+        $dataTable = DataTables::of($promos)
+        ->addIndexColumn()
+        ->editColumn('logo', function ($data)
+        {
+            return url('/uploads/'.$data->logo);
+        })
+        ->addColumn('url_detail', function ($data) {
+            return route('customer.agen.show',$data->id);
+        })
+        ->addColumn('url_edit', function ($data) {
+            return route('customer.agen.edit',$data->id);
+        })
+        ->addColumn('url_delete', function ($data) {
+            return route('customer.agen.destroy',$data->id);
+        })
+        ->addColumn('url_coupon', function ($data) {
+            return route('customer.coupon.index',$data->id);
+        });
+
+
+        return $dataTable->make(true);
     }
 
     /**

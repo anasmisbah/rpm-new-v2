@@ -10,6 +10,7 @@ use GuzzleHttp\Client;
 use App\Company;
 use Carbon\Carbon;
 use App\Notifdo;
+use DataTables;
 class DeliveryOrderController extends Controller
 {
     /**
@@ -23,6 +24,37 @@ class DeliveryOrderController extends Controller
         $agen = $sales_order->agen;
         return view('delivery_order.index',compact('sales_order','agen'));
     }
+
+    public function deliveryorder_data($id)
+    {
+        $do = DeliveryOrder::select(['id','delivery_order_number','effective_date_start','effective_date_end','shipped_via','status'])
+                    ->where('sales_order_id',$id);
+
+        $dataTable = DataTables::of($do)
+        ->addIndexColumn()
+        ->addColumn('effective_date', function ($data) {
+            return   $data->effective_date_start->day." ".$data->effective_date_start->monthName." ".$data->effective_date_start->year.' - '.$data->effective_date_start->day." ".$data->effective_date_start->monthName." ".$data->effective_date_start->year;
+
+        })
+        ->removeColumn('effective_date_start')
+        ->removeColumn('effective_date_end')
+        ->addColumn('url_detail', function ($data) {
+            return route('deliveryorder.agen.show',$data->id);
+        })
+        ->addColumn('url_edit', function ($data) {
+            return route('deliveryorder.agen.edit',$data->id);
+        })
+        ->addColumn('url_delete', function ($data) {
+            return route('deliveryorder.agen.destroy',$data->id);
+        })
+        ->addColumn('url_print', function ($data) {
+            return route('deliveryorder.agen.index',$data->id);
+        });
+
+        return $dataTable->make(true);
+    }
+
+
     public function show($id)
     {
         $delivery_order = DeliveryOrder::findOrFail($id);

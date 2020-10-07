@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Agen;
 use App\SalesOrder;
 use GuzzleHttp\Client;
+use DataTables;
 class SalesOrderController extends Controller
 {
     /**
@@ -18,6 +19,32 @@ class SalesOrderController extends Controller
         $agen = Agen::findOrFail($id);
 
         return view('sales_order.index',compact('agen'));
+    }
+
+    public function  salesorder_data($id)
+    {
+        $so = SalesOrder::select(['id','sales_order_number','created_at'])
+                    ->where('agen_id',$id);
+
+        $dataTable = DataTables::of($so)
+        ->addIndexColumn()
+        ->editColumn('created_at', function ($data) {
+            return $data->created_at->dayName.", ".$data->created_at->day." ".$data->created_at->monthName." ".$data->created_at->year.' | '.$data->created_at->format('H:i').' WITA';
+        })
+        ->addColumn('url_detail', function ($data) {
+            return route('salesorder.agen.show',$data->id);
+        })
+        ->addColumn('url_edit', function ($data) {
+            return route('salesorder.agen.edit',$data->id);
+        })
+        ->addColumn('url_delete', function ($data) {
+            return route('salesorder.agen.destroy',$data->id);
+        })
+        ->addColumn('url_do', function ($data) {
+            return route('deliveryorder.agen.index',$data->id);
+        });
+
+        return $dataTable->make(true);
     }
 
     /**

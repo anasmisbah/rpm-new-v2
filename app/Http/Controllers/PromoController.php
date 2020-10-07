@@ -18,22 +18,16 @@ class PromoController extends Controller
      */
     public function index()
     {
-        $promos = Promo::all();
 
-        return view('promo.index', compact('promos'));
+        return view('promo.index');
     }
 
     public function promo_data()
     {
         $promos = Promo::select(['id','name','image','point','total','status']);
 
-        // if ($keyword = $request->keyword) {
-        //     $alumni->where(function ($query) use ($keyword) {
-        //         $query->where('alumni_pendaftar.nama', 'like', "%$keyword%")->orWhere('alumni_pendaftar.nim', 'like', "%$keyword%");
-        //     });
-        // }
-
         $dataTable = DataTables::of($promos)
+        ->addIndexColumn()
         ->addColumn('url_detail', function ($data) {
             return route('promo.show',$data->id);
         })
