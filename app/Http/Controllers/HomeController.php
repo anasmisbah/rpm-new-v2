@@ -132,14 +132,14 @@ class HomeController extends Controller
 
     public function do_darat()
     {
-        $deliveries = DeliveryOrder::where([['status',2],['shipped_via',0]])->orderBy('updated_at','desc')->paginate(10);
+        $deliveries = DeliveryOrder::where([['status',3],['shipped_via',0]])->orderBy('updated_at','desc')->paginate(10);
 
         return view('notification.do_darat',compact('deliveries'));
     }
 
     public function do_laut()
     {
-        $deliveries = DeliveryOrder::where([['status',2],['shipped_via',1]])->orderBy('updated_at','desc')->paginate(10);
+        $deliveries = DeliveryOrder::where([['status',3],['shipped_via',1]])->orderBy('updated_at','desc')->paginate(10);
 
         return view('notification.do_laut',compact('deliveries'));
     }
