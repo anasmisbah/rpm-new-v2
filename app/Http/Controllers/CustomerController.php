@@ -26,7 +26,7 @@ class CustomerController extends Controller
 
     public function customer_data($id)
     {
-        $promos = Customer::select(['id','name','address','member','reward','logo'])
+        $promos = Customer::select(['id','name','coupon','member','reward','logo'])
                     ->where('agen_id',$id);
 
         $dataTable = DataTables::of($promos)
@@ -43,12 +43,8 @@ class CustomerController extends Controller
         })
         ->addColumn('url_delete', function ($data) {
             return route('customer.agen.destroy',$data->id);
-        })
-        ->addColumn('url_coupon', function ($data) {
-            return route('customer.coupon.index',$data->id);
         });
-
-
+        
         return $dataTable->make(true);
     }
 

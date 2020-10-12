@@ -50,7 +50,7 @@
                   <th>Nama</th>
                   <th>Tipe Member</th>
                   <th>Reward</th>
-                  <th>Alamat</th>
+                  <th>Coupon</th>
                   <th>Logo</th>
                   <th>Aksi</th>
                 </tr>
@@ -98,7 +98,7 @@
                 {data: 'name', name: 'name'},
                 {data: 'member', name: 'member'},
                 {data: 'reward', name: 'reward'},
-                {data: 'address', name: 'address'},
+                {data: 'coupon', name: 'coupon'},
                 {data: 'logo', name: 'logo',orderable: false,searchable: false},
                 {data: 'aksi', name: 'aksi', searchable: false},
             ],
@@ -147,9 +147,6 @@
                                     </a>
                                     <a href="${full.url_detail}" title="Detail" class="btn btn-info btn-sm">
                                         <i class="fas fa-eye"></i>
-                                    </a>
-                                    <a href="${full.url_coupon}" title="Coupon" class="btn btn-info btn-sm">
-                                        <i class="fas fa-credit-card"></i>
                                     </a>
                                     `;
                         return output;
