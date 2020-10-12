@@ -28,7 +28,6 @@ class DeliveryOrder extends Model
         'departure_time_depot',
         'status',
         'sales_order_id',
-        'customer_id',
         'driver_id',
         'bast',
         'estimate'
@@ -41,10 +40,7 @@ class DeliveryOrder extends Model
         'effective_date_start',
         'effective_date_end',
     ];
-    public function customer()
-    {
-        return $this->belongsTo('App\Customer');
-    }
+    
 
     public function driver()
     {

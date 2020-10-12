@@ -18,6 +18,8 @@ class CreateSalesOrdersTable extends Migration
             $table->string('sales_order_number');
             $table->unsignedBigInteger('agen_id');
             $table->foreign('agen_id')->references('id')->on('agens')->onDelete('cascade');
+            $table->unsignedBigInteger('customer_id');
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->timestamps();
         });
     }

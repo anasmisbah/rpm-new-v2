@@ -14,6 +14,7 @@ class CustomerSeeder extends Seeder
         DB::table('customers')->insert([
             [
                 'name' => 'PT. Titu Perkasa Energi',
+                'no_customer'=>'985940',
                 'address'=>'jl perjuangan no 1',
                 'member'=>'gold',
                 'phone'=>'08523212546',

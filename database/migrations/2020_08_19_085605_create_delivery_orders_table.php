@@ -39,8 +39,6 @@ class CreateDeliveryOrdersTable extends Migration
             $table->time('estimate')->nullable();
             $table->unsignedBigInteger('sales_order_id');
             $table->foreign('sales_order_id')->references('id')->on('sales_orders')->onDelete('cascade');
-            $table->unsignedBigInteger('customer_id');
-            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->unsignedBigInteger('driver_id')->nullable();
             $table->foreign('driver_id')->references('id')->on('drivers')->onDelete('cascade');
             $table->timestamps();

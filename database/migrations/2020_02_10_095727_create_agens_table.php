@@ -15,6 +15,7 @@ class CreateAgensTable extends Migration
     {
         Schema::create('agens', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('no_agen')->unique()->nullable();
             $table->string('name');
             $table->text('address')->nullable();
             $table->text('npwp')->nullable();
