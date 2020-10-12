@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Agen;
 use App\SalesOrder;
+use App\DeliveryOrder;
 use GuzzleHttp\Client;
 use DataTables;
 class SalesOrderController extends Controller
@@ -43,6 +44,14 @@ class SalesOrderController extends Controller
         })
         ->addColumn('url_do', function ($data) {
             return route('deliveryorder.agen.index',$data->id);
+        })
+        ->addColumn('status', function ($data) {
+            $result = DeliveryOrder::where('sales_order_id',$data->id)->first();
+            if ($result) {
+                return true;
+            }else{
+                return false;
+            }
         });
 
         return $dataTable->make(true);
@@ -105,7 +114,12 @@ class SalesOrderController extends Controller
     {
         $sales_order = SalesOrder::findOrFail($id);
         $agen = $sales_order->agen;
-        return view('sales_order.edit',compact('sales_order','agen'));
+        $status = false;
+        $result = DeliveryOrder::where('sales_order_id',$id)->first();
+        if ($result) {
+            $status = true;
+        }
+        return view('sales_order.edit',compact('sales_order','agen','status'));
     }
 
     /**

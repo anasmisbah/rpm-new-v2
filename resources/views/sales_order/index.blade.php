@@ -113,22 +113,37 @@
 					title: 'Aksi',
                     orderable: false,
 					render: function(data, type, full, meta) {
-                        var output =`
-                                    <a href="${full.url_edit}" title="Edit" class="btn btn-warning btn-sm">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <a href="javascript:;" title="Delete" data-action="${full.url_delete}" class="btn btn-sm btn-danger btn-delete">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                    <a href="${full.url_detail}" title="Detail" class="btn btn-info btn-sm">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                    <a href="${full.url_do}" title="Delivery Order" data-placement="top" title="Delivery Order" class="btn btn-success btn-sm">
-                                        <i class="fas fa-notes-medical"></i>
-                                    </a>
-                                    `;
-                        return output;
+                        var output;
+                        if (full.status) {
+                            return`
+                                        <a href="${full.url_edit}" title="Edit" class="btn btn-warning btn-sm">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="${full.url_detail}" title="Detail" class="btn btn-info btn-sm">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="${full.url_do}" title="Delivery Order" data-placement="top" title="Delivery Order" class="btn btn-success btn-sm">
+                                            <i class="fas fa-notes-medical"></i>
+                                        </a>
+                                        `;
 
+                        } else {
+
+                            return`
+                                        <a href="${full.url_edit}" title="Edit" class="btn btn-warning btn-sm">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="javascript:;" title="Delete" data-action="${full.url_delete}" class="btn btn-sm btn-danger btn-delete">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                        <a href="${full.url_detail}" title="Detail" class="btn btn-info btn-sm">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="${full.url_do}" title="Delivery Order" data-placement="top" title="Delivery Order" class="btn btn-success btn-sm">
+                                            <i class="fas fa-notes-medical"></i>
+                                        </a>
+                                        `;
+                        }
                     }
                 }
             ],

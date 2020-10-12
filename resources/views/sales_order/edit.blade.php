@@ -50,7 +50,7 @@
                             <label for="customer_id" class="col-sm-2 col-form-label">Customer <span
                                     class="text-danger">*</span> </label>
                             <div class="col-sm-6 col-lg-6 col-md-6">
-                                <select class="select2 @error('customer_id') is-invalid @enderror" id="select-customer"
+                                <select {{$status == true ? 'disabled':''}} class="select2 @error('customer_id') is-invalid @enderror" id="select-customer"
                                     name="customer_id" data-placeholder="Select Customer" style="width: 100%;">
                                     @foreach ($agen->customers as $customers)
                                     <option value="{{$customers->id}}" {{$customers->id == $sales_order->customer->id? 'selected':''}}>{{$customers->name}}</option>
