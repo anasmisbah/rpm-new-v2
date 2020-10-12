@@ -64,6 +64,8 @@ class HomeController extends Controller
         if ($user->role_id ==3) {
             $agen = $user->agen;
             $sales_orders = [];
+
+            $total_notif_do = 0;
             foreach ($user->agen->sales_orders as $key => $sales_order) {
                 $delivery_orders = [];
                 $item = [
@@ -75,6 +77,9 @@ class HomeController extends Controller
                 ];
                 foreach ($sales_order->delivery_orders as $delivery_order) {
                     $item['delivery_orders'][] = new DeliveryOrderResource($delivery_order);
+                    if ($delivery_order->status == 0) {
+                        $total_notif_do++;
+                    }
                 }
                 $sales_orders[] = $item;
             }
@@ -132,10 +137,10 @@ class HomeController extends Controller
             $company->profiledownload = url('/company/profile/download');
             $data['company'] = $company;
             $data['contact'] = $company;
+            $data['total_notif_do'] = $total_notif_do;
             return response()->json($data, 200);
         } elseif ($user->role_id ==4) {
             $customer = $user->customer;
-            $user->customer->logo = url('/uploads/' . $user->customer->logo);
             $user->role;
             $coupon_count = $user->customer->coupons()->count();
 

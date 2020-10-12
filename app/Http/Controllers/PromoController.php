@@ -24,7 +24,7 @@ class PromoController extends Controller
 
     public function promo_data()
     {
-        $promos = Promo::select(['id','name','image','point','total','status']);
+        $promos = Promo::select(['id','name','point','total','status']);
 
         $dataTable = DataTables::of($promos)
         ->addIndexColumn()

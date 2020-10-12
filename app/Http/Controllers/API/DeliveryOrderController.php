@@ -23,14 +23,25 @@ class DeliveryOrderController extends Controller
     {
         $customer = Auth::user()->customer;
         $result = $customer->delivery_order()->where('id',$id)->first();
+        if (!$result) {
+            return response()->json([
+                'status'=>false,
+                'message'=>'delivery order tidak ditemukan',
+            ], 404);
+        }
         $delivery_order = new DeliveryOrderResource($result);
         return response()->json($delivery_order, 200);
     }
 
     public function detailForAgen($id)
     {
-        $agen = Auth::user()->agen;
-        $result = $customer->delivery_order()->where('id',$id)->first();
+        $result = DeliveryOrder::where('id',$id)->first();
+        if (!$result) {
+            return response()->json([
+                'status'=>false,
+                'message'=>'delivery order tidak ditemukan',
+            ], 404);
+        }
         $delivery_order = new DeliveryOrderResource($result);
         return response()->json($delivery_order, 200);
     }

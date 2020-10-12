@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
 @push('css')
+<meta name="token" content="{{csrf_token()}}">
 <meta name="url_data" content="{{ route('ajax.data.promo') }}">
     <!-- DataTables -->
     <link rel="stylesheet" href="{{asset('plugins/datatables-bs4/css/dataTables.bootstrap4.css')}}">
@@ -74,13 +75,16 @@
 <script>
     $(function () {
         let url = $('meta[name="url_data"]').attr('content');
+        let token = $('meta[name="token"]').attr('content');
       $("#example1").DataTable({
             processing: true,
             serverSide: true,
             ajax: {
                 url: url,
-                data: function (d) {
-                    d.keyword = $('input[name=keyword]').val();
+                dataType:"json",
+                type:"POST",
+                data: {
+                    _token: token
                 }
             },
             order:[[0,'asc']],
