@@ -32,7 +32,7 @@
                     <div class="product-info">
                       <a href="{{route('driver.agen.show',$delivery->driver->id)}}" class="product-title">{{$delivery->driver->name}}</a>
                       <span class="product-description">
-                        Driver Telah Menyelesaikan Pengantaran <a href="{{route('deliveryorder.agen.show',$delivery->id)}}">{{$delivery->delivery_order_number}}</a> kepada customer <a href="{{route('customer.agen.show',$delivery->customer->id)}}">{{$delivery->customer->name}}</a>
+                        Driver Telah Menyelesaikan Pengantaran <a href="{{route('deliveryorder.agen.show',$delivery->id)}}">{{$delivery->delivery_order_number}}</a> kepada customer <a href="{{route('customer.agen.show',$delivery->sales_order->customer->id)}}">{{$delivery->sales_order->customer->name}}</a>
                       </span>
                       <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i>{{$delivery->arrival_time->format('d F Y')}} {{$delivery->arrival_time->format('H:i:s')}}</p>
                     </div>

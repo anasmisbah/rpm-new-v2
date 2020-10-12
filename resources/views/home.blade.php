@@ -142,7 +142,7 @@
                             <tr>
                                 <td><a href="{{route('deliveryorder.agen.show',$delivery_order->id)}}">{{$delivery_order->delivery_order_number}}</a></td>
                                 <td>{{$delivery_order->product}}</td>
-                                <td><a href="{{route('customer.agen.show',$delivery_order->customer->id)}}">{{$delivery_order->customer->name}}</a></td>
+                                <td><a href="{{route('customer.agen.show',$delivery_order->sales_order->customer->id)}}">{{$delivery_order->sales_order->customer->name}}</a></td>
                                 <td>
                                     @if ($delivery_order->status == 0)
                                     <span class="badge badge-warning"></i> Belum Dikirim </span>
