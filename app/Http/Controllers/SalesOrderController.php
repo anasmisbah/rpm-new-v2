@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Agen;
 use App\SalesOrder;
+use App\Customer;
 use App\DeliveryOrder;
 use GuzzleHttp\Client;
 use DataTables;
@@ -88,6 +89,11 @@ class SalesOrderController extends Controller
             'customer_id'=>$request->customer_id
         ]);
 
+        $customer = $sales_order->customer;
+        $customer->update([
+            'coupon'=>($customer->coupon + 1)
+        ]);
+
         return redirect()->back()->with('status','successfully created Sales Order');
     }
 
@@ -132,6 +138,8 @@ class SalesOrderController extends Controller
     public function update(Request $request, $id)
     {
         $sales_order = SalesOrder::findOrFail($id);
+        $new_customer = Customer::findOrFail($request->customer_id);
+        $old_customer = Customer::findOrFail($sales_order->customer_id);
         $request->validate([
             'sales_order_number'=>'required',
             'customer_id'=>'required'
@@ -141,6 +149,15 @@ class SalesOrderController extends Controller
             'sales_order_number'=>$request->sales_order_number,
             'customer_id'=>$request->customer_id
         ]);
+
+        if ($new_customer->id != $old_customer->id) {
+            $old_customer->update([
+                'coupon'=>($old_customer->coupon - 1)
+            ]);
+            $new_customer->update([
+                'coupon'=>($new_customer->coupon + 1)
+            ]);
+        }
 
         return redirect()->back()->with('status','successfully Updated Sales Order');
     }
