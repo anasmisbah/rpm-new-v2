@@ -171,6 +171,10 @@ class SalesOrderController extends Controller
     public function destroy($id)
     {
         $sales_order = SalesOrder::findOrFail($id);
+        $customer = $sales_order->customer;
+        $customer->update([
+            'coupon'=>($customer->coupon - 1)
+        ]);
         $sales_order->delete();
 
         return redirect()->back()->with('status','successfully Deleted Sales Order');
