@@ -65,11 +65,11 @@
         <div class="col-sm-3 invoice-col">
             Pelaggan
             <address>
-                <strong>{{$delivery_order->customer->name}}</strong><br>
-                {{$delivery_order->customer->address}}
-                N.P.W.P: {{$delivery_order->customer->npwp}}<br>
-                Phone: {{$delivery_order->customer->phone}}<br>
-                website: {{$delivery_order->customer->website}}
+                <strong>{{$sales_order->customer->name}}</strong><br>
+                {{$sales_order->customer->address}}
+                N.P.W.P: {{$sales_order->customer->npwp}}<br>
+                Phone: {{$sales_order->customer->phone}}<br>
+                website: {{$sales_order->customer->website}}
             </address>
         </div>
     </div>

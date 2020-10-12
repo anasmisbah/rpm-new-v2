@@ -74,7 +74,7 @@
                 </tr>
                 <tr>
                     <td style="width:15%" class="text-bold">Customer</td>
-                    <td><a href="{{ route('customer.agen.show',$delivery_order->customer->id) }}">{{$delivery_order->customer->name}}</a></td>
+                    <td><a href="{{ route('customer.agen.show',$sales_order->customer->id) }}">{{$sales_order->customer->name}}</a></td>
                 </tr>
                 <tr>
                     <td style="width:15%" class="text-bold">Tanggal Berlaku</td>
@@ -226,6 +226,24 @@
 
 @push('script')
 <script src="{{asset('dist/js/jquery.magnific-popup.min.js')}}"></script>
+<script>
+    $(function() {
+        const status = '{{ Session("status") }}'
+
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+        });
+        if (status) {
+            Toast.fire({
+                type: 'success',
+                title: status
+            })
+        }
+    });
+</script>
 <script>
     $('.foto').magnificPopup({
         type:'image'

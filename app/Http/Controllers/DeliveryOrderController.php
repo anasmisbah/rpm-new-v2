@@ -98,7 +98,6 @@ class DeliveryOrderController extends Controller
             'top_seal'=>'required',
             'bottom_seal'=>'required',
             'temperature'=>'required',
-            'customer_id'=>'required',
             'jam'=>'required',
             'menit'=>'required'
         ]);
@@ -114,7 +113,6 @@ class DeliveryOrderController extends Controller
             'top_seal'=>$request->top_seal,
             'bottom_seal'=>$request->bottom_seal,
             'temperature'=>$request->temperature,
-            'customer_id'=>$request->customer_id,
             'km_start'=>$request->km_start,
             'km_end'=>$request->km_end,
             'sg_meter'=>$request->sg_meter,
@@ -146,7 +144,7 @@ class DeliveryOrderController extends Controller
 
         // SEND NOTIF TO CUSTOMER
         $fcm_token_customer = [
-            $delivery_order->customer->user->fcm_token
+            $sales_order->customer->user->fcm_token
         ];
         $title_customer = 'Delivery Order';
         $message_customer = 'SO No '. $delivery_order->sales_order->sales_order_number .' telah terbit';
@@ -212,7 +210,7 @@ class DeliveryOrderController extends Controller
         }
 
         $delivery_order->update($data);
-        return redirect()->route('deliveryorder.agen.show',$delivery_order->id);
+        return redirect()->route('deliveryorder.agen.show',$delivery_order->id)->with('status','successfully updated Sales Order');;
     }
 
     public function destroy($id)

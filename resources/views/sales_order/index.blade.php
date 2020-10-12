@@ -48,6 +48,7 @@
                 <tr>
                   <th>No</th>
                   <th>Nomor Sales Order</th>
+                  <th>Customer</th>
                   <th>Dibuat Pada</th>
                   <th>Aksi</th>
                 </tr>
@@ -92,12 +93,13 @@
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex',orderable: false,searchable: false},
                 {data: 'sales_order_number', name: 'sales_order_number'},
+                {data: 'name', name: 'name'},
                 {data: 'created_at', name: 'created_at'},
                 {data: 'aksi', name: 'aksi', searchable: false},
             ],
             columnDefs:[
                 {
-                    targets: 2,
+                    targets: 3,
 					title: 'Dibuat pada',
                     orderable: false,
 					render: function(data, type, full, meta) {
@@ -107,7 +109,7 @@
                     }
                 },
                 {
-                    targets: 3,
+                    targets: 4,
 					title: 'Aksi',
                     orderable: false,
 					render: function(data, type, full, meta) {

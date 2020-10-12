@@ -23,8 +23,9 @@ class SalesOrderController extends Controller
 
     public function  salesorder_data($id)
     {
-        $so = SalesOrder::select(['id','sales_order_number','created_at'])
-                    ->where('agen_id',$id);
+        $so = SalesOrder::select(['sales_orders.id','sales_orders.sales_order_number','sales_orders.created_at','customers.name'])
+                    ->join('customers','customers.id','=','sales_orders.customer_id')
+                    ->where('sales_orders.agen_id',$id);
 
         $dataTable = DataTables::of($so)
         ->addIndexColumn()
@@ -69,18 +70,14 @@ class SalesOrderController extends Controller
         $agen = Agen::findOrFail($id);
         $request->validate([
             'sales_order_number'=>'required',
+            'customer_id'=>'required'
         ]);
 
         $sales_order = SalesOrder::create([
             'sales_order_number'=>$request->sales_order_number,
-            'agen_id'=>$agen->id
+            'agen_id'=>$agen->id,
+            'customer_id'=>$request->customer_id
         ]);
-
-
-        $title = 'Sales Order';
-        $message = "Dari Patra Niaga - Agent. SO No $sales_order->sales_order_number telah terbit";
-        $fcm_token[] = $agen->user->fcm_token;
-        $this->sendNotif($message,$title,$fcm_token);
 
         return redirect()->back()->with('status','successfully created Sales Order');
     }
@@ -123,10 +120,12 @@ class SalesOrderController extends Controller
         $sales_order = SalesOrder::findOrFail($id);
         $request->validate([
             'sales_order_number'=>'required',
+            'customer_id'=>'required'
         ]);
 
         $sales_order->update([
             'sales_order_number'=>$request->sales_order_number,
+            'customer_id'=>$request->customer_id
         ]);
 
         return redirect()->back()->with('status','successfully Updated Sales Order');
@@ -168,5 +167,25 @@ class SalesOrderController extends Controller
 
       return response()->json($response->getBody()->getContents());
 
+    }
+
+    public function pushNotif($id)
+    {
+        $sales_order = SalesOrder::findOrFail($id);
+        $title = 'Sales Order';
+        $message = "Dari Patra Niaga - Agent. SO No $sales_order->sales_order_number telah terbit";
+        $fcm_token = [
+            $sales_order->agen->user->fcm_token,
+        ];
+        $this->sendNotif($message,$title,$fcm_token);
+
+
+        $message = "SO No $sales_order->sales_order_number telah terbit";
+        $fcm_token = [
+            $sales_order->customer->user->fcm_token,
+        ];
+        $this->sendNotif($message,$title,$fcm_token);
+
+        return redirect()->back()->with('status','Successfully send notif sales order');
     }
 }

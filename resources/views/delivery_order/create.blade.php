@@ -73,23 +73,6 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="customer_id" class="col-sm-2 col-form-label">Customer <span
-                                class="text-danger">*</span> </label>
-                        <div class="col-sm-6 col-lg-6 col-md-6">
-                            <select class="select2 @error('customer_id') is-invalid @enderror" id="select-customer"
-                                name="customer_id" data-placeholder="Select Customer" style="width: 100%;">
-                                @foreach ($agen->customers as $customers)
-                                <option value="{{$customers->id}}">{{$customers->name}}</option>
-                                @endforeach
-                            </select>
-                            @error('customer_id')
-                            <span class="text-sm text-danger" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="form-group row">
                         <label for="effective_date_start" class="col-sm-2 col-form-label">Tanggal Mulai Berlaku <span
                                 class="text-danger">*</span> </label>
                         <div class="col-sm-6 col-lg-6 col-md-6 ">
@@ -351,7 +334,7 @@
 </script>
 <script>
     $(function () {
-        $('#select-customer').select2()
+
         $('#effective_date_start').datetimepicker({
             format: 'L',
             format: 'YYYY-MM-D',

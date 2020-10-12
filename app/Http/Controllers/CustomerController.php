@@ -44,7 +44,7 @@ class CustomerController extends Controller
         ->addColumn('url_delete', function ($data) {
             return route('customer.agen.destroy',$data->id);
         });
-        
+
         return $dataTable->make(true);
     }
 
