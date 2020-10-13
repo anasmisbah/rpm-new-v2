@@ -103,6 +103,7 @@ Route::middleware(['auth','admin'])->group(function (){
         Route::delete('salesorder/agen/{id}','SalesOrderController@destroy')->name('salesorder.agen.destroy');
         Route::post('salesorder/agen/store/{id}','SalesOrderController@store')->name('salesorder.agen.store');
         Route::put('salesorder/agen/update/{id}','SalesOrderController@update')->name('salesorder.agen.update');
+        Route::get('salesorder/agen/notif/{id}','SalesOrderController@push_notif')->name('salesorder.agen.notif');
 
 
         Route::get('deliveryorder/agen/{id}','DeliveryOrderController@index')->name('deliveryorder.agen.index');
@@ -113,6 +114,7 @@ Route::middleware(['auth','admin'])->group(function (){
         Route::post('deliveryorder/agen/store/{id}','DeliveryOrderController@store')->name('deliveryorder.agen.store');
         Route::put('deliveryorder/agen/update/{id}','DeliveryOrderController@update')->name('deliveryorder.agen.update');
         Route::get('deliveryorder/agen/print/{id}','DeliveryOrderController@print')->name('deliveryorder.agen.print');
+        Route::get('deliveryorder/agen/notif/{id}','DeliveryOrderController@push_notif')->name('deliveryorder.agen.notif');
 
 
         Route::get('/user','UserController@index')->name('user.index');

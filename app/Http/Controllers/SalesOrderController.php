@@ -34,6 +34,9 @@ class SalesOrderController extends Controller
         ->editColumn('created_at', function ($data) {
             return $data->created_at->dayName.", ".$data->created_at->day." ".$data->created_at->monthName." ".$data->created_at->year.' | '.$data->created_at->format('H:i').' WITA';
         })
+        ->addColumn('url_notif', function ($data) {
+            return route('salesorder.agen.notif',$data->id);
+        })
         ->addColumn('url_detail', function ($data) {
             return route('salesorder.agen.show',$data->id);
         })
@@ -204,7 +207,7 @@ class SalesOrderController extends Controller
 
     }
 
-    public function pushNotif($id)
+    public function push_notif($id)
     {
         $sales_order = SalesOrder::findOrFail($id);
         $title = 'Sales Order';
@@ -214,13 +217,12 @@ class SalesOrderController extends Controller
         ];
         $this->sendNotif($message,$title,$fcm_token);
 
-
         $message = "SO No $sales_order->sales_order_number telah terbit";
         $fcm_token = [
             $sales_order->customer->user->fcm_token,
         ];
         $this->sendNotif($message,$title,$fcm_token);
 
-        return redirect()->back()->with('status','Successfully send notif sales order');
+        return redirect()->back()->with('status','Successfully send notif sales order '.$sales_order->sales_order_number);
     }
 }

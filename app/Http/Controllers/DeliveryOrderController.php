@@ -38,6 +38,9 @@ class DeliveryOrderController extends Controller
         })
         ->removeColumn('effective_date_start')
         ->removeColumn('effective_date_end')
+        ->addColumn('url_notif', function ($data) {
+            return route('deliveryorder.agen.notif',$data->id);
+        })
         ->addColumn('url_detail', function ($data) {
             return route('deliveryorder.agen.show',$data->id);
         })
@@ -85,7 +88,7 @@ class DeliveryOrderController extends Controller
 
         $sales_order = SalesOrder::findOrFail($id);
         $agen = $sales_order->agen;
-        $date = Carbon::now();
+
         $request->validate([
             'delivery_order_number'=>'required',
             'effective_date_start'=>'required',
@@ -128,35 +131,7 @@ class DeliveryOrderController extends Controller
 
         $delivery_order = $sales_order->delivery_orders()->create($data);
 
-        $fcm_token = [];
-        $title = 'Delivery Order';
-        $message = "Dari Patra Niaga - Agent. DO No $delivery_order->delivery_order_number telah terbit. $delivery_order->shipped_with $delivery_order->no_vehicles sudah dapat melakukan Proses Pengisian BBM ";
-
-        // SEND NOTIF TO AGEN TO GET ACCEPTED
-        $fcm_token[] = $agen->user->fcm_token;
-        $this->sendNotif($message,$title,$fcm_token);
-
-        Notifdo::create([
-            'date'=>$date,
-            'description'=>$message,
-            'delivery_order_id'=>$delivery_order->id
-        ]);
-
-        // SEND NOTIF TO CUSTOMER
-        $fcm_token_customer = [
-            $sales_order->customer->user->fcm_token
-        ];
-        $title_customer = 'Delivery Order';
-        $message_customer = 'SO No '. $delivery_order->sales_order->sales_order_number .' telah terbit';
-        $this->sendNotif($message_customer,$title_customer,$fcm_token_customer);
-
-        Notifdo::create([
-            'date'=>$delivery_order->sales_order->created_at,
-            'description'=>$message_customer,
-            'delivery_order_id'=>$delivery_order->id
-        ]);
-
-        return redirect()->back()->with('status','successfully created Sales Order');
+        return redirect()->back()->with('status','successfully created Delivery Order');
     }
 
     public function edit($id)
@@ -210,12 +185,14 @@ class DeliveryOrderController extends Controller
         }
 
         $delivery_order->update($data);
-        return redirect()->route('deliveryorder.agen.show',$delivery_order->id)->with('status','successfully updated Sales Order');;
+        return redirect()->route('deliveryorder.agen.show',$delivery_order->id)->with('status','successfully updated Delivery Order');;
     }
 
     public function destroy($id)
     {
-
+        $delivery_order = DeliveryOrder::findOrFail($id);
+        $delivery_order->delete();
+        return redirect()->back()->with('status','successfully deleted Delivery Order');
     }
 
     private function sendNotif($message, $title, $fcm_token)
@@ -250,6 +227,44 @@ class DeliveryOrderController extends Controller
         $company = Company::first();
         $date = Carbon::now();
         return view('delivery_order.print',compact('sales_order','agen','delivery_order','company','date'));
+    }
+
+    public function push_notif($id)
+    {
+        $delivery_order = DeliveryOrder::findOrFail($id);
+        $sales_order = $delivery_order->sales_order;
+        $date = Carbon::now();
+        $fcm_token = [];
+        $title = 'Delivery Order';
+        $message = "Dari Patra Niaga - Agent. DO No $delivery_order->delivery_order_number telah terbit. $delivery_order->shipped_with $delivery_order->no_vehicles sudah dapat melakukan Proses Pengisian BBM ";
+
+        // SEND NOTIF TO AGEN TO GET ACCEPTED
+        $fcm_token[] = $sales_order->agen->user->fcm_token;
+        $this->sendNotif($message,$title,$fcm_token);
+
+        Notifdo::updateOrCreate([
+            'description'=>$message,
+        ],[
+            'date'=>$date,
+            'delivery_order_id'=>$delivery_order->id
+        ]);
+
+        // SEND NOTIF TO CUSTOMER
+        $fcm_token_customer = [
+            $sales_order->customer->user->fcm_token
+        ];
+        $title_customer = 'Delivery Order';
+        $message_customer = 'SO No '. $delivery_order->sales_order->sales_order_number .' telah terbit';
+
+        Notifdo::updateOrCreate([
+            'description'=>$message_customer,
+        ],
+        [
+            'date'=>$delivery_order->sales_order->created_at,
+            'delivery_order_id'=>$delivery_order->id,
+        ]);
+
+        return redirect()->back()->with('status','Successfully send notif delivery order '.$delivery_order->delivery_order_number);
     }
 
 

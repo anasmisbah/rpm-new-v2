@@ -165,8 +165,15 @@
                         var output ={
 
                             0: {
-                                'html': `<a href="${full.url_edit}" title="Edit" class="btn btn-warning btn-sm">
+                                'html': `
+                                        <a href="${full.url_notif}" title="Kirim Notifikasi" class="btn btn-secondary btn-sm">
+                                        <i class="fas fa-bell"></i>
+                                        </a>
+                                        <a href="${full.url_edit}" title="Edit" class="btn btn-warning btn-sm">
                                         <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="javascript:;" title="Delete" data-action="${full.url_delete}" class="btn btn-sm btn-danger btn-delete">
+                                            <i class="fas fa-trash"></i>
                                         </a>
                                         <a href="${full.url_detail}" title="Detail" class="btn btn-info btn-sm">
                                             <i class="fas fa-eye"></i>

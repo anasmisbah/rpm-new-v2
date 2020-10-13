@@ -116,6 +116,9 @@
                         var output;
                         if (full.status) {
                             return`
+                                        <a href="${full.url_notif}" title="kirim notifikasi" class="btn btn-secondary btn-sm">
+                                            <i class="fas fa-bell"></i>
+                                        </a>
                                         <a href="${full.url_edit}" title="Edit" class="btn btn-warning btn-sm">
                                             <i class="fas fa-edit"></i>
                                         </a>
@@ -128,8 +131,10 @@
                                         `;
 
                         } else {
-
                             return`
+                                        <a href="${full.url_notif}" title="kirim notifikasi" class="btn btn-secondary btn-sm">
+                                            <i class="fas fa-bell"></i>
+                                        </a>
                                         <a href="${full.url_edit}" title="Edit" class="btn btn-warning btn-sm">
                                             <i class="fas fa-edit"></i>
                                         </a>
