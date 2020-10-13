@@ -37,6 +37,10 @@
                     <td style="width:15%">Logo</td>
                     <td><img class="img-thumbnail" width="150px" src="{{asset("/uploads/".$agen->logo)}}" alt=""></td>
                 </tr>
+                <tr>
+                    <td style="width:15%">No Agen</td>
+                    <td>{{$agen->no_agen}}</td>
+                  </tr>
               <tr>
                 <td style="width:15%">Nama</td>
                 <td>{{$agen->name}}</td>

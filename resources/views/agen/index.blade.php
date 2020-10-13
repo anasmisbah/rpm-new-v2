@@ -42,9 +42,9 @@
                 <thead>
                 <tr>
                   <th>No</th>
+                  <th>No Agen</th>
                   <th>Nama</th>
                   <th>NPWP</th>
-                  <th>Alamat</th>
                   <th>Logo</th>
                   <th class="text-center">Aksi</th>
                 </tr>
@@ -53,9 +53,9 @@
                   @foreach ($agens as $agen)
                   <tr>
                     <td>{{$loop->iteration}}</td>
+                    <td>{{$agen->no_agen}}</td>
                     <td>{{$agen->name}}</td>
                     <td>{{$agen->npwp}}</td>
-                    <td>{{$agen->address}}</td>
                     <td><img class="img-thumbnail" width="50px" src="{{asset("/uploads/".$agen->logo)}}" alt=""></td>
                     <td class="text-center">
                         <a data-toggle="tooltip" data-placement="top" title="Customer" href="{{route('customer.agen.index',$agen->id)}}" class="btn btn-primary btn-sm">
