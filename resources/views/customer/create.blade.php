@@ -42,6 +42,17 @@
                                 <label class="form-check-label text-bold" for="exampleCheck2">Detail Customer</label>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="no_customer" class="col-sm-2 col-form-label">No Customer <span class="text-danger">*</span></label>
+                            <div class="col-sm-6 col-lg-6 col-md-6">
+                                <input value="{{old('no_customer')}}" type="text" class="form-control @error('no_customer') is-invalid @enderror" id="no_customer" name="no_customer" placeholder="No Customer">
+                                @error('no_customer')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
                     <div class="form-group row">
                         <label for="name" class="col-sm-2 col-form-label">Nama <span class="text-danger">*</span> </label>
                         <div class="col-sm-6 col-lg-6 col-md-6">

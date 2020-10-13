@@ -47,6 +47,7 @@
                 <thead>
                 <tr>
                   <th>No</th>
+                  <th>No Customer</th>
                   <th>Nama</th>
                   <th>Tipe Member</th>
                   <th>Reward</th>
@@ -95,6 +96,7 @@
             order:[[0,'asc']],
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex',orderable: false,searchable: false},
+                {data: 'no_customer', name: 'no_customer'},
                 {data: 'name', name: 'name'},
                 {data: 'member', name: 'member'},
                 {data: 'reward', name: 'reward'},
@@ -104,7 +106,7 @@
             ],
             columnDefs:[
                 {
-                    targets: 2,
+                    targets: 3,
 					title: 'Tipe Member',
 					render: function(data, type, full, meta) {
                         var member = {
@@ -125,7 +127,7 @@
                     }
                 },
                 {
-                    targets: 5,
+                    targets: 6,
 					title: 'Logo',
 					render: function(data, type, full, meta) {
                         console.log(meta);
@@ -134,7 +136,7 @@
                     }
                 },
                 {
-                    targets: 6,
+                    targets: 7,
 					title: 'Aksi',
                     orderable: false,
 					render: function(data, type, full, meta) {

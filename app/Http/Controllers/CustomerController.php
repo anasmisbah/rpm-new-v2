@@ -26,7 +26,7 @@ class CustomerController extends Controller
 
     public function customer_data($id)
     {
-        $promos = Customer::select(['id','name','coupon','member','reward','logo'])
+        $promos = Customer::select(['id','name','coupon','member','reward','logo','no_customer'])
                     ->where('agen_id',$id);
 
         $dataTable = DataTables::of($promos)
@@ -75,6 +75,7 @@ class CustomerController extends Controller
             'phone'=>'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
             'email_user'=>'required|email|unique:users,email',
             'password_user'=>'required',
+            'no_customer'=>'required|unique:customers,no_customer',
         ]);
         $logo='logos/default.jpg';
         if ($request->file('logo')) {
@@ -92,6 +93,7 @@ class CustomerController extends Controller
         ]);
 
         Customer::create([
+            'no_customer'=>$request->no_customer,
             'name'=>$request->name,
             'address'=>$request->address,
             'member'=>$request->member,
@@ -148,6 +150,7 @@ class CustomerController extends Controller
             'member'=>'required',
             'phone'=>'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
             'email_user'=>'required|email|unique:users,email,'.$customer->user->id,
+            'no_customer'=>'required|unique:customers,no_customer,'.$customer->id,
         ]);
 
         if ($request->file('logo')) {
@@ -177,6 +180,7 @@ class CustomerController extends Controller
         ]);
 
         $customer->update([
+            'no_customer'=>$request->no_customer,
             'name'=>$request->name,
             'address'=>$request->address,
             'member'=>$request->member,
