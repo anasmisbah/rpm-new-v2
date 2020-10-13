@@ -21,7 +21,7 @@ class UserController extends Controller
     }
     public function user_data()
     {
-        $users = User::select(['id','email','role_id']);
+        $users = User::select(['id','email','role_id'])->orderBy('id','desc');
 
         $dataTable = DataTables::of($users)
             ->addIndexColumn()

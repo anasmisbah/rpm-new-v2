@@ -26,7 +26,7 @@ class CustomerController extends Controller
 
     public function customer_data($id)
     {
-        $promos = Customer::select(['id','name','coupon','member','reward','logo','no_customer'])
+        $promos = Customer::select(['id','name','coupon','member','reward','logo','no_customer'])->orderBy('id','desc')
                     ->where('agen_id',$id);
 
         $dataTable = DataTables::of($promos)

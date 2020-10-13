@@ -27,7 +27,7 @@ class SalesOrderController extends Controller
     {
         $so = SalesOrder::select(['sales_orders.id','sales_orders.sales_order_number','sales_orders.created_at','customers.name'])
                     ->join('customers','customers.id','=','sales_orders.customer_id')
-                    ->where('sales_orders.agen_id',$id);
+                    ->where('sales_orders.agen_id',$id)->orderBy('id','desc');
 
         $dataTable = DataTables::of($so)
         ->addIndexColumn()

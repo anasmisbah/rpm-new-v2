@@ -27,7 +27,7 @@ class NewsController extends Controller
 
     public function news_data()
     {
-        $news = News::select(['id','title','image']);
+        $news = News::select(['id','title','image'])->orderBy('id','desc');
 
         $dataTable = DataTables::of($news)
         ->addIndexColumn()

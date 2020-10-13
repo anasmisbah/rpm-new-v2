@@ -18,7 +18,7 @@ class AgenController extends Controller
      */
     public function index()
     {
-        $agens = Agen::all();
+        $agens = Agen::orderBy('id','desc')->get();
 
         return view('agen.index',compact('agens'));
     }

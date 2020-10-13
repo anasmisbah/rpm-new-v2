@@ -21,7 +21,7 @@ class VideoController extends Controller
 
     public function video_data()
     {
-        $videos = Video::select(['id','title','image']);
+        $videos = Video::select(['id','title','image'])->orderBy('id','desc');
 
         $dataTable = DataTables::of($videos)
             ->addIndexColumn()

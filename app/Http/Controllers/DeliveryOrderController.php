@@ -27,7 +27,7 @@ class DeliveryOrderController extends Controller
 
     public function deliveryorder_data($id)
     {
-        $do = DeliveryOrder::select(['id','delivery_order_number','effective_date_start','effective_date_end','shipped_via','status'])
+        $do = DeliveryOrder::select(['id','delivery_order_number','effective_date_start','effective_date_end','shipped_via','status'])->orderBy('id','desc')
                     ->where('sales_order_id',$id);
 
         $dataTable = DataTables::of($do)

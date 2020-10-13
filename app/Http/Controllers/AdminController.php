@@ -18,7 +18,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $admins = Admin::all();
+        $admins = Admin::orderBy('id','desc')->get();
 
         return view('admin.index',compact('admins'));
     }

@@ -27,7 +27,7 @@ class EventController extends Controller
 
     public function event_data()
     {
-        $event = Event::select(['id','title','image']);
+        $event = Event::select(['id','title','image'])->orderBy('id','desc');
 
         $dataTable = DataTables::of($event)
         ->addIndexColumn()
