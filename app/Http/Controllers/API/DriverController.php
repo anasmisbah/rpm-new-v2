@@ -51,7 +51,7 @@ class DriverController extends Controller
         ]);
 
         // Send notification to customer
-        $customer = $delivery_order->customer;
+        $customer = $delivery_order->sales_order->customer;
         $fcm_token[] = $customer->user->fcm_token;
 
         $title = 'Delivery Order';
@@ -129,13 +129,12 @@ class DriverController extends Controller
         // UPDATE POINT REWARD CUSTOMER
 
         $point = round(($delivery_order->quantity)/1000);
-        $customer = $delivery_order->customer;
+        $customer = $delivery_order->sales_order->customer;
         $customer->update([
             'reward'=>($customer->reward + $point)
         ]);
 
         // TODO notif to customer
-        $customer = $delivery_order->customer;
         $fcm_token[] = $customer->user->fcm_token;
 
         $title = 'Delivery Order';
