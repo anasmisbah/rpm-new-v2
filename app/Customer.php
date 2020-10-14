@@ -34,4 +34,8 @@ class Customer extends Model
     {
         return $this->belongsTo('App\Agen');
     }
+    public function sales_orders()
+    {
+        return $this->hasMany('App\SalesOrder');
+    }
 }

@@ -89,9 +89,11 @@ class HomeController extends Controller
             $tempTotalPerMonth[$key] = 0;
         }
         $totalMonth = 0;
-        foreach ($months as $key => $month) {
-            $totalMonth = $customer->delivery_order()->where('status', 2)->whereMonth('created_at', $key+1)->whereYear('created_at', $date->year)->sum('quantity');
-            $tempTotalPerMonth[$key] += $totalMonth;
+        foreach ($customer->sales_orders as $sales_order) {
+            foreach ($months as $key => $month) {
+                $totalMonth = $sales_order->delivery_orders()->where('status', 2)->whereMonth('created_at', $key+1)->whereYear('created_at', $date->year)->sum('quantity');
+                $tempTotalPerMonth[$key] += $totalMonth;
+            }
         }
 
         foreach ($months as $key => $month) {

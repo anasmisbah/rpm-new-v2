@@ -12,18 +12,20 @@ class SalesOrderController extends Controller
     public function index()
     {
         $agen = Auth::user()->agen;
-        $sales_orders = $agen->sales_orders;
+        $sales_orders = $agen->sales_orders->sortByDesc('id');
         $data = [];
         foreach ($sales_orders as $sales_order) {
             $data[] = [
                 "id"=>$sales_order->id,
                 "sales_order_number"=>$sales_order->sales_order_number,
+                "customer_id"=>$sales_order->customer->name,
+                "customer_id"=>$sales_order->customer_id,
                 "agen_id"=>$sales_order->agen_id,
                 "created_at"=>$sales_order->created_at->format('d F Y') ,
                 "updated_at"=>$sales_order->updated_at->format('d F Y'),
             ];
         }
-        return response()->json($sales_orders, 200);
+        return response()->json($data, 200);
     }
 
     public function detail($id)
@@ -33,6 +35,8 @@ class SalesOrderController extends Controller
         $data= [
             "id"=>$sales_order->id,
             "sales_order_number"=>$sales_order->sales_order_number,
+            "customer_id"=>$sales_order->customer_id,
+            "agen_id"=>$sales_order->agen_id,
             "agen_id"=>$sales_order->agen_id,
             "created_at"=>$sales_order->created_at->format('d F Y') ,
             "updated_at"=>$sales_order->updated_at->format('d F Y'),

@@ -66,7 +66,7 @@ class HomeController extends Controller
             $sales_orders = [];
 
             $total_notif_do = 0;
-            foreach ($user->agen->sales_orders as $key => $sales_order) {
+            foreach ($user->agen->sales_orders->sortByDesc('id') as $key => $sales_order) {
                 $delivery_orders = [];
                 $item = [
                     "id"=>$sales_order->id,
@@ -74,8 +74,9 @@ class HomeController extends Controller
                     "agen_id"=>$sales_order->agen_id,
                     "created_at"=>$sales_order->created_at->format('d F Y') ,
                     "updated_at"=>$sales_order->updated_at->format('d F Y'),
+                    "delivery_orders"=>[]
                 ];
-                foreach ($sales_order->delivery_orders as $delivery_order) {
+                foreach ($sales_order->delivery_orders->sortByDesc('id') as $delivery_order) {
                     $item['delivery_orders'][] = new DeliveryOrderResource($delivery_order);
                     if ($delivery_order->status == 0) {
                         $total_notif_do++;
@@ -243,7 +244,7 @@ class HomeController extends Controller
                 $delivery_orders[] = new DeliveryOrderResource($delivery_order);
             }
             $delivery_orders_ready = [];
-            foreach ($sales_orders as $sales_order) {
+            foreach ($sales_orders->sortByDesc('id') as $sales_order) {
                 foreach ($sales_order->delivery_orders()->orderBy('created_at','desc')->get() as $delivery_order) {
                     if (($route == $delivery_order->shipped_via || $delivery_order->shipped_via == 2) && $delivery_order->status == 0) {
                         $delivery_orders_ready[] = new DeliveryOrderResource($delivery_order);

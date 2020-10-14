@@ -64,8 +64,7 @@ class DeliveryOrder extends JsonResource
             'unloading_end_time'=>$this->unloading_end_time,
             'departure_time_depot'=>$this->departure_time_depot,
             'status'=>$status,
-            'sales_order'=>$this->sales_order,
-            'customer'=>$this->customer,
+            'sales_order_id'=>$this->sales_order->id,
             'driver'=>new DriverResource($this->driver),
             'bast'=>url('/uploads/' . $this->bast)
         ];

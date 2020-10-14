@@ -51,11 +51,11 @@ class DeliveryOrderController extends Controller
         $driver = Auth::user()->driver;
         $agen = $driver->agen;
         $route = $driver->route;
-        $sales_orders = $agen->sales_orders;
+        $sales_orders = $agen->sales_orders->sortByDesc('id');
 
         $delivery_orders = [];
         foreach ($sales_orders as $sales_order) {
-            foreach ($sales_order->delivery_orders as $delivery_order) {
+            foreach ($sales_order->delivery_orders->sortByDesc('id') as $delivery_order) {
                 if (($route == $delivery_order->shipped_via || $delivery_order->shipped_via == 2) && $delivery_order->status == 1) {
                     $delivery_orders[] = new DeliveryOrderResource($delivery_order);
                 }
@@ -87,7 +87,7 @@ class DeliveryOrderController extends Controller
     public function deliveryforagen()
     {
         $agen = Auth::user()->agen;
-        $sales_orders = $agen->sales_orders;
+        $sales_orders = $agen->sales_orders->sortByDesc('id');
 
         $delivery_orders = [];
         foreach ($sales_orders as $sales_order) {
@@ -145,7 +145,7 @@ class DeliveryOrderController extends Controller
 
         // SEND NOTIFICATION TO CUSTOMER
         $fcm_token_customer = [
-            $delivery_order->customer->user->fcm_token
+            $delivery_order->sales_order->customer->user->fcm_token
         ];
         $title_customer = 'Delivery Order';
         $message_customer = "DO No $delivery_order->delivery_order_number telah terbit. $delivery_order->shipped_with $delivery_order->no_vehicles sedang melakukan Proses Pengisian BBM ";
