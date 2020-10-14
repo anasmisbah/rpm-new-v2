@@ -56,7 +56,7 @@ class HomeController extends Controller
 
         foreach ($agen->sales_orders as $sales_order ) {
             foreach ($months as $key => $month) {
-                $totalMonth = $sales_order->delivery_orders()->where('status', 2)->whereMonth('created_at', $key+1)->whereYear('created_at', $date->year)->sum('quantity');
+                $totalMonth = $sales_order->delivery_orders()->where('status', 3)->whereMonth('created_at', $key+1)->whereYear('created_at', $date->year)->sum('quantity');
                 $tempTotalPerMonth[$key] += $totalMonth;
             }
         }
@@ -91,7 +91,7 @@ class HomeController extends Controller
         $totalMonth = 0;
         foreach ($customer->sales_orders as $sales_order) {
             foreach ($months as $key => $month) {
-                $totalMonth = $sales_order->delivery_orders()->where('status', 2)->whereMonth('created_at', $key+1)->whereYear('created_at', $date->year)->sum('quantity');
+                $totalMonth = $sales_order->delivery_orders()->where('status', 3)->whereMonth('created_at', $key+1)->whereYear('created_at', $date->year)->sum('quantity');
                 $tempTotalPerMonth[$key] += $totalMonth;
             }
         }
@@ -117,7 +117,7 @@ class HomeController extends Controller
         foreach ($agens as  $agen) {
             $data['label'][] = $agen->name;
             foreach ($agen->sales_orders as $sales_order ) {
-                $data['transaction'][] = $sales_order->delivery_orders()->where('status',2)->sum('quantity');
+                $data['transaction'][] = $sales_order->delivery_orders()->where('status',3)->sum('quantity');
             }
 
         }
