@@ -71,7 +71,10 @@ class HomeController extends Controller
                 $item = [
                     "id"=>$sales_order->id,
                     "sales_order_number"=>$sales_order->sales_order_number,
+                    "customer"=>$sales_order->customer->name,
+                    "customer_id"=>$sales_order->customer_id,
                     "agen_id"=>$sales_order->agen_id,
+                    "agen"=>$sales_order->agen->name,
                     "created_at"=>$sales_order->created_at->format('d F Y') ,
                     "updated_at"=>$sales_order->updated_at->format('d F Y'),
                     "delivery_orders"=>[]
@@ -143,24 +146,40 @@ class HomeController extends Controller
         } elseif ($user->role_id ==4) {
             $customer = $user->customer;
             $user->role;
-            $coupon_count = $user->customer->coupons()->count();
+            $sum_delivery_order= 0;
+            // $coupons = $user->customer->coupons()->orderBy('created_at','desc')->get();
+            // $data_coupons = [];
+            // foreach ($coupons as $key => $coupon) {
+            //     $data_coupons[] = [
+            //         "id"=> $coupon->id,
+            //         "code_coupon"=> $coupon->code_coupon,
+            //         "customer_id"=> $coupon->customer_id,
+            //         'created_at'=>$coupon->created_at->format('d F Y'),
+            //         "updated_at"=> $coupon->updated_at->format('d F Y'),
+            //     ];
+            // }
 
-            $sum_delivery_order= $user->customer->delivery_order()->sum('quantity');
-
-            $delivery_orders = [];
-            foreach ($user->customer->delivery_order as $key => $delivery_order) {
-                $delivery_orders[] = new DeliveryOrderResource($delivery_order);
-            }
-            $coupons = $user->customer->coupons()->orderBy('created_at','desc')->get();
-            $data_coupons = [];
-            foreach ($coupons as $key => $coupon) {
-                $data_coupons[] = [
-                    "id"=> $coupon->id,
-                    "code_coupon"=> $coupon->code_coupon,
-                    "customer_id"=> $coupon->customer_id,
-                    'created_at'=>$coupon->created_at->format('d F Y'),
-                    "updated_at"=> $coupon->updated_at->format('d F Y'),
+            $sales_orders = [];
+            foreach ($user->customer->sales_orders->sortByDesc('id') as $key => $sales_order) {
+                $delivery_orders = [];
+                $item = [
+                    "id"=>$sales_order->id,
+                    "sales_order_number"=>$sales_order->sales_order_number,
+                    "customer"=>$sales_order->customer->name,
+                    "customer_id"=>$sales_order->customer_id,
+                    "agen_id"=>$sales_order->agen_id,
+                    "agen"=>$sales_order->agen->name,
+                    "created_at"=>$sales_order->created_at->format('d F Y') ,
+                    "updated_at"=>$sales_order->updated_at->format('d F Y'),
+                    "delivery_orders"=>[]
                 ];
+                foreach ($sales_order->delivery_orders->sortByDesc('id') as $delivery_order) {
+                    $item['delivery_orders'][] = new DeliveryOrderResource($delivery_order);
+                    if ($delivery_order->status == 3) {
+                        $sum_delivery_order+=$delivery_order->quantity;
+                    }
+                }
+                $sales_orders[] = $item;
             }
 
             $vouchers =$user->customer->vouchers()->orderBy('created_at','desc')->get();
@@ -193,10 +212,9 @@ class HomeController extends Controller
                     "user_id"=> $customer->user_id ,
                     "created_at"=> $customer->created_at->format('d F Y') ,
                     "updated_at"=> $customer->updated_at->format('d F Y') ,
-                    "coupon"=>$coupon_count,
+                    "coupon"=>$customer->coupon,
                     "sum_delivery_order"=>$sum_delivery_order,
-                    "delivery_orders"=>$delivery_orders,
-                    'coupons'=>$data_coupons,
+                    "sales_orders"=>$sales_orders,
                     'vouchers'=>$data_vouchers
                 ]
             ];

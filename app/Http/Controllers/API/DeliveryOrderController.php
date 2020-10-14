@@ -14,15 +14,35 @@ class DeliveryOrderController extends Controller
 {
     public function index()
     {
-        $customer = Auth::user()->customer;
-        $delivery_orders = DeliveryOrderResource::collection($customer->delivery_order);
-        return response()->json($delivery_orders, 200);
+        $user = Auth::user();
+        if ($user->role_id == 3) {
+            $delivery_orders = [];
+            foreach ($user->agen->sales_orders->sortByDesc('id') as $key => $sales_order) {
+                foreach ($sales_order->delivery_orders->sortByDesc('id') as $delivery_order) {
+                    if ($delivery_order->status != 3) {
+                        $delivery_orders[] = new DeliveryOrderResource($delivery_order);
+                    }
+                }
+            }
+            return response()->json($delivery_orders, 200);
+        } else if($user->role_id == 4) {
+            $delivery_orders = [];
+            foreach ($user->customer->sales_orders->sortByDesc('id') as $key => $sales_order) {
+                foreach ($sales_order->delivery_orders->sortByDesc('id') as $delivery_order) {
+                    if ($delivery_order->status != 3) {
+                        $delivery_orders[] = new DeliveryOrderResource($delivery_order);
+                    }
+                }
+            }
+            return response()->json($delivery_orders, 200);
+        }
+
+
     }
 
     public function detail($id)
     {
-        $customer = Auth::user()->customer;
-        $result = $customer->delivery_order()->where('id',$id)->first();
+        $result = DeliveryOrder::where('id',$id)->first();
         if (!$result) {
             return response()->json([
                 'status'=>false,

@@ -46,10 +46,6 @@ Route::group(['middleware' => ['auth:api']], function () {
     // Route::get('/deliveryorder','API\DistributorController@history');
 
     // ******LIST API AGEN*********
-    // SEE SALES ORDER ALL
-    Route::get('agen/salesorder','API\SalesOrderController@index');
-    Route::get('agen/salesorder/{id}','API\SalesOrderController@detail');
-
     // SEE CUSTOMER ALL
     Route::get('agen/customer','API\CustomerController@index');
     Route::get('agen/customer/{id}','API\CustomerController@detail');
@@ -65,7 +61,9 @@ Route::group(['middleware' => ['auth:api']], function () {
     // AGEN SEE DO DETAIL
     Route::get('agen/detail/deliveryorder/{id}','API\DeliveryOrderController@detailForAgen');
 
-
+    // SEE SALES ORDER ALL FOR AGEN & CUSTOMER
+    Route::get('salesorder','API\SalesOrderController@index');
+    Route::get('salesorder/{id}','API\SalesOrderController@detail');
 
     // *****LIST API CUSTOMER*********
     Route::get('/coupon','API\CouponController@index');
