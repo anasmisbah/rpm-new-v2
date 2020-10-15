@@ -131,7 +131,13 @@ class DriverController extends Controller
         $point = round(($delivery_order->quantity)/1000);
         $customer = $delivery_order->sales_order->customer;
         $customer->update([
-            'reward'=>($customer->reward + $point)
+            'reward'=>($customer->reward + $point),
+            'transaction'=>($customer->transaction + $delivery_order->quantity )
+        ]);
+
+        $agen = $delivery_order->sales_order->agen;
+        $agen->update([
+            'transaction'=>($agen->transaction + $delivery_order->quantity )
         ]);
 
         // TODO notif to customer

@@ -46,9 +46,14 @@ class UploadController extends Controller
                             'agen_id'=>$resultCheckAgen->id
                         ]);
                     }
-
+                    $transaction = $point*1000;
                     $resultCustomer->update([
-                        'reward'=>($resultCustomer->reward + $point)
+                        'reward'=>($resultCustomer->reward + $point),
+                        'transaction'=>($resultCustomer->transaction + $transaction),
+                        'coupon'=>($resultCustomer->coupon + 1),
+                    ]);
+                    $resultCheckAgen->update([
+                        'transaction'=>($resultCheckAgen->transaction + $transaction),
                     ]);
                 } else {
                     $customer_name = $row->name_customer;
@@ -66,7 +71,8 @@ class UploadController extends Controller
                         'user_id'=>$user_customer->id,
                         'name'=>$customer_name,
                         'no_customer'=>$no_customer,
-                        'agen_id'=>$resultCheckAgen->id
+                        'agen_id'=>$resultCheckAgen->id,
+                        'member'=>'silver'
                     ]);
 
                     $no_so = $row->no_so;
@@ -77,10 +83,15 @@ class UploadController extends Controller
                         'agen_id'=>$resultCheckAgen->id
                     ]);
 
+                    $transaction = $point*1000;
                     $customer->update([
-                        'reward'=>($customer->reward + $point)
+                        'reward'=>($customer->reward + $point),
+                        'transaction'=>($customer->transaction + $transaction),
+                        'coupon'=>($customer->coupon + 1),
                     ]);
-
+                    $resultCheckAgen->update([
+                        'transaction'=>($resultCheckAgen->transaction + $transaction),
+                    ]);
                 }
             }else{
                 $agen_name = $row->name_agen;
@@ -114,8 +125,14 @@ class UploadController extends Controller
                         ]);
                     }
 
+                    $transaction = $point*1000;
                     $resultCustomer->update([
-                        'reward'=>($resultCustomer->reward + $point)
+                        'reward'=>($resultCustomer->reward + $point),
+                        'transaction'=>($resultCustomer->transaction + $transaction),
+                        'coupon'=>($resultCustomer->coupon + 1),
+                    ]);
+                    $agen->update([
+                        'transaction'=>($agen->transaction + $transaction),
                     ]);
                 } else {
                     $customer_name = $row->name_customer;
@@ -133,7 +150,8 @@ class UploadController extends Controller
                         'user_id'=>$user_customer->id,
                         'name'=>$customer_name,
                         'no_customer'=>$no_customer,
-                        'agen_id'=>$agen->id
+                        'agen_id'=>$agen->id,
+                        'member'=>'silver'
                     ]);
 
                     $no_so = $row->no_so;
@@ -144,8 +162,14 @@ class UploadController extends Controller
                         'agen_id'=>$agen->id
                     ]);
 
+                    $transaction = $point*1000;
                     $customer->update([
-                        'reward'=>($customer->reward + $point)
+                        'reward'=>($customer->reward + $point),
+                        'transaction'=>($customer->transaction + $transaction),
+                        'coupon'=>($customer->coupon + 1),
+                    ]);
+                    $agen->update([
+                        'transaction'=>($agen->transaction + $transaction),
                     ]);
                 }
             }

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Agen extends Model
 {
     protected $fillable = [
-        'name','address','phone','website','logo','npwp','user_id','no_agen'
+        'name','address','phone','website','logo','npwp','user_id','no_agen','transaction'
     ];
 
     public function customers()

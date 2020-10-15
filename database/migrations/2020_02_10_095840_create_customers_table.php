@@ -22,6 +22,7 @@ class CreateCustomersTable extends Migration
             $table->text('npwp')->nullable();
             $table->text('phone')->nullable();
             $table->text('website')->nullable();
+            $table->double('transaction')->nullable()->default(0);
             $table->string('logo')->default('logos/default.jpg');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

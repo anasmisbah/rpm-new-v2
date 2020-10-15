@@ -22,6 +22,7 @@ class CreateAgensTable extends Migration
             $table->text('phone')->nullable();
             $table->text('website')->nullable();
             $table->string('logo')->default('logos/default.jpg');
+            $table->double('transaction')->nullable()->default(0);
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

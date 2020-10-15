@@ -29,7 +29,7 @@ class HomeController extends Controller
         $customer = Customer::count();
         $driver = Driver::count();
 
-        $total = DeliveryOrder::sum('quantity');
+        $total = Agen::sum('transaction');
 
         $new_promo = Promo::orderBy('created_at','desc')->limit(6)->get();
         $new_do = DeliveryOrder::orderBy('created_at','desc')->limit(7)->get();
@@ -116,10 +116,7 @@ class HomeController extends Controller
         $data['revenue']=[];
         foreach ($agens as  $agen) {
             $data['label'][] = $agen->name;
-            foreach ($agen->sales_orders as $sales_order ) {
-                $data['transaction'][] = $sales_order->delivery_orders()->where('status',3)->sum('quantity');
-            }
-
+            $data['transaction'][] = $agen->transaction;
         }
 
         return response()->json($data, 200);

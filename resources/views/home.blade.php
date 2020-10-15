@@ -78,39 +78,40 @@
           <!-- /.col -->
         </div>
         <!-- /.row -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header border-0">
+                        <div class="d-flex justify-content-between">
+                        <h3 class="card-title">Agen Sales Transaction</h3>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex">
+                        <p class="d-flex flex-column">
+                            <span class="text-bold text-lg">{{$total}} KL</span>
+                            <span>Total Transaction</span>
+                        </p>
+                        </div>
+                        <!-- /.d-flex -->
 
+                        <div class="position-relative mb-4">
+                        <canvas id="sales-chart" height="200"></canvas>
+                        </div>
+
+                        <div class="d-flex flex-row justify-content-end">
+                        <span class="mr-2">
+                            <i class="fas fa-square text-primary"></i> Total Transaction
+                        </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Main row -->
         <div class="row">
           <!-- Left col -->
           <div class="col-md-8">
-            <!-- MAP & BOX PANE -->
-            <div class="card">
-                <div class="card-header border-0">
-                    <div class="d-flex justify-content-between">
-                    <h3 class="card-title">Agen Sales Transaction</h3>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="d-flex">
-                    <p class="d-flex flex-column">
-                        <span class="text-bold text-lg">{{$total}} KL</span>
-                        <span>Total Transaction</span>
-                    </p>
-                    </div>
-                    <!-- /.d-flex -->
-
-                    <div class="position-relative mb-4">
-                    <canvas id="sales-chart" height="200"></canvas>
-                    </div>
-
-                    <div class="d-flex flex-row justify-content-end">
-                    <span class="mr-2">
-                        <i class="fas fa-square text-primary"></i> This year
-                    </span>
-                    </div>
-                </div>
-            </div>
-
             <!-- TABLE: LATEST ORDERS -->
             <div class="card">
               <div class="card-header border-transparent">
@@ -318,7 +319,7 @@
                       callback: function (value, index, values) {
                         if (value >= 1000) {
                           value /= 1000
-                          value += 'KL'
+                          value += ' KL'
                         }
                         return value
                       }
