@@ -102,6 +102,7 @@ class HomeController extends Controller
                     "npwp"=> $agen->npwp ,
                     "phone"=> $agen->phone ,
                     "website"=> $agen->website ,
+                    "transaction"=>$agen->transaction,
                     "logo"=> url('/uploads/' . $agen->logo) ,
                     "user_id"=> $agen->user_id ,
                     "created_at"=> $agen->created_at->format('d F Y') ,
@@ -146,7 +147,7 @@ class HomeController extends Controller
         } elseif ($user->role_id ==4) {
             $customer = $user->customer;
             $user->role;
-            $sum_delivery_order= 0;
+            $sum_delivery_order= $customer->transaction;
             // $coupons = $user->customer->coupons()->orderBy('created_at','desc')->get();
             // $data_coupons = [];
             // foreach ($coupons as $key => $coupon) {
@@ -175,9 +176,6 @@ class HomeController extends Controller
                 ];
                 foreach ($sales_order->delivery_orders->sortByDesc('id') as $delivery_order) {
                     $item['delivery_orders'][] = new DeliveryOrderResource($delivery_order);
-                    if ($delivery_order->status == 3) {
-                        $sum_delivery_order+=$delivery_order->quantity;
-                    }
                 }
                 $sales_orders[] = $item;
             }
