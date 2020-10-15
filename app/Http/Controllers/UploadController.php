@@ -9,6 +9,7 @@ use App\Agen;
 use App\Customer;
 use App\SalesOrder;
 use App\User;
+use App\Driver;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -97,7 +98,7 @@ class UploadController extends Controller
                 $agen_name = $row->name_agen;
                 $no_agen = $row->no_agen;
 
-                $default_email = "agen.".strtolower(preg_replace('/\s*/', '', $agen_name))."$no_agen@mail.com";
+                $default_email = "agen.".strtolower(preg_replace('/\s*/', '', $agen_name)).".$no_agen@mail.com";
                 $default_password = Hash::make("123123");
                 $user = User::create([
                     'email'=>$default_email,
@@ -110,6 +111,33 @@ class UploadController extends Controller
                     'name' =>$agen_name,
                     'no_agen'=>$no_agen
                 ]);
+
+                $driver = [
+                    [
+                        'name'=>'driver darat '.strtolower($row->name_agen),
+                        'email'=>"driverdarat.".strtolower(preg_replace('/\s*/', '', $agen_name)).".$no_agen@mail.com",
+                        'route'=>0,
+                    ],
+                    [
+                        'name'=>'driver laut '.strtolower($row->name_agen),
+                        'email'=>"driverlaut.".strtolower(preg_replace('/\s*/', '', $agen_name)).".$no_agen@mail.com",
+                        'route'=>1,
+                    ]
+                ];
+
+                foreach ($driver as $drive) {
+                    $user = User::create([
+                        'email'=>$drive['email'],
+                        'password'=>Hash::make("123123"),
+                        'role_id'=>5
+                    ]);
+                    $agen->drivers()->create([
+                        'user_id'=>$user->id,
+                        'name'=>$drive['name'],
+                        'route'=>$drive['route']
+                    ]);
+                }
+
 
                 $resultCustomer = Customer::where('no_customer',$row->no_customer)->first();
                 if ($resultCustomer) {
@@ -138,7 +166,7 @@ class UploadController extends Controller
                     $customer_name = $row->name_customer;
                     $no_customer = $row->no_customer;
 
-                    $default_email_customer = "customer.".strtolower(preg_replace('/\s*/', '', $customer_name))."$no_customer@mail.com";
+                    $default_email_customer = "customer.".strtolower(preg_replace('/\s*/', '', $customer_name)).".$no_customer@mail.com";
                     $default_password_customer = Hash::make("123123");
                     $user_customer = User::create([
                         'email'=>$default_email_customer,
