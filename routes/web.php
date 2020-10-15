@@ -129,5 +129,8 @@ Route::middleware(['auth','admin'])->group(function (){
         Route::get('/company','CompanyController@index')->name('company.index');
         Route::get('/company/edit','CompanyController@edit')->name('company.edit');
         Route::put('/company/{id}','CompanyController@update')->name('company.update');
+
+        Route::get('/data/uploads','UploadController@create');
+        Route::post('/data/uploads','UploadController@store')->name('uploads.store');
     });
 });
