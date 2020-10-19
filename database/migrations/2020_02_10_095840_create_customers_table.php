@@ -16,7 +16,6 @@ class CreateCustomersTable extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('no_customer')->unique()->nullable();
             $table->enum('member',['gold','silver','platinum'])->nullable();
             $table->text('address')->nullable();
             $table->text('npwp')->nullable();

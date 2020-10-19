@@ -30,11 +30,10 @@ class UploadController extends Controller
         Excel::import($import,request()->file('data'));
 
         $data = Upload::select('id','no_so','no_agen','name_agen','no_customer','name_customer','quantity')->get();
-
         foreach ($data as $key => $row) {
-            $resultCheckAgen = Agen::where('no_agen',$row->no_agen)->first();
+            $resultCheckAgen = Agen::where('name',$row->name_agen)->first();
             if ($resultCheckAgen) {
-                $resultCustomer = Customer::where('no_customer',$row->no_customer)->first();
+                $resultCustomer = Customer::where('name',$row->name_customer)->first();
                 if ($resultCustomer) {
                     $no_so = $row->no_so;
                     $point = $row->quantity;
@@ -71,7 +70,6 @@ class UploadController extends Controller
                     $customer = Customer::create([
                         'user_id'=>$user_customer->id,
                         'name'=>$customer_name,
-                        'no_customer'=>$no_customer,
                         'agen_id'=>$resultCheckAgen->id,
                         'member'=>'silver'
                     ]);
@@ -109,7 +107,6 @@ class UploadController extends Controller
                 $agen = Agen::create([
                     'user_id'=>$user->id,
                     'name' =>$agen_name,
-                    'no_agen'=>$no_agen
                 ]);
 
                 $driver = [
@@ -139,7 +136,7 @@ class UploadController extends Controller
                 }
 
 
-                $resultCustomer = Customer::where('no_customer',$row->no_customer)->first();
+                $resultCustomer = Customer::where('name',$row->name_customer)->first();
                 if ($resultCustomer) {
                     $no_so = $row->no_so;
                     $point = $row->quantity;
@@ -177,7 +174,6 @@ class UploadController extends Controller
                     $customer = Customer::create([
                         'user_id'=>$user_customer->id,
                         'name'=>$customer_name,
-                        'no_customer'=>$no_customer,
                         'agen_id'=>$agen->id,
                         'member'=>'silver'
                     ]);
@@ -202,6 +198,7 @@ class UploadController extends Controller
                 }
             }
         }
+
         return redirect()->back()->with('status','Successfully upload data');
     }
 }

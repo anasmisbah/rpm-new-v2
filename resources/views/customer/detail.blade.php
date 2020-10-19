@@ -38,10 +38,6 @@
                     <td style="width:15%">Logo</td>
                     <td><img class="img-thumbnail" width="150px" src="{{asset("/uploads/".$customer->logo)}}" alt=""></td>
                 </tr>
-                <tr>
-                    <td style="width:15%">No Customer</td>
-                    <td>{{$customer->no_customer}}</td>
-                  </tr>
               <tr>
                 <td style="width:15%">Nama</td>
                 <td>{{$customer->name}}</td>

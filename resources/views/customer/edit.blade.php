@@ -44,17 +44,6 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="no_customer" class="col-sm-2 col-form-label">No Customer <span class="text-danger">*</span></label>
-                            <div class="col-sm-6 col-lg-6 col-md-6">
-                                <input type="text" value="{{old('no_customer')?old('no_customer'):$customer->no_customer}}" class="form-control @error('no_customer') is-invalid @enderror" id="no_customer" name="no_customer" placeholder="No Customer">
-                                @error('no_customer')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="form-group row">
                             <label for="name" class="col-sm-2 col-form-label">Nama <span class="text-danger">*</span> </label>
                             <div class="col-sm-6 col-lg-6 col-md-6">
                                 <input type="text" value="{{old('name')?old('name'):$customer->name}}" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="name">

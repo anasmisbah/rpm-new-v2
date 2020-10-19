@@ -48,7 +48,6 @@ class AgenController extends Controller
             'phone'=>'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
             'email_user'=>'required|email|unique:users,email',
             'password_user'=>'required',
-            'no_agen'=>'required|unique:agens,no_agen',
         ]);
         $logo='logos/default.jpg';
         if ($request->file('logo')) {
@@ -66,7 +65,6 @@ class AgenController extends Controller
         ]);
 
         Agen::create([
-            'no_agen'=>$request->no_agen,
             'name'=>$request->name,
             'address'=>$request->address,
             'phone'=>$request->phone,
@@ -121,7 +119,6 @@ class AgenController extends Controller
             'address'=>'required',
             'phone'=>'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
             'email_user'=>'required|email|unique:users,email,'.$agen->user->id,
-            'no_agen'=>'required|unique:agens,no_agen,'.$agen->id,
         ]);
 
         if ($request->file('logo')) {
@@ -151,7 +148,6 @@ class AgenController extends Controller
         ]);
 
         $agen->update([
-            'no_agen'=>$request->no_agen,
             'name'=>$request->name,
             'address'=>$request->address,
             'phone'=>$request->phone,
