@@ -99,7 +99,37 @@
                 <!-- /.d-flex -->
 
                 <div class="position-relative mb-4">
-                    <canvas id="sales-chart" height="200"></canvas>
+                    <canvas id="sales-chart1" height="200"></canvas>
+                </div>
+
+                <div class="d-flex flex-row justify-content-end">
+                    <span class="mr-2">
+                        <i class="fas fa-square text-primary"></i> Total Transaction
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header border-0">
+                <div class="d-flex justify-content-between">
+                    <h3 class="card-title">Agen Sales Transaction</h3>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="d-flex">
+                    <p class="d-flex flex-column">
+                        <span class="text-bold text-lg">{{$total}} KL</span>
+                        <span>Total Transaction</span>
+                    </p>
+                </div>
+                <!-- /.d-flex -->
+
+                <div class="position-relative mb-4">
+                    <canvas id="sales-chart2" height="200"></canvas>
                 </div>
 
                 <div class="d-flex flex-row justify-content-end">
@@ -280,12 +310,90 @@
         var mode = 'index'
         var intersect = true
 
-        let url = "{{ route('home.chart') }}"
+        let url = "{{ route('home.chart1') }}"
         $.ajax({
             type: 'get',
             url: url,
             success: function (data) {
-                var $salesChart = $('#sales-chart')
+                var $salesChart = $('#sales-chart1')
+                var salesChart = new Chart($salesChart, {
+                    type: 'bar',
+                    data: {
+                        labels: data.label,
+                        datasets: [{
+                            backgroundColor: '#007bff',
+                            borderColor: '#007bff',
+                            data: data.transaction
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        tooltips: {
+                            mode: mode,
+                            intersect: intersect
+                        },
+                        hover: {
+                            mode: mode,
+                            intersect: intersect
+                        },
+                        legend: {
+                            display: false
+                        },
+                        scales: {
+                            yAxes: [{
+                                // display: false,
+                                gridLines: {
+                                    display: true,
+                                    lineWidth: '4px',
+                                    color: 'rgba(0, 0, 0, .2)',
+                                    zeroLineColor: 'transparent'
+                                },
+                                ticks: $.extend({
+                                    beginAtZero: true,
+
+                                    // Include a dollar sign in the ticks
+                                    callback: function (value, index,
+                                        values) {
+                                        if (value >= 1000) {
+                                            value /= 1000
+                                            value += ' KL'
+                                        }
+                                        return value
+                                    }
+                                }, ticksStyle)
+                            }],
+                            xAxes: [{
+                                display: true,
+                                gridLines: {
+                                    display: false
+                                },
+                                ticks: ticksStyle
+                            }]
+                        }
+                    }
+                })
+            }
+        })
+
+    })
+
+    $(function () {
+        'use strict'
+
+        var ticksStyle = {
+            fontColor: '#495057',
+            fontStyle: 'bold'
+        }
+
+        var mode = 'index'
+        var intersect = true
+
+        let url = "{{ route('home.chart2') }}"
+        $.ajax({
+            type: 'get',
+            url: url,
+            success: function (data) {
+                var $salesChart = $('#sales-chart2')
                 var salesChart = new Chart($salesChart, {
                     type: 'bar',
                     data: {

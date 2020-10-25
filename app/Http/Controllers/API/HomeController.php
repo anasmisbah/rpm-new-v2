@@ -16,6 +16,7 @@ use App\Http\Resources\NewsResource;
 use App\Http\Resources\PromoResource;
 use App\Http\Resources\VideoResource;
 use App\Http\Resources\DriverResource;
+
 class HomeController extends Controller
 {
     public function home()
@@ -180,7 +181,7 @@ class HomeController extends Controller
                 $sales_orders[] = $item;
             }
 
-            $vouchers =$user->customer->vouchers()->orderBy('created_at','desc')->get();
+            $vouchers =$user->customer->vouchers()->orderBy('created_at', 'desc')->get();
             $data_vouchers = [];
             foreach ($vouchers as $key => $voucher) {
                 $data_vouchers[] = [
@@ -254,15 +255,15 @@ class HomeController extends Controller
             $route = $user->driver->route;
             $sales_orders = $agen->sales_orders;
 
-            $dos = $user->driver->delivery_order()->orderBy('created_at','desc')->get();
+            $dos = $user->driver->delivery_order()->orderBy('created_at', 'desc')->get();
             $delivery_orders = [];
             foreach ($dos as $key => $delivery_order) {
                 $delivery_orders[] = new DeliveryOrderResource($delivery_order);
             }
             $delivery_orders_ready = [];
             foreach ($sales_orders->sortByDesc('id') as $sales_order) {
-                foreach ($sales_order->delivery_orders()->orderBy('created_at','desc')->get() as $delivery_order) {
-                    if (($route == $delivery_order->shipped_via || $delivery_order->shipped_via == 2) && $delivery_order->status == 0) {
+                foreach ($sales_order->delivery_orders()->orderBy('created_at', 'desc')->get() as $delivery_order) {
+                    if (($route == $delivery_order->shipped_via || $delivery_order->shipped_via == 2) && $delivery_order->status == 1) {
                         $delivery_orders_ready[] = new DeliveryOrderResource($delivery_order);
                     }
                 }

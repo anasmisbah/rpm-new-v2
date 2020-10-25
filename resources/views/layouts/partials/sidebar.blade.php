@@ -105,6 +105,14 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="{{route('card.index')}}" class="nav-link {{ Request::segment(1) == 'card'?'active':'' }}">
+                    <i class="nav-icon far fa-id-card"></i>
+                    <p>
+                    Loyalti Card
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="{{route('user.index')}}" class="nav-link {{ Request::segment(1) == 'user'?'active':'' }}">
                     <i class="nav-icon fa fa-users"></i>
                     <p>
@@ -125,6 +133,14 @@
                     <i class="nav-icon far fa-building"></i>
                     <p>
                     Perusahaan
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{route('uploads.create')}}" class="nav-link {{ Request::segment(1) == 'company'?'active':'' }}">
+                    <i class="nav-icon fa fa-cloud-upload-alt"></i>
+                    <p>
+                    Upload Data
                     </p>
                 </a>
             </li>

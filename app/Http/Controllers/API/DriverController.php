@@ -142,7 +142,7 @@ class DriverController extends Controller
 
         // TODO notif to customer
         $fcm_token[] = $customer->user->fcm_token;
-
+        $fcm_token[] = $agen->user->fcm_token;
         $title = 'Delivery Order';
         $message = "Proses Pembongkaran $delivery_order->shipped_with $delivery_order->no_vehicles telah selesai (BAST, Terlampir)";
         $this->sendNotif($message,$title,$fcm_token);

@@ -8,6 +8,7 @@ use App\Agen;
 use App\User;
 use Illuminate\Support\Facades\Storage;
 use File;
+use App\Card;
 use Illuminate\Support\Facades\Hash;
 use DataTables;
 class CustomerController extends Controller
@@ -26,7 +27,8 @@ class CustomerController extends Controller
 
     public function customer_data($id)
     {
-        $promos = Customer::select(['id','name','coupon','member','reward','logo'])->orderBy('id','desc')
+        $promos = Customer::select(['customers.id','customers.name','customers.coupon','customers.reward','customers.logo','cards.name As member'])
+        ->join('cards','customers.card_id','=','cards.id')->orderBy('id','desc')
                     ->where('agen_id',$id);
 
         $dataTable = DataTables::of($promos)
@@ -56,7 +58,8 @@ class CustomerController extends Controller
     public function create($id)
     {
         $agen = Agen::findOrFail($id);
-        return view('customer.create',compact('agen'));
+        $cards = Card::all();
+        return view('customer.create',compact('agen','cards'));
     }
 
     /**
@@ -71,7 +74,7 @@ class CustomerController extends Controller
         $request->validate([
             'name'=>'required',
             'address'=>'required',
-            'member'=>'required',
+            'card_id'=>'required',
             'phone'=>'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
             'email_user'=>'required|email|unique:users,email',
             'password_user'=>'required',
@@ -94,7 +97,7 @@ class CustomerController extends Controller
         Customer::create([
             'name'=>$request->name,
             'address'=>$request->address,
-            'member'=>$request->member,
+            'card_id'=>$request->card_id,
             'phone'=>$request->phone,
             'website'=>$request->website,
             'logo'=>$logo,
@@ -129,7 +132,8 @@ class CustomerController extends Controller
     {
         $customer = Customer::findOrFail($id);
         $agen = $customer->agen;
-        return view('customer.edit',compact('customer','agen'));
+        $cards = Card::all();
+        return view('customer.edit',compact('customer','agen','cards'));
     }
 
     /**
@@ -145,7 +149,7 @@ class CustomerController extends Controller
         $request->validate([
             'name'=>'required',
             'address'=>'required',
-            'member'=>'required',
+            'card_id'=>'required',
             'phone'=>'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
             'email_user'=>'required|email|unique:users,email,'.$customer->user->id,
         ]);
@@ -179,7 +183,7 @@ class CustomerController extends Controller
         $customer->update([
             'name'=>$request->name,
             'address'=>$request->address,
-            'member'=>$request->member,
+            'card_id'=>$request->card_id,
             'phone'=>$request->phone,
             'website'=>$request->website,
             'npwp'=>$request->npwp

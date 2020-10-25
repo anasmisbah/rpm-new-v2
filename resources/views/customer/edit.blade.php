@@ -57,10 +57,10 @@
                         <div class="form-group row">
                             <label for="member" class="col-sm-2 col-form-label">Tipe Member <span class="text-danger">*</span></label>
                             <div class="col-sm-6 col-lg-6 col-md-6">
-                                <select class="select2" id="select-category" name="member" data-placeholder="Select Category" style="width: 100%;">
-                                    <option value="silver" {{$customer->member == 'silver'?'selected':''}}>Silver</option>
-                                    <option value="gold" {{$customer->member == 'gold'?'selected':''}}>Gold</option>
-                                    <option value="platinum" {{$customer->member == 'platinum'?'selected':''}}>Platinum</option>
+                                <select class="select2" id="select-category" name="card_id" data-placeholder="Select Category" style="width: 100%;">
+                                    @foreach ($cards as $card)
+                                        <option value="{{$card->id}}" {{$customer->card_id == $card->id?'selected':''}}>{{$card->name}}</option>
+                                    @endforeach
                                 </select>
                                 @error('member')
                                 <span class="text-sm text-danger" role="alert">

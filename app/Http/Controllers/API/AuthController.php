@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
     public function login(Request $request)
@@ -51,6 +52,33 @@ class AuthController extends Controller
         return response()->json([
             'status'=>true,
             'message'=>'user berhasil logout'
+        ]);
+    }
+
+    public function update(Request $request)
+    {
+        $user = Auth::user();
+        $request->validate([
+            'email'=>'required|email|unique:users,email,'.$user->id,
+            'old_password'=>'required',
+            'new_password'=>'required',
+        ]);
+
+        if (!Hash::check($request->old_password, $user->password)) {
+            return response()->json([
+                'status'=>true,
+                'message'=>'Password lama tidak cocok'
+            ],404);
+        }
+
+        $user->update([
+            'email'=>$request->email,
+            'new_password'=>Hash::make($request->password),
+        ]);
+
+        return response()->json([
+            'status'=>true,
+            'message'=>'Data user berhasil diubah'
         ]);
     }
 }

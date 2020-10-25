@@ -68,7 +68,7 @@ class PromoController extends Controller
             'terms'=>'required'
         ]);
 
-        $image='';
+        $image='images/default.jpg';
         if ($request->file('image')) {
             $request->validate([
                 'image'=>'mimes:jpeg,bmp,png,jpg,ico',

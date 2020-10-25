@@ -107,21 +107,7 @@
                     targets: 2,
 					title: 'Tipe Member',
 					render: function(data, type, full, meta) {
-                        var member = {
-							'gold': {
-                                'title': 'Gold',
-                                'class': ' badge-warning'
-                            },
-							'silver': {
-                                'title': 'Silver',
-                                'class': ' badge-default'
-                            },
-							'platinum': {
-                                'title': 'Platinum',
-                                'class': ' badge-info'
-                            }
-						};
-						return '<small class="badge' + member[full.member].class + '">' + member[full.member].title + '</small>';
+						return '<small class="badge badge-info">' + full.member + '</small>';
                     }
                 },
                 {

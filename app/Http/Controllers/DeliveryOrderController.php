@@ -131,6 +131,37 @@ class DeliveryOrderController extends Controller
 
         $delivery_order = $sales_order->delivery_orders()->create($data);
 
+        $date = Carbon::now();
+        $fcm_token = [];
+        $title = 'Delivery Order';
+        $message = "Dari Patra Niaga - Agent. DO No $delivery_order->delivery_order_number telah terbit. $delivery_order->shipped_with $delivery_order->no_vehicles sudah dapat melakukan Proses Pengisian BBM ";
+
+        // SEND NOTIF TO AGEN TO GET ACCEPTED
+        $fcm_token[] = $sales_order->agen->user->fcm_token;
+        $this->sendNotif($message,$title,$fcm_token);
+
+        Notifdo::updateOrCreate([
+            'description'=>$message,
+        ],[
+            'date'=>$date,
+            'delivery_order_id'=>$delivery_order->id
+        ]);
+
+        // SEND NOTIF TO CUSTOMER
+        $fcm_token_customer = [
+            $sales_order->customer->user->fcm_token
+        ];
+        $title_customer = 'Delivery Order';
+        $message_customer = 'SO No '. $delivery_order->sales_order->sales_order_number .' telah terbit';
+
+        Notifdo::updateOrCreate([
+            'description'=>$message_customer,
+        ],
+        [
+            'date'=>$delivery_order->sales_order->created_at,
+            'delivery_order_id'=>$delivery_order->id,
+        ]);
+
         return redirect()->back()->with('status','successfully created Delivery Order');
     }
 

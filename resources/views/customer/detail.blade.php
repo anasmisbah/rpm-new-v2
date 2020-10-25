@@ -45,7 +45,7 @@
               <tr>
                 <td style="width:15%">Tipe Member</td>
                 <td>
-                    <small class="badge badge-info"><i class="fas fa-tag"></i> {{$customer->member}}</small>
+                    <small class="badge badge-info"><i class="fas fa-tag"></i> {{$customer->card->name}}</small>
                 </td>
               </tr>
               <tr>

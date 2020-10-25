@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Customer extends Model
 {
     protected $fillable = [
-        'name','address','member','phone','website','logo','npwp','agen_id','reward','user_id','coupon','transaction'
+        'name','address','card_id','phone','website','logo','npwp','agen_id','reward','user_id','coupon','transaction'
     ];
 
     public function delivery_order()
@@ -37,5 +37,10 @@ class Customer extends Model
     public function sales_orders()
     {
         return $this->hasMany('App\SalesOrder');
+    }
+
+    public function card()
+    {
+        return $this->belongsTo('App\Card');
     }
 }

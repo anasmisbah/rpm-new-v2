@@ -27,18 +27,18 @@ class UploadController extends Controller
         $import = new FileImport();
         $import->onlySheets('DATA');
 
-        Excel::import($import,request()->file('data'));
+        Excel::import($import, request()->file('data'));
 
-        $data = Upload::select('id','no_so','no_agen','name_agen','no_customer','name_customer','quantity')->get();
+        $data = Upload::select('id', 'no_so', 'no_agen', 'name_agen', 'no_customer', 'name_customer', 'quantity')->get();
         foreach ($data as $key => $row) {
-            $resultCheckAgen = Agen::where('name',$row->name_agen)->first();
+            $resultCheckAgen = Agen::where('name', $row->name_agen)->first();
             if ($resultCheckAgen) {
-                $resultCustomer = Customer::where('name',$row->name_customer)->first();
+                $resultCustomer = $resultCheckAgen->customers->where('name','=',$row->name_customer)->first();
                 if ($resultCustomer) {
                     $no_so = $row->no_so;
                     $point = $row->quantity;
 
-                    $resultSalesOrder = SalesOrder::where('sales_order_number',$no_so)->first();
+                    $resultSalesOrder = SalesOrder::where('sales_order_number', $no_so)->first();
                     if (!$resultSalesOrder) {
                         $sales_order = SalesOrder::create([
                             'sales_order_number'=>$no_so,
@@ -59,7 +59,7 @@ class UploadController extends Controller
                     $customer_name = $row->name_customer;
                     $no_customer = $row->no_customer;
 
-                    $default_email_customer = "customer.".strtolower(preg_replace('/\s*/', '', $customer_name)).".$no_customer@mail.com";
+                    $default_email_customer = "customer.".strtolower(preg_replace('/\s*/', '', $customer_name)).".$resultCheckAgen->id@mail.com";
                     $default_password_customer = Hash::make("123123");
                     $user_customer = User::create([
                         'email'=>$default_email_customer,
@@ -92,11 +92,11 @@ class UploadController extends Controller
                         'transaction'=>($resultCheckAgen->transaction + $transaction),
                     ]);
                 }
-            }else{
+            } else {
                 $agen_name = $row->name_agen;
                 $no_agen = $row->no_agen;
 
-                $default_email = "agen.".strtolower(preg_replace('/\s*/', '', $agen_name)).".$no_agen@mail.com";
+                $default_email = "agen.".strtolower(preg_replace('/\s*/', '', $agen_name))."@mail.com";
                 $default_password = Hash::make("123123");
                 $user = User::create([
                     'email'=>$default_email,
@@ -112,12 +112,12 @@ class UploadController extends Controller
                 $driver = [
                     [
                         'name'=>'driver darat '.strtolower($row->name_agen),
-                        'email'=>"driverdarat.".strtolower(preg_replace('/\s*/', '', $agen_name)).".$no_agen@mail.com",
+                        'email'=>"driverdarat.".strtolower(preg_replace('/\s*/', '', $agen_name)).".@mail.com",
                         'route'=>0,
                     ],
                     [
                         'name'=>'driver laut '.strtolower($row->name_agen),
-                        'email'=>"driverlaut.".strtolower(preg_replace('/\s*/', '', $agen_name)).".$no_agen@mail.com",
+                        'email'=>"driverlaut.".strtolower(preg_replace('/\s*/', '', $agen_name)).".@mail.com",
                         'route'=>1,
                     ]
                 ];
@@ -136,14 +136,14 @@ class UploadController extends Controller
                 }
 
 
-                $resultCustomer = Customer::where('name',$row->name_customer)->first();
+                $resultCustomer = $agen->customers->where('name','=',$row->name_customer)->first();
                 if ($resultCustomer) {
                     $no_so = $row->no_so;
                     $point = $row->quantity;
 
-                    $resultSalesOrder = SalesOrder::where('sales_order_number',$no_so)->first();
+                    $resultSalesOrder = SalesOrder::where('sales_order_number', $no_so)->first();
                     if (!$resultSalesOrder) {
-                        $sales_order = SalesOrder::create([
+                        $resultSalesOrder = SalesOrder::create([
                             'sales_order_number'=>$no_so,
                             'customer_id'=>$resultCustomer->id,
                             'agen_id'=>$agen->id
@@ -163,7 +163,7 @@ class UploadController extends Controller
                     $customer_name = $row->name_customer;
                     $no_customer = $row->no_customer;
 
-                    $default_email_customer = "customer.".strtolower(preg_replace('/\s*/', '', $customer_name)).".$no_customer@mail.com";
+                    $default_email_customer = "customer.".strtolower(preg_replace('/\s*/', '', $customer_name)).".$agen->id@mail.com";
                     $default_password_customer = Hash::make("123123");
                     $user_customer = User::create([
                         'email'=>$default_email_customer,
@@ -199,6 +199,6 @@ class UploadController extends Controller
             }
         }
 
-        return redirect()->back()->with('status','Successfully upload data');
+        return redirect()->back()->with('status', 'Successfully upload data');
     }
 }

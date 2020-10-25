@@ -72,6 +72,8 @@ class HomeController extends Controller
         return response()->json($data, 200);
     }
 
+
+
     public function chartcustomer($id)
     {
         return view('customer.chartcus',compact('id'));
@@ -107,16 +109,38 @@ class HomeController extends Controller
         return response()->json($data, 200);
     }
 
-    public function chart()
+    public function chart1()
     {
         $agens = Agen::all();
+
+        $agensCount = count($agens);
+
+        $divide2 = $agensCount/2;
 
         $data['label']=[];
         $data['transaction']=[];
         $data['revenue']=[];
-        foreach ($agens as  $agen) {
-            $data['label'][] = $agen->name;
-            $data['transaction'][] = $agen->transaction;
+        for ($i=0; $i < $divide2; $i++) {
+            $data['label'][] = $agens[$i]->name;
+            $data['transaction'][] = $agens[$i]->transaction;
+        }
+
+        return response()->json($data, 200);
+    }
+    public function chart2()
+    {
+        $agens = Agen::all();
+
+        $agensCount = count($agens);
+
+        $divide2 = $agensCount/2;
+
+        $data['label']=[];
+        $data['transaction']=[];
+        $data['revenue']=[];
+        for ($i=$divide2; $i < $agensCount; $i++) {
+            $data['label'][] = $agens[$i]->name;
+            $data['transaction'][] = $agens[$i]->transaction;
         }
 
         return response()->json($data, 200);

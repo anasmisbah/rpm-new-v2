@@ -16,7 +16,6 @@ class CreateCustomersTable extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->enum('member',['gold','silver','platinum'])->nullable();
             $table->text('address')->nullable();
             $table->text('npwp')->nullable();
             $table->text('phone')->nullable();
@@ -27,6 +26,8 @@ class CreateCustomersTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('agen_id');
             $table->foreign('agen_id')->references('id')->on('agens')->onDelete('cascade');
+            $table->unsignedBigInteger('card_id');
+            $table->foreign('card_id')->references('id')->on('cards')->onDelete('cascade');
             $table->bigInteger('reward')->default(0);
             $table->bigInteger('coupon')->default(0);
             $table->timestamps();

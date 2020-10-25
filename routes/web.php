@@ -60,7 +60,8 @@ Route::middleware(['auth','admin'])->group(function (){
 
     Route::middleware(['superadmin'])->group(function (){
 
-        Route::get('home/chart','HomeController@chart')->name('home.chart');
+        Route::get('home/chart/1','HomeController@chart1')->name('home.chart1');
+        Route::get('home/chart/2','HomeController@chart2')->name('home.chart2');
         Route::get('home/voucher','HomeController@voucher')->name('home.voucher');
         Route::get('home/deliveryorder/laut','HomeController@do_laut')->name('home.delivery.laut');
         Route::get('home/deliveryorder/darat','HomeController@do_darat')->name('home.delivery.darat');
@@ -124,13 +125,14 @@ Route::middleware(['auth','admin'])->group(function (){
         Route::resource('admin', 'AdminController');
 
         Route::resource('video', 'VideoController');
+        Route::resource('card', 'CardController');
 
 
         Route::get('/company','CompanyController@index')->name('company.index');
         Route::get('/company/edit','CompanyController@edit')->name('company.edit');
         Route::put('/company/{id}','CompanyController@update')->name('company.update');
 
-        Route::get('/data/uploads','UploadController@create');
+        Route::get('/data/uploads','UploadController@create')->name('uploads.create');
         Route::post('/data/uploads','UploadController@store')->name('uploads.store');
     });
 });
