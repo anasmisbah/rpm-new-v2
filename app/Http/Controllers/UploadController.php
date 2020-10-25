@@ -71,7 +71,7 @@ class UploadController extends Controller
                         'user_id'=>$user_customer->id,
                         'name'=>$customer_name,
                         'agen_id'=>$resultCheckAgen->id,
-                        'member'=>'silver'
+                        'card_id'=>1
                     ]);
 
                     $no_so = $row->no_so;
@@ -175,7 +175,7 @@ class UploadController extends Controller
                         'user_id'=>$user_customer->id,
                         'name'=>$customer_name,
                         'agen_id'=>$agen->id,
-                        'member'=>'silver'
+                        'card_id'=>1
                     ]);
 
                     $no_so = $row->no_so;
