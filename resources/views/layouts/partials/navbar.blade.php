@@ -23,7 +23,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 @foreach ($delivery_laut as $delivery)
-                <a href="#" class="dropdown-item">
+                <a href="{{route('deliveryorder.agen.show',$delivery->id)}}" class="dropdown-item">
                     <!-- Message Start -->
                     <div class="media">
                       <img src="{{asset('/uploads/'.$delivery->driver->avatar)}}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
@@ -48,7 +48,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 @foreach ($delivery_darat as $delivery)
-                <a href="#" class="dropdown-item">
+                <a href="{{route('deliveryorder.agen.show',$delivery->id)}}" class="dropdown-item">
                   <!-- Message Start -->
                   <div class="media">
                     <img src="{{asset('/uploads/'.$delivery->driver->avatar)}}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
@@ -73,7 +73,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 @foreach ($vouchers as $voucher)
-                <a href="#" class="dropdown-item">
+                <a href="{{route('home.voucher')}}" class="dropdown-item">
                   <!-- Message Start -->
                   <div class="media">
                     <img src="{{asset('/uploads/'.$voucher->customer->logo)}}" alt="User Avatar" class="img-size-50 mr-3 img-circle">

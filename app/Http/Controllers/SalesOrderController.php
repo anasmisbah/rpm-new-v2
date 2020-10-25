@@ -97,6 +97,19 @@ class SalesOrderController extends Controller
             'coupon'=>($customer->coupon + 1)
         ]);
 
+        $title = 'Sales Order';
+        $message = "Dari Patra Niaga - Agent. SO No $sales_order->sales_order_number telah terbit";
+        $fcm_token = [
+            $sales_order->agen->user->fcm_token,
+        ];
+        $this->sendNotif($message,$title,$fcm_token);
+
+        $message = "SO No $sales_order->sales_order_number telah terbit";
+        $fcm_token = [
+            $sales_order->customer->user->fcm_token,
+        ];
+        $this->sendNotif($message,$title,$fcm_token);
+
         return redirect()->back()->with('status','successfully created Sales Order');
     }
 

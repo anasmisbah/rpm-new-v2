@@ -207,6 +207,8 @@ class HomeController extends Controller
                     "phone"=> $customer->phone ,
                     "website"=> $customer->website ,
                     "reward"=> $customer->reward ,
+                    "member"=>$customer->card->name,
+                    "card_image"=>url('/uploads/' . $customer->card->image),
                     "logo"=> url('/uploads/' . $customer->logo) ,
                     "user_id"=> $customer->user_id ,
                     "created_at"=> $customer->created_at->format('d F Y') ,
