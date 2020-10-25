@@ -137,7 +137,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{route('uploads.create')}}" class="nav-link {{ Request::segment(1) == 'company'?'active':'' }}">
+                <a href="{{route('uploads.create')}}" class="nav-link {{ Request::segment(1) == 'data'?'active':'' }}">
                     <i class="nav-icon fa fa-cloud-upload-alt"></i>
                     <p>
                     Upload Data
