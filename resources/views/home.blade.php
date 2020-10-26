@@ -1,7 +1,8 @@
 @extends('layouts.master')
 
 @push('css')
-
+<!-- Tempusdominus Bbootstrap 4 -->
+<link rel="stylesheet" href="{{asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
 @endpush
 
 @section('content-header')
@@ -78,7 +79,45 @@
 </div>
 
 @if (Auth::user()->role_id == 1)
+<div class="row">
+    <div class="col-md-12">
+        <div class="card bg-gradient-info">
+            <div class="card-header">
+                <h5 class="card-title">Recap Bulanan Delivery Order</h5>
 
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="text-center">
+                            <strong id="date_monthly"></strong>
+                        </p>
+
+                        <div class="chart">
+                            <!-- Sales Chart Canvas -->
+                            <canvas id="salesChart" height="180" style="height: 180px;"></canvas>
+                        </div>
+                        <!-- /.chart-responsive -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.col -->
+</div>
+<!-- /.row -->
 
 <!-- /.row -->
 <div class="row">
@@ -199,10 +238,110 @@
             <!-- /.card-body -->
             <!-- /.card-footer -->
         </div>
-        <!-- /.card -->
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="card bg-gradient-success">
+                    <div class="card-header border-0">
+                        <h3 class="card-title">
+                            <i class="far fa-calendar-alt"></i>
+                            Kalender
+                        </h3>
+                        <!-- tools card -->
+                        <div class="card-tools">
+                            <!-- button with a dropdown -->
+                            <button type="button" class="btn btn-success btn-sm" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-success btn-sm" data-card-widget="remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <!-- /. tools -->
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body pt-0">
+                        <!--The calendar -->
+                        <div id="calendar" style="width: 100%"></div>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Jalur Pengiriman Delivery Order</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                    class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove"><i
+                                    class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="chart-responsive">
+                                    <canvas id="pieChart" height="150"></canvas>
+                                </div>
+                                <!-- ./chart-responsive -->
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-md-4">
+                                <ul class="chart-legend clearfix">
+                                    <li><i class="far fa-circle text-danger"></i> Jalur Darat</li>
+                                    <li><i class="far fa-circle text-success"></i> Jalur Laut</li>
+                                    <li><i class="far fa-circle text-warning"></i> Jalur Darat / Laut</li>
+                                </ul>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- /.row -->
+                    </div>
+                </div>
+            </div>
+            <!-- /.card -->
+            <div class="col-md-12">
+                <!-- USERS LIST -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Top 8 Reward Customer</h3>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i
+                                    class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove"><i
+                                    class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body p-0">
+                        <ul class="users-list clearfix">
+                            @foreach ($top10customer as $customer)
+                            <li>
+                                <img src="{{asset('uploads/'.$customer->logo)}}" alt="User Image" width="125">
+                                <a class="users-list-name" href="{{route('customer.agen.show',$customer->id)}}">{{$customer->name}}</a>
+                                <span class="users-list-date">{{$customer->reward}}</span>
+                            </li>
+                            @endforeach
+                        </ul>
+                        <!-- /.users-list -->
+                    </div>
+                    <!-- /.card-body -->
+                    <!-- /.card-footer -->
+                </div>
+                <!--/.card -->
+            </div>
+            <!-- /.col -->
+        </div>
     </div>
     <!-- /.col -->
-
     <div class="col-md-4">
         <!-- Info Boxes Style 2 -->
         <div class="info-box mb-3 bg-warning">
@@ -289,7 +428,10 @@
         </div>
         <!-- /.card -->
     </div>
+
     <!-- /.col -->
+
+
 </div>
 @endif
 <!-- /.row -->
@@ -298,6 +440,10 @@
 @push('script')
 <!-- ChartJS -->
 <script src="{{asset('plugins/chart.js/Chart.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.7"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{{asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
 <script>
     $(function () {
         'use strict'
@@ -327,6 +473,15 @@
                         }]
                     },
                     options: {
+                        // Container for zoom options
+                        zoom: {
+                            // Boolean to enable zooming
+                            enabled: true,
+
+                            // Zooming directions. Remove the appropriate direction to disable
+                            // Eg. 'y' would only allow zooming in the y direction
+                            mode: 'x',
+                        },
                         maintainAspectRatio: false,
                         tooltips: {
                             mode: mode,
@@ -373,7 +528,124 @@
                     }
                 })
             }
+        });
+
+        //-----------------------
+        //- MONTHLY SALES CHART -
+        //-----------------------
+
+        // Get context with jQuery - using jQuery's .get() method.
+        var salesChartCanvas = $('#salesChart').get(0).getContext('2d')
+        let url_monthly = "{{ route('home.chart_monthly') }}"
+        $.ajax({
+            type: 'get',
+            url: url_monthly,
+            success: function (data) {
+                $('#date_monthly').html("Delivery Order: " + data.datefrom);
+                var salesChartData = {
+                    labels: data.label,
+                    datasets: [{
+                        label: 'Delivery Order',
+                        fill: false,
+                        borderWidth: 2,
+                        lineTension: 0,
+                        spanGaps: true,
+                        borderColor: '#efefef',
+                        pointRadius: 3,
+                        pointHoverRadius: 7,
+                        pointColor: '#efefef',
+                        pointBackgroundColor: '#efefef',
+                        data: data.transaction
+                    }]
+                }
+
+                var salesChartOptions = {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    legend: {
+                        display: false,
+                    },
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                fontColor: '#efefef',
+                            },
+                            gridLines: {
+                                display: false,
+                                color: '#efefef',
+                                drawBorder: false,
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                stepSize: 5000,
+                                fontColor: '#efefef',
+                            },
+                            gridLines: {
+                                display: true,
+                                color: '#efefef',
+                                drawBorder: false,
+                            }
+                        }]
+                    }
+                }
+
+                // This will get the first returned node in the jQuery collection.
+                var salesChart = new Chart(salesChartCanvas, {
+                    type: 'line',
+                    data: salesChartData,
+                    options: salesChartOptions
+                })
+            }
+        });
+        //---------------------------
+        //- END MONTHLY SALES CHART -
+        //---------------------------
+        // The Calender
+        $('#calendar').datetimepicker({
+            format: 'L',
+            inline: true
         })
+
+        //-------------
+        //- PIE CHART -
+        //-------------
+        // Get context with jQuery - using jQuery's .get() method.
+        var pieChartCanvas = $('#pieChart').get(0).getContext('2d');
+        let url_route = "{{ route('home.chart_route') }}"
+        $.ajax({
+            type: 'get',
+            url: url_route,
+            success: function (data) {
+                var pieData = {
+                    labels: [
+                        'Jalur darat',
+                        'Jalur laut',
+                        'Jalur darat / laut'
+                    ],
+                    datasets: [{
+                        data: data.transaction,
+                        backgroundColor: ['#f56954', '#00a65a', '#f39c12'],
+                    }]
+                }
+                var pieOptions = {
+                    legend: {
+                        display: false
+                    }
+                }
+                //Create pie or douhnut chart
+                // You can switch between pie and douhnut using the method below.
+                var pieChart = new Chart(pieChartCanvas, {
+                    type: 'doughnut',
+                    data: pieData,
+                    options: pieOptions
+                })
+            }
+        });
+
+        //-----------------
+        //- END PIE CHART -
+        //-----------------
 
     })
 
@@ -405,6 +677,15 @@
                         }]
                     },
                     options: {
+                        // Container for zoom options
+                        zoom: {
+                            // Boolean to enable zooming
+                            enabled: true,
+
+                            // Zooming directions. Remove the appropriate direction to disable
+                            // Eg. 'y' would only allow zooming in the y direction
+                            mode: 'x',
+                        },
                         maintainAspectRatio: false,
                         tooltips: {
                             mode: mode,

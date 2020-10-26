@@ -62,6 +62,8 @@ Route::middleware(['auth','admin'])->group(function (){
 
         Route::get('home/chart/1','HomeController@chart1')->name('home.chart1');
         Route::get('home/chart/2','HomeController@chart2')->name('home.chart2');
+        Route::get('home/chartmonthlydo','HomeController@dataChartMonthly')->name('home.chart_monthly');
+        Route::get('home/chartpieroute','HomeController@dataChartRoute')->name('home.chart_route');
         Route::get('home/voucher','HomeController@voucher')->name('home.voucher');
         Route::get('home/deliveryorder/laut','HomeController@do_laut')->name('home.delivery.laut');
         Route::get('home/deliveryorder/darat','HomeController@do_darat')->name('home.delivery.darat');

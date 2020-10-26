@@ -10,9 +10,8 @@
     </div><!-- /.col -->
     <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{route('home.index')}}">Beranda</a></li>
         <li class="breadcrumb-item">Profile User</li>
-        <li class="breadcrumb-item active">Detail</li>
       </ol>
     </div><!-- /.col -->
   </div><!-- /.row -->
@@ -31,11 +30,11 @@
           <table class="table table-striped">
             <tbody>
                 <tr>
-                    <td style="width:15%">Avatar</td>
+                    <td style="width:15%">Foto Profil</td>
                     <td><img class="img-thumbnail" width="150px" src="{{asset("/uploads/".$user->admin->avatar)}}" alt=""></td>
                 </tr>
               <tr>
-                <td style="width:15%">Name</td>
+                <td style="width:15%">Nama</td>
                     <td>{{$user->admin->name}}</td>
               </tr>
               <tr>
@@ -47,11 +46,11 @@
                 <td>{{$user->email}}</td>
               </tr>
               <tr>
-                <td style="width:15%">Phone</td>
+                <td style="width:15%">No Telepon</td>
                 <td>{{$user->admin->phone}}</td>
               </tr>
               <tr>
-                <td style="width:15%">Address</td>
+                <td style="width:15%">Alamat</td>
                 <td>{{$user->admin->address}}</td>
               </tr>
             </tbody>
