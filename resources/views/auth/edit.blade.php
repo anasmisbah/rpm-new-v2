@@ -16,9 +16,9 @@
     </div><!-- /.col -->
     <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
-        <li class="breadcrumb-item"><a href="#">Home</a></li>
-        <li class="breadcrumb-item">Profile User</li>
-        <li class="breadcrumb-item active">Update</li>
+        <li class="breadcrumb-item"><a href="{{route('home.index')}}">Beranda</a></li>
+        <li class="breadcrumb-item"><a href="{{route('profile.user')}}">Profile User</a></li>
+        <li class="breadcrumb-item active">Ubah</li>
       </ol>
     </div><!-- /.col -->
   </div><!-- /.row -->
@@ -29,7 +29,7 @@
             <!-- Horizontal Form -->
             <div class="card card-info">
                 <div class="card-header">
-                  <h3 class="card-title">Update Profile</h3>
+                  <h3 class="card-title">Mengubah Profile</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
@@ -38,14 +38,14 @@
                     @method('PUT')
                     <div class="card-body">
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label">Avatar</label>
+                            <label class="col-sm-2 col-form-label">Foto Profile</label>
                             <div class="col-sm-6 col-lg-6 col-md-6">
                                 <img class="img-thumbnail" id="image_con" width="150px" src="{{asset('/uploads/'.$user->admin->avatar)}}" alt="">
                               <input type="file" class="form-control" id="image" name="avatar">
                             </div>
                           </div>
                         <div class="form-group row">
-                          <label for="name" class="col-sm-2 col-form-label">name <span class="text-danger">*</span> </label>
+                          <label for="name" class="col-sm-2 col-form-label">Nama <span class="text-danger">*</span> </label>
                           <div class="col-sm-6 col-lg-6 col-md-6">
                             <input type="text" value="{{$user->admin->name}}" class="form-control" id="name" name="name" placeholder="name">
                           </div>
@@ -63,13 +63,13 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="phone" class="col-sm-2 col-form-label">Phone Number <span class="text-danger">*</span></label>
+                            <label for="phone" class="col-sm-2 col-form-label">No Telepon <span class="text-danger">*</span></label>
                             <div class="col-sm-6 col-lg-6 col-md-6">
                                 <input type="text" value="{{$user->admin->phone}}" class="form-control" id="phone" name="phone" placeholder="phone">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="address" class="col-sm-2 col-form-label">Address <span class="text-danger">*</span></label>
+                            <label for="address" class="col-sm-2 col-form-label">Alamat <span class="text-danger">*</span></label>
                             <div class="col-sm-6 col-lg-6 col-md-6">
                                 <input type="text" value="{{$user->admin->address}}" class="form-control" id="address" name="address" placeholder="address">
                             </div>
@@ -78,8 +78,8 @@
 
                   <!-- /.card-body -->
                   <div class="card-footer">
-                    <button type="submit" class="btn btn-info">Save</button>
-                    <a href="{{route('profile.user')}}" class="btn btn-default">Back</a>
+                    <button type="submit" class="btn btn-info">Simpan</button>
+                    <a href="{{route('profile.user')}}" class="btn btn-default">Kembali</a>
                   </div>
                   <!-- /.card-footer -->
                 </form>

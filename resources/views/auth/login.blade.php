@@ -5,7 +5,7 @@
 	<title>Login | Reward Point Management</title>
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="{{asset('img/favico.jpg')}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{asset('img/favico.png')}}" type="image/x-icon">
 <!--===============================================================================================-->
 	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
 <!--===============================================================================================-->
@@ -31,6 +31,10 @@
 				</div>
 
                 <form class="login100-form validate-form" action="{{route('login')}}" method="post">
+                    <div class="d-flex justify-content-center">
+
+                        <img src="{{asset('img/favico.png')}}" alt="Logo Perusahaan" width="200px" class="align-center">
+                    </div>
                     @csrf
 					<span class="login100-form-title">
 						Reward Point Management

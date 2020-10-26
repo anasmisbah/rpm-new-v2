@@ -1,20 +1,17 @@
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-warning elevation-4">
-    {{-- <!-- Brand Logo -->
-    <a href="{{route('home.index')}}" class="brand-link">
-      <img src="{{asset('/uploads/'.$company->logo)}}" alt="AdminLTE Logo" class="brand-image" style="display:block"
-           style="opacity: .8">
-      <span class="brand-text font-weight-light">{{$company->name}}</span>
-    </a> --}}
+    <!-- Brand Logo -->
+      <img src="{{asset('/img/logo.png')}}" alt="AdminLTE Logo" width="200px"  style="display:block">
+      <span class="brand-text font-weight-light">&nbsp;</span>
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex justify-content-center">
+        {{-- <div class="user-panel mt-3 pb-3 mb-3 d-flex justify-content-center">
             <div class="image">
-              <img src="{{asset('/img/logo.jpg')}}" class="brand-image elevation-2" alt="Logo" >
+              <img src="{{asset('/img/logo.png')}}" class="brand-image elevation-2" alt="Logo" >
             </div>
-          </div>
+          </div> --}}
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
