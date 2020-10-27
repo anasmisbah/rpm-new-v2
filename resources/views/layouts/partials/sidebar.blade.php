@@ -2,11 +2,10 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-warning elevation-4">
     <!-- Brand Logo -->
-      <img src="{{asset('/img/logo.png')}}" alt="AdminLTE Logo" width="200px"  style="display:block">
-      <span class="brand-text font-weight-light">&nbsp;</span>
 
     <!-- Sidebar -->
     <div class="sidebar">
+        <img src="{{asset('/img/logo.png')}}" alt="AdminLTE Logo" width="200px"  style="display:block">
         {{-- <div class="user-panel mt-3 pb-3 mb-3 d-flex justify-content-center">
             <div class="image">
               <img src="{{asset('/img/logo.png')}}" class="brand-image elevation-2" alt="Logo" >

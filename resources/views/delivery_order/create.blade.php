@@ -18,7 +18,7 @@
             <li class="breadcrumb-item"><a href="{{route('home.index')}}">Beranda</a></li>
             <li class="breadcrumb-item"><a href="{{route('agen.index')}}">Agen</a></li>
             <li class="breadcrumb-item"><a href="{{route('salesorder.agen.index',$agen->id)}}">Sales Order</a></li>
-            <li class="breadcrumb-item"><a href="{{route('deliveryorder.agen.show',$sales_order->id)}}">Delivery Order</a></li>
+            <li class="breadcrumb-item"><a href="{{route('deliveryorder.agen.index',$sales_order->id)}}">Delivery Order</a></li>
             <li class="breadcrumb-item active">Tambah</li>
         </ol>
     </div><!-- /.col -->
