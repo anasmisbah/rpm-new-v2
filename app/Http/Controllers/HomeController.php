@@ -125,6 +125,22 @@ class HomeController extends Controller
         return response()->json($data, 200);
     }
 
+    public function dataChartSoMonthly()
+    {
+        $date = Carbon::now();
+        $data['label']=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+        $data['transaction']=[0,0,0,0,0,0,0,0,0,0,0,0];
+        for ($i=0; $i < count($data['label']); $i++) {
+            $totalMonth = SalesOrder::whereYear('created_at', $date->year)->whereMonth('created_at', $i+1)->count();
+            $data['transaction'][$i] = $totalMonth;
+        }
+
+        $lasDate = SalesOrder::select('created_at')->orderBy('created_at','desc')->first();
+        $fisrtDate= Carbon::create($lasDate->created_at->year, 1, 1);
+        $data['datefrom'] = $fisrtDate->day." ".$fisrtDate->monthName." ".$fisrtDate->year." - ".$lasDate->created_at->day." ".$lasDate->created_at->monthName." ".$lasDate->created_at->year;
+        return response()->json($data, 200);
+    }
+
     public function dataChartRoute()
     {
         $data['transaction'][] = DeliveryOrder::where('shipped_via',0)->count();

@@ -80,7 +80,7 @@
 
 @if (Auth::user()->role_id == 1)
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-6">
         <div class="card bg-gradient-info">
             <div class="card-header">
                 <h5 class="card-title">Recap Bulanan Delivery Order</h5>
@@ -105,6 +105,42 @@
                         <div class="chart">
                             <!-- Sales Chart Canvas -->
                             <canvas id="salesChart" height="180" style="height: 180px;"></canvas>
+                        </div>
+                        <!-- /.chart-responsive -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-6">
+        <div class="card bg-gradient-primary">
+            <div class="card-header">
+                <h5 class="card-title">Recap Bulanan Sales Order</h5>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="text-center">
+                            <strong id="date_monthly_so"></strong>
+                        </p>
+
+                        <div class="chart">
+                            <!-- Sales Chart Canvas -->
+                            <canvas id="so_chart" height="180" style="height: 180px;"></canvas>
                         </div>
                         <!-- /.chart-responsive -->
                     </div>
@@ -531,7 +567,7 @@
         });
 
         //-----------------------
-        //- MONTHLY SALES CHART -
+        //- MONTHLY DO CHART -
         //-----------------------
 
         // Get context with jQuery - using jQuery's .get() method.
@@ -592,6 +628,77 @@
 
                 // This will get the first returned node in the jQuery collection.
                 var salesChart = new Chart(salesChartCanvas, {
+                    type: 'line',
+                    data: salesChartData,
+                    options: salesChartOptions
+                })
+            }
+        });
+        //---------------------------
+        //- END MONTHLY DO CHART -
+        //---------------------------
+         //-----------------------
+        //- MONTHLY SO CHART -
+        //-----------------------
+
+        // Get context with jQuery - using jQuery's .get() method.
+        var salesChartCanvas_so = $('#so_chart').get(0).getContext('2d')
+        let url_monthly_so = "{{ route('home.chart_so_monthly') }}"
+        $.ajax({
+            type: 'get',
+            url: url_monthly_so,
+            success: function (data) {
+                $('#date_monthly_so').html("Sales Order: " + data.datefrom);
+                var salesChartData = {
+                    labels: data.label,
+                    datasets: [{
+                        label: 'Sales Order',
+                        fill: false,
+                        borderWidth: 2,
+                        lineTension: 0,
+                        spanGaps: true,
+                        borderColor: '#efefef',
+                        pointRadius: 3,
+                        pointHoverRadius: 7,
+                        pointColor: '#efefef',
+                        pointBackgroundColor: '#efefef',
+                        data: data.transaction
+                    }]
+                }
+
+                var salesChartOptions = {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    legend: {
+                        display: false,
+                    },
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                fontColor: '#efefef',
+                            },
+                            gridLines: {
+                                display: false,
+                                color: '#efefef',
+                                drawBorder: false,
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                stepSize: 5000,
+                                fontColor: '#efefef',
+                            },
+                            gridLines: {
+                                display: true,
+                                color: '#efefef',
+                                drawBorder: false,
+                            }
+                        }]
+                    }
+                }
+
+                // This will get the first returned node in the jQuery collection.
+                var salesChart = new Chart(salesChartCanvas_so, {
                     type: 'line',
                     data: salesChartData,
                     options: salesChartOptions
