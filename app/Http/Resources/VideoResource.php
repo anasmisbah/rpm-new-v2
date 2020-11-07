@@ -19,7 +19,7 @@ class VideoResource extends JsonResource
             'title'=> $this->title,
             'image'=> url('/uploads/' . $this->image),
             'url'=> $this->url,
-            'created_at'=>$this->created_at->format('d F Y'),
+            'created_at'=>$this->created_at->dayName.", ".$this->created_at->day." ".$this->created_at->monthName." ".$this->created_at->year,
         ];
     }
 }

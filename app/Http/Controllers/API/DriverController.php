@@ -45,9 +45,7 @@ class DriverController extends Controller
         // TODO driver start delivery
         $delivery_order->update([
             'status'=>2,
-            'driver_id'=>$user->driver->id,
             'departure_time'=>$date,
-            'shipped_via'=>$user->driver->route,
         ]);
 
         // Send notification to customer

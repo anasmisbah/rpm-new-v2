@@ -24,8 +24,8 @@ class SalesOrderController extends Controller
                     "customer_id"=>$sales_order->customer_id,
                     "agen_id"=>$sales_order->agen_id,
                     "agen"=>$sales_order->agen->name,
-                    "created_at"=>$sales_order->created_at->format('d F Y') ,
-                    "updated_at"=>$sales_order->updated_at->format('d F Y'),
+                    'created_at'=>$sales_order->created_at->dayName.", ".$sales_order->created_at->day." ".$sales_order->created_at->monthName." ".$sales_order->created_at->year,
+                    "updated_at"=> $sales_order->updated_at->dayName.", ".$sales_order->updated_at->day." ".$sales_order->updated_at->monthName." ".$sales_order->updated_at->year,
                 ];
             }
             return response()->json($data, 200);
@@ -41,8 +41,8 @@ class SalesOrderController extends Controller
                     "customer_id"=>$sales_order->customer_id,
                     "agen_id"=>$sales_order->agen_id,
                     "agen"=>$sales_order->agen->name,
-                    "created_at"=>$sales_order->created_at->format('d F Y') ,
-                    "updated_at"=>$sales_order->updated_at->format('d F Y'),
+                    'created_at'=>$sales_order->created_at->dayName.", ".$sales_order->created_at->day." ".$sales_order->created_at->monthName." ".$sales_order->created_at->year,
+                    "updated_at"=> $sales_order->updated_at->dayName.", ".$sales_order->updated_at->day." ".$sales_order->updated_at->monthName." ".$sales_order->updated_at->year,
                 ];
             }
             return response()->json($data, 200);
@@ -59,9 +59,9 @@ class SalesOrderController extends Controller
             "customer_id"=>$sales_order->customer_id,
             "agen_id"=>$sales_order->agen_id,
             "agen"=>$sales_order->agen->name,
-            "created_at"=>$sales_order->created_at->format('d F Y') ,
-            "updated_at"=>$sales_order->updated_at->format('d F Y'),
-        ];
+            'created_at'=>$sales_order->created_at->dayName.", ".$sales_order->created_at->day." ".$sales_order->created_at->monthName." ".$sales_order->created_at->year,
+            "updated_at"=> $sales_order->updated_at->dayName.", ".$sales_order->updated_at->day." ".$sales_order->updated_at->monthName." ".$sales_order->updated_at->year,
+];
         foreach ($sales_order->delivery_orders as $delivery_order) {
                 $data['delivery_orders'][] = new DeliveryOrderResource($delivery_order);
         }

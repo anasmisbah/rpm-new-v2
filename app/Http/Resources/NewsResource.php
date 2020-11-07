@@ -20,7 +20,7 @@ class NewsResource extends JsonResource
             'image'=> url('/uploads/' . $this->image),
             'url'=> url('/news/read/'.$this->slug),
             'view'=>$this->view,
-            'created_at'=>$this->created_at->format('d F Y'),
+            'created_at'=>$this->created_at->dayName.", ".$this->created_at->day." ".$this->created_at->monthName." ".$this->created_at->year,
             'created_by'=>$this->createdby->admin->name,
             'category'=>$this->category->makeHidden(['created_at','updated_at','pivot','slug'])
         ];

@@ -45,6 +45,17 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                        <label for="no_sh" class="col-sm-2 col-form-label">Nomor SH <span class="text-danger">*</span> </label>
+                        <div class="col-sm-6 col-lg-6 col-md-6">
+                            <input value="{{old('no_sh')}}" type="text" class="form-control @error('no_sh') is-invalid @enderror" id="no_sh" name="no_sh" placeholder="no SH">
+                            @error('no_sh')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label for="customer_id" class="col-sm-2 col-form-label">Customer <span
                                 class="text-danger">*</span> </label>
                         <div class="col-sm-6 col-lg-6 col-md-6">

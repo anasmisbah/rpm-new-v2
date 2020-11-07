@@ -7,6 +7,7 @@ use App\Agen;
 use App\User;
 use Illuminate\Support\Facades\Storage;
 use File;
+use App\Card;
 use Illuminate\Support\Facades\Hash;
 
 class AgenController extends Controller
@@ -30,7 +31,8 @@ class AgenController extends Controller
      */
     public function create()
     {
-        return view('agen.create');
+        $cards = Card::all();
+        return view('agen.create',compact('cards'));
     }
 
     /**
@@ -48,6 +50,7 @@ class AgenController extends Controller
             'phone'=>'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
             'email_user'=>'required|email|unique:users,email',
             'password_user'=>'required',
+            'card_id'=>'required',
         ]);
         $logo='logos/default.jpg';
         if ($request->file('logo')) {
@@ -71,7 +74,8 @@ class AgenController extends Controller
             'website'=>$request->website,
             'logo'=>$logo,
             'npwp'=>$request->npwp,
-            'user_id'=>$user->id
+            'user_id'=>$user->id,
+            'card_id'=>$request->card_id,
         ]);
 
         return redirect()->back()->with('status','Successfully created Agen');
@@ -99,8 +103,8 @@ class AgenController extends Controller
     public function edit($id)
     {
         $agen = Agen::findOrFail($id);
-
-        return view('agen.edit',compact('agen'));
+        $cards = Card::all();
+        return view('agen.edit',compact('agen','cards'));
     }
 
     /**
@@ -119,6 +123,7 @@ class AgenController extends Controller
             'address'=>'required',
             'phone'=>'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
             'email_user'=>'required|email|unique:users,email,'.$agen->user->id,
+            'card_id'=>'required',
         ]);
 
         if ($request->file('logo')) {
@@ -152,7 +157,8 @@ class AgenController extends Controller
             'address'=>$request->address,
             'phone'=>$request->phone,
             'website'=>$request->website,
-            'npwp'=>$request->npwp
+            'npwp'=>$request->npwp,
+            'card_id'=>$request->card_id,
         ]);
 
         return redirect()->back()->with('status','Successfully updated Agen');

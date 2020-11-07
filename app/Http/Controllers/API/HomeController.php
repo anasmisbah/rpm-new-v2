@@ -76,8 +76,8 @@ class HomeController extends Controller
                     "customer_id"=>$sales_order->customer_id,
                     "agen_id"=>$sales_order->agen_id,
                     "agen"=>$sales_order->agen->name,
-                    "created_at"=>$sales_order->created_at->format('d F Y') ,
-                    "updated_at"=>$sales_order->updated_at->format('d F Y'),
+                    'created_at'=>$sales_order->created_at->dayName.", ".$sales_order->created_at->day." ".$sales_order->created_at->monthName." ".$sales_order->created_at->year,
+                    "updated_at"=> $sales_order->updated_at->dayName.", ".$sales_order->updated_at->day." ".$sales_order->updated_at->monthName." ".$sales_order->updated_at->year,
                     "delivery_orders"=>[]
                 ];
                 foreach ($sales_order->delivery_orders->sortByDesc('id') as $delivery_order) {
@@ -94,8 +94,8 @@ class HomeController extends Controller
                 "email"=> $user->email,
                 "role_id"=> $user->role_id,
                 "fcm_token"=> $user->fcm_token,
-                "created_at"=> $user->created_at->format('d F Y'),
-                "updated_at"=> $user->updated_at->format('d F Y'),
+                'created_at'=>$user->created_at->dayName.", ".$user->created_at->day." ".$user->created_at->monthName." ".$user->created_at->year,
+                "updated_at"=> $user->updated_at->dayName.", ".$user->updated_at->day." ".$user->updated_at->monthName." ".$user->updated_at->year,
                 'agen'=>[
                     "id"=> $agen->id,
                     "name"=> $agen->name ,
@@ -104,10 +104,12 @@ class HomeController extends Controller
                     "phone"=> $agen->phone ,
                     "website"=> $agen->website ,
                     "transaction"=>$agen->transaction,
+                    "member"=>$agen->card->name,
+                    "card_image"=>url('/uploads/' . $agen->card->image),
                     "logo"=> url('/uploads/' . $agen->logo) ,
                     "user_id"=> $agen->user_id ,
-                    "created_at"=> $agen->created_at->format('d F Y') ,
-                    "updated_at"=> $agen->updated_at->format('d F Y') ,
+                    'created_at'=>$agen->created_at->dayName.", ".$agen->created_at->day." ".$agen->created_at->monthName." ".$agen->created_at->year,
+                    "updated_at"=> $agen->updated_at->dayName.", ".$agen->updated_at->day." ".$agen->updated_at->monthName." ".$agen->updated_at->year,
                     "sales_order"=>$sales_orders
                 ]
             ];
@@ -171,8 +173,8 @@ class HomeController extends Controller
                     "customer_id"=>$sales_order->customer_id,
                     "agen_id"=>$sales_order->agen_id,
                     "agen"=>$sales_order->agen->name,
-                    "created_at"=>$sales_order->created_at->format('d F Y') ,
-                    "updated_at"=>$sales_order->updated_at->format('d F Y'),
+                    'created_at'=>$sales_order->created_at->dayName.", ".$sales_order->created_at->day." ".$sales_order->created_at->monthName." ".$sales_order->created_at->year,
+                    "updated_at"=> $sales_order->updated_at->dayName.", ".$sales_order->updated_at->day." ".$sales_order->updated_at->monthName." ".$sales_order->updated_at->year,
                     "delivery_orders"=>[]
                 ];
                 foreach ($sales_order->delivery_orders->sortByDesc('id') as $delivery_order) {
@@ -188,7 +190,7 @@ class HomeController extends Controller
                     'id'=>$voucher->id,
                     'promo_id'=>$voucher->promo_id,
                     'customer_id'=>$voucher->customer_id,
-                    'created_at'=>$voucher->created_at->format('d F Y'),
+                    'created_at'=>$voucher->created_at->dayName.", ".$voucher->created_at->day." ".$voucher->created_at->monthName." ".$voucher->created_at->year,
                     'promo'=> new  PromoResource($voucher->promo)
                 ];
             }
@@ -197,9 +199,9 @@ class HomeController extends Controller
                 "email"=> $user->email,
                 "role_id"=> $user->role_id,
                 "fcm_token"=> $user->fcm_token,
-                "created_at"=> $user->created_at->format('d F Y'),
-                "updated_at"=> $user->updated_at->format('d F Y'),
-                'customer'=>[
+                'created_at'=>$user->created_at->dayName.", ".$user->created_at->day." ".$user->created_at->monthName." ".$user->created_at->year,
+                "updated_at"=> $user->updated_at->dayName.", ".$user->updated_at->day." ".$user->updated_at->monthName." ".$user->updated_at->year,
+            'customer'=>[
                     "id"=> $customer->id,
                     "name"=> $customer->name ,
                     "address"=> $customer->address,
@@ -211,8 +213,8 @@ class HomeController extends Controller
                     "card_image"=>url('/uploads/' . $customer->card->image),
                     "logo"=> url('/uploads/' . $customer->logo) ,
                     "user_id"=> $customer->user_id ,
-                    "created_at"=> $customer->created_at->format('d F Y') ,
-                    "updated_at"=> $customer->updated_at->format('d F Y') ,
+                    'created_at'=>$customer->created_at->dayName.", ".$customer->created_at->day." ".$customer->created_at->monthName." ".$customer->created_at->year,
+                    "updated_at"=> $customer->updated_at->dayName.", ".$customer->updated_at->day." ".$customer->updated_at->monthName." ".$customer->updated_at->year,
                     "coupon"=>$customer->coupon,
                     "sum_delivery_order"=>$sum_delivery_order,
                     "sales_orders"=>$sales_orders,
@@ -255,29 +257,23 @@ class HomeController extends Controller
         } else {
             $agen = $user->driver->agen;
             $route = $user->driver->route;
-            $sales_orders = $agen->sales_orders;
 
             $dos = $user->driver->delivery_order()->orderBy('created_at', 'desc')->get();
             $delivery_orders = [];
+            $delivery_orders_ready = [];
             foreach ($dos as $key => $delivery_order) {
                 $delivery_orders[] = new DeliveryOrderResource($delivery_order);
-            }
-            $delivery_orders_ready = [];
-            foreach ($sales_orders->sortByDesc('id') as $sales_order) {
-                foreach ($sales_order->delivery_orders()->orderBy('created_at', 'desc')->get() as $delivery_order) {
-                    if (($route == $delivery_order->shipped_via || $delivery_order->shipped_via == 2) && $delivery_order->status == 1) {
-                        $delivery_orders_ready[] = new DeliveryOrderResource($delivery_order);
-                    }
+                if ($delivery_order->status == 1) {
+                    $delivery_orders_ready[] = new DeliveryOrderResource($delivery_order);
                 }
             }
-
             $data['user'] = [
                 "id"=> $user->id,
                 "email"=> $user->email,
                 "role_id"=> $user->role_id,
                 "fcm_token"=> $user->fcm_token,
-                "created_at"=> $user->created_at->format('d F Y'),
-                "updated_at"=> $user->updated_at->format('d F Y'),
+                'created_at'=>$user->created_at->dayName.", ".$user->created_at->day." ".$user->created_at->monthName." ".$user->created_at->year,
+                "updated_at"=> $user->updated_at->dayName.", ".$user->updated_at->day." ".$user->updated_at->monthName." ".$user->updated_at->year,
                 'driver'=> new DriverResource($user->driver),
                 'agen'=>[
                     "id"=> $agen->id,
@@ -288,8 +284,8 @@ class HomeController extends Controller
                     "website"=> $agen->website ,
                     "logo"=> url('/uploads/' . $agen->logo) ,
                     "user_id"=> $agen->user_id ,
-                    "created_at"=> $agen->created_at->format('d F Y') ,
-                    "updated_at"=> $agen->updated_at->format('d F Y') ,
+                    'created_at'=>$agen->created_at->dayName.", ".$agen->created_at->day." ".$agen->created_at->monthName." ".$agen->created_at->year,
+                    "updated_at"=> $agen->updated_at->dayName.", ".$agen->updated_at->day." ".$agen->updated_at->monthName." ".$agen->updated_at->year,
                 ],
                 'ready_delivery_order'=>$delivery_orders_ready,
                 'delivery_orders'=>$delivery_orders

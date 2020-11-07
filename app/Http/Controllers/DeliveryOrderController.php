@@ -73,14 +73,17 @@ class DeliveryOrderController extends Controller
             $menit = "$time->minute menit";
         }
         $estimate = $jam.' '.$menit;
-        return view('delivery_order.detail',compact('sales_order','agen','delivery_order','estimate'));
+
+        $quantity_terbilang = $this->terbilang($delivery_order->quantity)." Liter";
+        return view('delivery_order.detail',compact('sales_order','agen','delivery_order','estimate','quantity_terbilang'));
     }
 
     public function create($id)
     {
         $sales_order = SalesOrder::findOrFail($id);
         $agen = $sales_order->agen;
-        return view('delivery_order.create',compact('sales_order','agen'));
+        $drivers = $agen->drivers;
+        return view('delivery_order.create',compact('sales_order','agen','drivers'));
     }
 
     public function store(Request $request,$id)
@@ -96,13 +99,13 @@ class DeliveryOrderController extends Controller
             'product'=>'required',
             'quantity'=>'required',
             'shipped_with'=>'required',
-            'shipped_via'=>'required',
             'no_vehicles'=>'required',
             'top_seal'=>'required',
             'bottom_seal'=>'required',
             'temperature'=>'required',
             'jam'=>'required',
-            'menit'=>'required'
+            'menit'=>'required',
+            'driver_id'=>'required'
         ]);
 
         $data = [
@@ -120,16 +123,23 @@ class DeliveryOrderController extends Controller
             'km_end'=>$request->km_end,
             'sg_meter'=>$request->sg_meter,
             'status'=>0,
-            'estimate'=>$request->jam.':'.$request->menit
+            'estimate'=>$request->jam.':'.$request->menit,
+            'driver_id'=>$request->driver_id,
+            'distribution'=>$request->distribution,
+            'admin_name'=>$request->admin_name,
+            'knowing'=>$request->knowing,
         ];
 
-        if (count($request->shipped_via) == 2) {
-            $data['shipped_via'] = 2;
-        }else{
-            $data['shipped_via'] = $request->shipped_via[0];
-        }
 
         $delivery_order = $sales_order->delivery_orders()->create($data);
+        // if (count($request->shipped_via) == 2) {
+        //     $data['shipped_via'] = 2;
+        // }else{
+        //     $data['shipped_via'] = $request->shipped_via[0];
+        // }
+        $delivery_order->update([
+            'shipped_via'=>$delivery_order->driver->route,
+        ]);
 
         $date = Carbon::now();
         $fcm_token = [];
@@ -170,8 +180,10 @@ class DeliveryOrderController extends Controller
         $delivery_order = DeliveryOrder::findOrFail($id);
         $sales_order = $delivery_order->sales_order;
         $agen = $sales_order->agen;
+        $drivers = $agen->drivers;
         $estimate = Carbon::createFromTimeString($delivery_order->estimate);
-        return view('delivery_order.edit',compact('sales_order','agen','delivery_order','estimate'));
+        $quantity_terbilang = $this->terbilang($delivery_order->quantity)." Liter";
+        return view('delivery_order.edit',compact('sales_order','agen','delivery_order','estimate','drivers','quantity_terbilang'));
     }
 
     public function update(Request $request,$id)
@@ -184,13 +196,13 @@ class DeliveryOrderController extends Controller
             'product'=>'required',
             'quantity'=>'required',
             'shipped_with'=>'required',
-            'shipped_via'=>'required',
             'no_vehicles'=>'required',
             'top_seal'=>'required',
             'bottom_seal'=>'required',
             'temperature'=>'required',
             'jam'=>'required',
-            'menit'=>'required'
+            'menit'=>'required',
+            'driver_id'=>'required'
         ]);
 
         $data = [
@@ -207,15 +219,17 @@ class DeliveryOrderController extends Controller
             'km_start'=>$request->km_start,
             'km_end'=>$request->km_end,
             'sg_meter'=>$request->sg_meter,
-            'estimate'=>$request->jam.':'.$request->menit
+            'estimate'=>$request->jam.':'.$request->menit,
+            'driver_id'=>$request->driver_id,
+            'distribution'=>$request->distribution,
+            'admin_name'=>$request->admin_name,
+            'knowing'=>$request->knowing,
         ];
-        if (count($request->shipped_via) == 2) {
-            $data['shipped_via'] = 2;
-        }else{
-            $data['shipped_via'] = $request->shipped_via[0];
-        }
 
         $delivery_order->update($data);
+        $delivery_order->update([
+            'shipped_via'=>$delivery_order->driver->route,
+        ]);
         return redirect()->route('deliveryorder.agen.show',$delivery_order->id)->with('status','successfully updated Delivery Order');;
     }
 
@@ -297,6 +311,41 @@ class DeliveryOrderController extends Controller
 
         return redirect()->back()->with('status','Successfully send notif delivery order '.$delivery_order->delivery_order_number);
     }
+    private function penyebut($nilai) {
+        $nilai = abs($nilai);
+        $huruf = array("", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas");
+        $temp = "";
+        if ($nilai < 12) {
+            $temp = " ". $huruf[$nilai];
+        } else if ($nilai <20) {
+            $temp = $this->penyebut($nilai - 10). " belas";
+        } else if ($nilai < 100) {
+            $temp = $this->penyebut($nilai/10)." puluh". $this->penyebut($nilai % 10);
+        } else if ($nilai < 200) {
+            $temp = " seratus" . $this->penyebut($nilai - 100);
+        } else if ($nilai < 1000) {
+            $temp = $this->penyebut($nilai/100) . " ratus" . $this->penyebut($nilai % 100);
+        } else if ($nilai < 2000) {
+            $temp = " seribu" . $this->penyebut($nilai - 1000);
+        } else if ($nilai < 1000000) {
+            $temp = $this->penyebut($nilai/1000) . " ribu" . $this->penyebut($nilai % 1000);
+        } else if ($nilai < 1000000000) {
+            $temp = $this->penyebut($nilai/1000000) . " juta" . $this->penyebut($nilai % 1000000);
+        } else if ($nilai < 1000000000000) {
+            $temp = $this->penyebut($nilai/1000000000) . " milyar" . $this->penyebut(fmod($nilai,1000000000));
+        } else if ($nilai < 1000000000000000) {
+            $temp = $this->penyebut($nilai/1000000000000) . " trilyun" . $this->penyebut(fmod($nilai,1000000000000));
+        }
+        return $temp;
+    }
 
+    private function terbilang($nilai) {
+        if($nilai<0) {
+            $hasil = "minus ". trim($this->penyebut($nilai));
+        } else {
+            $hasil = trim($this->penyebut($nilai));
+        }
+        return $hasil;
+    }
 
 }

@@ -30,7 +30,10 @@ class DeliveryOrder extends Model
         'sales_order_id',
         'driver_id',
         'bast',
-        'estimate'
+        'estimate',
+        'distribution',
+        'admin_name',
+        'knowing'
 
     ];
 
@@ -40,7 +43,7 @@ class DeliveryOrder extends Model
         'effective_date_start',
         'effective_date_end',
     ];
-    
+
 
     public function driver()
     {

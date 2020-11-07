@@ -13,6 +13,6 @@ class Critic extends Model
 
     public function delivery_order()
     {
-        return $this->belongsTo('App\User', 'foreign_key', 'other_key');
+        return $this->belongsTo('App\DeliveryOrder');
     }
 }

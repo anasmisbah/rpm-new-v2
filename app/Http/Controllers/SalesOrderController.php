@@ -25,7 +25,7 @@ class SalesOrderController extends Controller
 
     public function  salesorder_data($id)
     {
-        $so = SalesOrder::select(['sales_orders.id','sales_orders.sales_order_number','sales_orders.created_at','customers.name'])
+        $so = SalesOrder::select(['sales_orders.id','sales_orders.sales_order_number','sales_orders.created_at','customers.name','sales_orders.no_sh'])
                     ->join('customers','customers.id','=','sales_orders.customer_id')
                     ->where('sales_orders.agen_id',$id)->orderBy('id','desc');
 
@@ -83,13 +83,16 @@ class SalesOrderController extends Controller
         $agen = Agen::findOrFail($id);
         $request->validate([
             'sales_order_number'=>'required',
-            'customer_id'=>'required'
+            'customer_id'=>'required',
+            'no_sh'=>'required',
+
         ]);
 
         $sales_order = SalesOrder::create([
             'sales_order_number'=>$request->sales_order_number,
             'agen_id'=>$agen->id,
-            'customer_id'=>$request->customer_id
+            'customer_id'=>$request->customer_id,
+            'no_sh'=>$request->no_sh
         ]);
 
         $customer = $sales_order->customer;
@@ -158,12 +161,14 @@ class SalesOrderController extends Controller
         $old_customer = Customer::findOrFail($sales_order->customer_id);
         $request->validate([
             'sales_order_number'=>'required',
-            'customer_id'=>'required'
+            'customer_id'=>'required',
+            'no_sh'=>'required',
         ]);
 
         $sales_order->update([
             'sales_order_number'=>$request->sales_order_number,
-            'customer_id'=>$request->customer_id
+            'customer_id'=>$request->customer_id,
+            'no_sh'=>$request->no_sh,
         ]);
 
         if ($new_customer->id != $old_customer->id) {

@@ -98,6 +98,21 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label for="member" class="col-sm-2 col-form-label">Tipe Member <span class="text-danger">*</span></label>
+                            <div class="col-sm-6 col-lg-6 col-md-6">
+                                <select class="select2" id="select-category" name="card_id" data-placeholder="Select Category" style="width: 100%;">
+                                    @foreach ($cards as $card)
+                                        <option value="{{$card->id}}" {{$agen->card_id == $card->id?'selected':''}}>{{$card->name}}</option>
+                                    @endforeach
+                                </select>
+                                @error('member')
+                                <span class="text-sm text-danger" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                          </div>
+                        <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Logo</label>
                             <div class="col-sm-6 col-lg-6 col-md-6">
                                 <img class="img-thumbnail mb-2" id="image_con" width="150px" src="{{asset('/uploads/'.$agen->logo)}}" alt="">
@@ -161,6 +176,7 @@
 <script>
   $(function () {
     //Initialize Select2 Elements
+    $('#select-category').select2()
     $('#description').summernote()
   });
 </script>

@@ -66,6 +66,9 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::get('salesorder','API\SalesOrderController@index');
     Route::get('salesorder/{id}','API\SalesOrderController@detail');
 
+    // CRITICS FOR AGEN
+    Route::get('/agen/critics','API\CriticsController@critics_agen');
+
     // *****LIST API CUSTOMER*********
     Route::get('/coupon','API\CouponController@index');
     Route::post('promo/take','API\PromoController@takepromo');

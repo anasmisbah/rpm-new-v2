@@ -20,7 +20,7 @@ class VoucherController extends Controller
                 'id'=>$voucher->id,
                 'promo_id'=>$voucher->promo_id,
                 'customer_id'=>$voucher->customer_id,
-                'created_at'=>$voucher->created_at->format('d F Y'),
+                'created_at'=>$voucher->created_at->dayName.", ".$voucher->created_at->day." ".$voucher->created_at->monthName." ".$voucher->created_at->year,
                 'promo'=> new  PromoResource($voucher->promo)
             ];
         }
@@ -36,7 +36,7 @@ class VoucherController extends Controller
             'id'=>$voucher->id,
             'promo_id'=>$voucher->promo_id,
             'customer_id'=>$voucher->customer_id,
-            'created_at'=>$voucher->created_at->format('d F Y'),
+            'created_at'=>$voucher->created_at->dayName.", ".$voucher->created_at->day." ".$voucher->created_at->monthName." ".$voucher->created_at->year,
             'promo'=> new  PromoResource($voucher->promo)
         ];
         return response()->json($data, 200);

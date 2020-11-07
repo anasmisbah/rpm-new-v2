@@ -16,6 +16,7 @@ class CreateSalesOrdersTable extends Migration
         Schema::create('sales_orders', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('sales_order_number');
+            $table->string('no_sh')->nullable();
             $table->unsignedBigInteger('agen_id');
             $table->foreign('agen_id')->references('id')->on('agens')->onDelete('cascade');
             $table->unsignedBigInteger('customer_id');

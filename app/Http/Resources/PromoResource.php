@@ -24,7 +24,7 @@ class PromoResource extends JsonResource
             'total'=>$this->total,
             'view'=>$this->view,
             'status'=>$this->status,
-            'created_at'=>$this->created_at->format('d F Y'),
+            'created_at'=>$this->created_at->dayName.", ".$this->created_at->day." ".$this->created_at->monthName." ".$this->created_at->year,
             'created_by'=>$this->createdby->admin->name,
         ];
     }

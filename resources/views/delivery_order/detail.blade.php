@@ -51,60 +51,49 @@
                 <tr>
                     <td style="width:15%" class="text-bold">No Sales Order</td>
                     <td>{{$sales_order->sales_order_number}}</td>
-                </tr>
-                <tr>
-                    <td style="width:15%" class="text-bold">Tanggal SO dibuat</td>
-                    <td>{{$sales_order->created_at->day." ".$sales_order->created_at->monthName." ".$sales_order->created_at->year}} </td>
-                </tr>
-                <tr>
-                    <td style="width:15%" class="text-bold mt-2">Detail Delivery Order</td>
-                    <td></td>
-                </tr>
-                <tr>
                     <td style="width:15%" class="text-bold">No Delivery Order</td>
                     <td>{{$delivery_order->delivery_order_number}}</td>
                 </tr>
                 <tr>
+                    <td style="width:15%" class="text-bold">Tanggal SO dibuat</td>
+                    <td>{{$sales_order->created_at->day." ".$sales_order->created_at->monthName." ".$sales_order->created_at->year}} </td>
                     <td style="width:15%" class="text-bold">Tanggal DO dibuat</td>
                     <td>{{$delivery_order->created_at->day." ".$delivery_order->created_at->monthName." ".$delivery_order->created_at->year}}</td>
                 </tr>
                 <tr>
-                    <td style="width:15%" class="text-bold">Agen</td>
+                    <td colspan="4" class="text-bold mt-2 text-center">Detail Delivery Order</td>
+                </tr>
+                <tr>
+                    <td style="width:15%" class="text-bold">Diserahkan Kepada</td>
+                    <td><a href="{{ route('customer.agen.show',$sales_order->customer->id) }}">{{$sales_order->customer->name}}</a></td>
+                    <td style="width:15%" class="text-bold">Agen / Transportir</td>
                     <td><a href="{{ route('agen.show',$agen->id) }}">{{$agen->name}}</a></td>
                 </tr>
                 <tr>
-                    <td style="width:15%" class="text-bold">Customer</td>
-                    <td><a href="{{ route('customer.agen.show',$sales_order->customer->id) }}">{{$sales_order->customer->name}}</a></td>
+                    <td style="width:15%" class="text-bold">NPWP</td>
+                    <td>{{$sales_order->customer->npwp}}</td>
+                    <td style="width:15%" class="text-bold">NPWP</td>
+                    <td>{{$agen->npwp}}</td>
+                </tr>
+                <tr>
+                    <td style="width:15%" class="text-bold">Alamat Serah</td>
+                    <td>{{$sales_order->customer->address}}</td>
+                    <td style="width:15%" class="text-bold">Alamat Agen / Transportir</td>
+                    <td>{{$agen->address}}</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-bold mt-2 text-center">Detail Product</td>
+                    <td colspan="2" class="text-bold mt-2 text-center">Detail Pengiriman</td>
                 </tr>
                 <tr>
                     <td style="width:15%" class="text-bold">Tanggal Berlaku</td>
                     <td>{{$delivery_order->effective_date_start->day." ".$delivery_order->effective_date_start->monthName." ".$delivery_order->effective_date_start->year}} - {{$delivery_order->effective_date_start->day." ".$delivery_order->effective_date_start->monthName." ".$delivery_order->effective_date_start->year}}</td>
-                </tr>
-                <tr>
-                    <td style="width:15%" class="text-bold">Produk</td>
-                    <td>{{$delivery_order->product}}</td>
-                </tr>
-                <tr>
-                    <td style="width:15%" class="text-bold">Kwantitas</td>
-                    <td>{{$delivery_order->quantity}} Liter</td>
-                </tr>
-                <tr>
-                    <td style="width:15%" class="text-bold">Segel Atas</td>
-                    <td>{{$delivery_order->top_seal}}</td>
-                </tr>
-                <tr>
-                    <td style="width:15%" class="text-bold">Segel Bawah</td>
-                    <td>{{$delivery_order->bottom_seal}}</td>
-                </tr>
-                <tr>
-                    <td style="width:15%" class="text-bold">Temperatur</td>
-                    <td>{{$delivery_order->temperature}}</td>
-                </tr>
-                <tr>
                     <td style="width:15%" class="text-bold">Dikirim Dengan</td>
                     <td>{{$delivery_order->shipped_with}}</td>
                 </tr>
                 <tr>
+                    <td style="width:15%" class="text-bold">Produk</td>
+                    <td>{{$delivery_order->product}}</td>
                     <td style="width:15%" class="text-bold">Dikirim Via</td>
                     <td>
                         @if ($delivery_order->shipped_via == 0)
@@ -117,18 +106,26 @@
                     </td>
                 </tr>
                 <tr>
+                    <td style="width:15%" class="text-bold">Kwantitas</td>
+                    <td>{{$delivery_order->quantity}} Liter ({{$quantity_terbilang}})</td>
                     <td style="width:15%" class="text-bold">NO. Kendaraan</td>
                     <td>{{$delivery_order->no_vehicles}}</td>
                 </tr>
                 <tr>
+                    <td style="width:15%" class="text-bold">Segel Atas</td>
+                    <td>{{$delivery_order->top_seal}}</td>
                     <td style="width:15%" class="text-bold">KM. Awal</td>
                     <td>{{$delivery_order->km_start}}</td>
                 </tr>
                 <tr>
+                    <td style="width:15%" class="text-bold">Segel Bawah</td>
+                    <td>{{$delivery_order->bottom_seal}}</td>
                     <td style="width:15%" class="text-bold">KM. Akhir</td>
                     <td>{{$delivery_order->km_end}}</td>
                 </tr>
                 <tr>
+                    <td style="width:15%" class="text-bold">Temperatur</td>
+                    <td>{{$delivery_order->temperature}}</td>
                     <td style="width:15%" class="text-bold">SG Meter</td>
                     <td>{{$delivery_order->sg_meter}}</td>
                 </tr>
@@ -145,39 +142,51 @@
                         <small class="badge badge-success"></i> Telah Dikirim</small>
                         @endif
                     </td>
-                </tr>
-                <tr>
                     <td style="width:15%" class="text-bold">Estimasi Waktu</td>
                     <td>
                         {{$estimate}}
                     </td>
                 </tr>
-                @if ($delivery_order->status == 2 || $delivery_order->status == 3)
-                    <tr>
-                        <td style="width:15%" class="text-bold">Driver</td>
-                        <td><a href="{{route('driver.agen.show',$delivery_order->driver->id)}}">{{$delivery_order->driver->name}}</a></td>
-                    </tr>
-                    <tr>
-                        <td style="width:17%" class="text-bold">Waktu Keberangkatan</td>
-                        <td>
+                <tr>
+                    <td style="width:15%" class="text-bold">Distribusi</td>
+                    <td>{{$delivery_order->distribution}}</td>
+                    <td style="width:15%" class="text-bold">Driver</td>
+                    <td><a href="{{route('driver.agen.show',$delivery_order->driver->id)}}">{{$delivery_order->driver->name}}</a></td>
+                </tr>
+                <tr>
+                    <td style="width:15%" class="text-bold">Nama Admin</td>
+                    <td>{{$delivery_order->admin_name}}</td>
+                    <td style="width:17%" class="text-bold">Waktu Keberangkatan</td>
+                    <td>
+                        @if ($delivery_order->status == 2 || $delivery_order->status == 3)
                         {{$delivery_order->departure_time->day." ".$delivery_order->departure_time->monthName." ".$delivery_order->departure_time->year}} | {{$delivery_order->departure_time->format('H:i:s')}}
-                        </td>
-                    </tr>
-                @endif
+                        @else
+                        -
+                        @endif
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:15%" class="text-bold">Mengetahui</td>
+                    <td>{{$delivery_order->knowing}}</td>
+                    <td style="width:17%" class="text-bold">Waktu Kedatangan</td>
+                    <td>
+                        @if ( $delivery_order->status == 3)
+                        {{$delivery_order->arrival_time->day." ".$delivery_order->arrival_time->monthName." ".$delivery_order->arrival_time->year}} | {{$delivery_order->arrival_time->format('H:i:s')}}
+                        @else
+                        -
+                        @endif
+                    </td>
+                </tr>
                 @if ($delivery_order->status == 3)
+                <tr>
+                    <td colspan="4" class="text-bold mt-2 text-center">Berita Acara Serah Terima</td>
+                </tr>
                     <tr>
-                        <td style="width:17%" class="text-bold">Waktu Kedatangan</td>
-                        <td>
-                            {{$delivery_order->arrival_time->day." ".$delivery_order->arrival_time->monthName." ".$delivery_order->arrival_time->year}} | {{$delivery_order->arrival_time->format('H:i:s')}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="width:15%" class="text-bold">BAST</td>
-                        <td><a href="{{asset("/uploads/".$delivery_order->bast)}}" class="foto"><img class="img-thumbnail" width="150px" src="{{asset("/uploads/".$delivery_order->bast)}}" alt=""></a></td>
+                        <td colspan="4" class="text-center"><a href="{{asset("/uploads/".$delivery_order->bast)}}" class="foto"><img class="img-thumbnail" width="150px" src="{{asset("/uploads/".$delivery_order->bast)}}" alt=""></a></td>
                     </tr>
                 @endif
                 <tr>
-                    <td style="width:15%" colspan="2" class="text-bold">
+                    <td style="width:15%" colspan="4" class="text-bold">
                         <!-- Timelime example  -->
                         <div class="row">
                             <div class="col-md-12">
@@ -189,6 +198,25 @@
                                     </div>
                                     <!-- /.timeline-label -->
                                     <!-- timeline item -->
+                                    @if ($delivery_order->critics != null)
+                                        <div>
+                                            <i class="fas fa-bell bg-blue"></i>
+                                            <div class="timeline-item">
+                                                <span class="time"><i class="fas fa-clock"></i> {{$delivery_order->critics->created_at->format('H:i:s')}}</span>
+                                                <h3 class="timeline-header">{{$delivery_order->critics->created_at->dayName.", ".$delivery_order->critics->created_at->day." ".$delivery_order->critics->created_at->monthName." ".$delivery_order->critics->created_at->year}}</h3>
+
+                                                <div class="timeline-body">
+                                                    Kritik Saran dan Rating <br>
+                                                    {{$delivery_order->critics->critics_suggestion}} <br>
+                                                    {{$delivery_order->critics->service}}<br>
+
+                                                    @for ($i = 0; $i < $delivery_order->critics->rating; $i++)
+                                                    <i class="fa fa-star mr-1" style="color: yellow"></i>
+                                                    @endfor
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
                                     @foreach ($delivery_order->notifs->sortByDesc('date') as $notif)
                                         <div>
                                             <i class="fas fa-bell bg-blue"></i>
@@ -226,6 +254,7 @@
 
 @push('script')
 <script src="{{asset('dist/js/jquery.magnific-popup.min.js')}}"></script>
+<script src="{{asset('plugins/terbilang.min.js')}}"></script>
 <script>
     $(function() {
         const status = '{{ Session("status") }}'

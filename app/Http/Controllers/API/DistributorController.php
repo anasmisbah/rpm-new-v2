@@ -69,7 +69,7 @@ class DistributorController extends Controller
 
         $deliveries = $distributor->delivery;
         foreach ($deliveries as $key => $del) {
-            $deliveries[$key]->delivery_date = $del->delivery_at->format('l, d F Y H:i:s');
+            $deliveries[$key]->delivery_date = $del->delivery_at->dayName.", ".$del->delivery_at->day." ".$del->delivery_at->monthName." ".$del->delivery_at->year." ".$del->delivery_at->format('H:i:s');
             $deliveries[$key]->driver->avatar = url('/uploads/' . $del->driver->avatar);;
         }
         return response()->json($deliveries);

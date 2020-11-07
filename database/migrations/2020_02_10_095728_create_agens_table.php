@@ -24,6 +24,8 @@ class CreateAgensTable extends Migration
             $table->double('transaction')->nullable()->default(0);
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('card_id');
+            $table->foreign('card_id')->references('id')->on('cards')->onDelete('cascade');
             $table->timestamps();
         });
     }

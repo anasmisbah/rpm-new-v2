@@ -14,7 +14,7 @@ use App\Customer;
 use App\SalesOrder;
 use App\Driver;
 use Carbon\Carbon;
-
+use App\Critic;
 
 class HomeController extends Controller
 {
@@ -205,5 +205,12 @@ class HomeController extends Controller
         $deliveries = DeliveryOrder::where([['status',3],['shipped_via',1]])->orderBy('updated_at','desc')->paginate(10);
 
         return view('notification.do_laut',compact('deliveries'));
+    }
+
+    public function critics()
+    {
+        $critics = Critic::orderBy('updated_at','desc')->paginate(10);
+
+        return view('notification.critics',compact('critics'));
     }
 }

@@ -19,8 +19,8 @@ class CouponController extends Controller
                 $data[] = [
                     "id"=> $coupon->id,
                     "code_coupon"=> $coupon->sales_order_number,
-                    'created_at'=>$coupon->created_at->format('d F Y'),
-                    "updated_at"=> $coupon->updated_at->format('d F Y'),
+                    'created_at'=>$coupon->created_at->dayName.", ".$coupon->created_at->day." ".$coupon->created_at->monthName." ".$coupon->created_at->year,
+                    "updated_at"=> $coupon->updated_at->dayName.", ".$coupon->updated_at->day." ".$coupon->updated_at->monthName." ".$coupon->updated_at->year,
                 ];
             }
             return response()->json($data, 200);

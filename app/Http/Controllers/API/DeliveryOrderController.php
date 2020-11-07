@@ -19,9 +19,7 @@ class DeliveryOrderController extends Controller
             $delivery_orders = [];
             foreach ($user->agen->sales_orders->sortByDesc('id') as $key => $sales_order) {
                 foreach ($sales_order->delivery_orders->sortByDesc('id') as $delivery_order) {
-                    if ($delivery_order->status != 3) {
-                        $delivery_orders[] = new DeliveryOrderResource($delivery_order);
-                    }
+                    $delivery_orders[] = new DeliveryOrderResource($delivery_order);
                 }
             }
             return response()->json($delivery_orders, 200);
@@ -29,9 +27,7 @@ class DeliveryOrderController extends Controller
             $delivery_orders = [];
             foreach ($user->customer->sales_orders->sortByDesc('id') as $key => $sales_order) {
                 foreach ($sales_order->delivery_orders->sortByDesc('id') as $delivery_order) {
-                    if ($delivery_order->status != 3) {
-                        $delivery_orders[] = new DeliveryOrderResource($delivery_order);
-                    }
+                    $delivery_orders[] = new DeliveryOrderResource($delivery_order);
                 }
             }
             return response()->json($delivery_orders, 200);
@@ -73,12 +69,11 @@ class DeliveryOrderController extends Controller
         $route = $driver->route;
         $sales_orders = $agen->sales_orders->sortByDesc('id');
 
+        $dos = $driver->delivery_order()->orderBy('created_at', 'desc')->get();
         $delivery_orders = [];
-        foreach ($sales_orders as $sales_order) {
-            foreach ($sales_order->delivery_orders->sortByDesc('id') as $delivery_order) {
-                if (($route == $delivery_order->shipped_via || $delivery_order->shipped_via == 2) && $delivery_order->status == 1) {
-                    $delivery_orders[] = new DeliveryOrderResource($delivery_order);
-                }
+        foreach ($dos as $key => $delivery_order) {
+            if ($delivery_order->status == 1) {
+                $delivery_orders[] = new DeliveryOrderResource($delivery_order);
             }
         }
 
@@ -133,29 +128,8 @@ class DeliveryOrderController extends Controller
         $fcm_token = [];
         $title = 'Delivery Order';
         $message = "Dari Agent - Driver. DO No $delivery_order->delivery_order_number telah terbit. $delivery_order->shipped_with $delivery_order->no_vehicles sudah dapat melakukan Proses Pengisian BBM ";
-        if ($delivery_order->shipped_via == 0) {
-            // SEND NOTIF TO JALUR DARAT
-            $drivers = $agen->drivers()->where('route',0)->get();
-            foreach ($drivers as $driver) {
-                $fcm_token[] = $driver->user->fcm_token;
-            }
-            $this->sendNotif($message,$title,$fcm_token);
-        }else if($delivery_order->shipped_via == 1){
-            // SEND NOTIF TO JALUR LAUT
-            $drivers = $agen->drivers()->where('route',1)->get();
-            foreach ($drivers as $driver) {
-                $fcm_token[] = $driver->user->fcm_token;
-            }
-            $this->sendNotif($message,$title,$fcm_token);
-        }else{
-            // SEND NOTIF TO BOTH ROUTE
-            $drivers = $agen->drivers;
-            foreach ($drivers as $driver) {
-                $fcm_token[] = $driver->user->fcm_token;
-            }
-            $this->sendNotif($message,$title,$fcm_token);
-        }
-
+        $fcm_token[] = $delivery_order->driver->user->fcm_token;
+        $this->sendNotif($message,$title,$fcm_token);
         // Get time server
         $date = Carbon::now();
         Notifdo::create([
@@ -170,7 +144,7 @@ class DeliveryOrderController extends Controller
         ];
         $title_customer = 'Delivery Order';
         $message_customer = "DO No $delivery_order->delivery_order_number telah terbit. $delivery_order->shipped_with $delivery_order->no_vehicles sedang melakukan Proses Pengisian BBM ";
-
+        $this->sendNotif($message,$title,$fcm_token);
         Notifdo::create([
             'date'=>$date,
             'description'=>$message_customer,

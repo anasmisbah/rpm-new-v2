@@ -39,6 +39,10 @@
                 <td>{{$sales_order->sales_order_number}}</td>
               </tr>
               <tr>
+                <td style="width:15%">Nomor SH</td>
+                <td>{{$sales_order->no_sh}}</td>
+              </tr>
+              <tr>
                 <td style="width:15%">Customer</td>
                 <td><a href="{{route('customer.agen.show',$sales_order->customer->id)}}">{{$sales_order->customer->name}}</a></td>
               </tr>

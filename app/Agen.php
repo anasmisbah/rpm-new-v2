@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Agen extends Model
 {
     protected $fillable = [
-        'name','address','phone','website','logo','npwp','user_id','transaction'
+        'name','address','phone','website','logo','npwp','user_id','transaction','card_id'
     ];
 
     public function customers()
@@ -28,6 +28,11 @@ class Agen extends Model
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    public function card()
+    {
+        return $this->belongsTo('App\Card');
     }
 
 }

@@ -26,8 +26,8 @@ class CustomerController extends Controller
                 "card_image"=>url('/uploads/' . $customer->card->image),
                 "logo"=> url('/uploads/' . $customer->logo) ,
                 "user_id"=> $customer->user_id ,
-                "created_at"=> $customer->created_at->format('d F Y') ,
-                "updated_at"=> $customer->updated_at->format('d F Y') ,
+                'created_at'=>$customer->created_at->dayName.", ".$customer->created_at->day." ".$customer->created_at->monthName." ".$customer->created_at->year,
+                "updated_at"=> $customer->updated_at->dayName.", ".$customer->updated_at->day." ".$customer->updated_at->monthName." ".$customer->updated_at->year,
             ];
         }
         return response()->json($data, 200);
@@ -49,8 +49,8 @@ class CustomerController extends Controller
             "card_image"=>url('/uploads/' . $customer->card->image),
             "logo"=> url('/uploads/' . $customer->logo) ,
             "user_id"=> $customer->user_id ,
-            "created_at"=> $customer->created_at->format('d F Y') ,
-            "updated_at"=> $customer->updated_at->format('d F Y') ,
+            'created_at'=>$customer->created_at->dayName.", ".$customer->created_at->day." ".$customer->created_at->monthName." ".$customer->created_at->year,
+            "updated_at"=> $customer->updated_at->dayName.", ".$customer->updated_at->day." ".$customer->updated_at->monthName." ".$customer->updated_at->year,
         ];
         return response()->json($data, 200);
     }

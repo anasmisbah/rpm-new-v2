@@ -107,6 +107,7 @@ class UploadController extends Controller
                 $agen = Agen::create([
                     'user_id'=>$user->id,
                     'name' =>$agen_name,
+                    'card_id'=>1
                 ]);
 
                 $driver = [

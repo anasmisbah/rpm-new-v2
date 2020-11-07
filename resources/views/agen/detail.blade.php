@@ -58,6 +58,12 @@
                 <td>{{$agen->website}}</td>
               </tr>
               <tr>
+                <td style="width:15%">Tipe Member</td>
+                <td>
+                    <small class="badge badge-info"><i class="fas fa-tag"></i> {{$agen->card->name}}</small>
+                </td>
+              </tr>
+              <tr>
                 <td style="width:15%" class="text-bold">Akun Pengguna</td>
                 <td></td>
               </tr>

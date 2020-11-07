@@ -96,7 +96,7 @@
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex',orderable: false,searchable: false},
                 {data: 'name', name: 'name'},
-                {data: 'member', name: 'member'},
+                {data: 'member', name: 'member',searchable: false},
                 {data: 'reward', name: 'reward'},
                 {data: 'coupon', name: 'coupon'},
                 {data: 'logo', name: 'logo',orderable: false,searchable: false},

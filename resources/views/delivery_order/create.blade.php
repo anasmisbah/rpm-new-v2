@@ -18,7 +18,8 @@
             <li class="breadcrumb-item"><a href="{{route('home.index')}}">Beranda</a></li>
             <li class="breadcrumb-item"><a href="{{route('agen.index')}}">Agen</a></li>
             <li class="breadcrumb-item"><a href="{{route('salesorder.agen.index',$agen->id)}}">Sales Order</a></li>
-            <li class="breadcrumb-item"><a href="{{route('deliveryorder.agen.index',$sales_order->id)}}">Delivery Order</a></li>
+            <li class="breadcrumb-item"><a href="{{route('deliveryorder.agen.index',$sales_order->id)}}">Delivery
+                    Order</a></li>
             <li class="breadcrumb-item active">Tambah</li>
         </ol>
     </div><!-- /.col -->
@@ -38,72 +39,201 @@
                 enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
-                    <div class="form-group row">
-                        <label for="sales_order_number" class="col-sm-2 col-form-label">No Sales Order <span
-                                class="text-danger">*</span> </label>
-                        <div class="col-sm-6 col-lg-6 col-md-6">
-                            <input readonly value="{{$sales_order->sales_order_number}}" type="text"
-                                class="text-bold form-control @error('sales_order_number') is-invalid @enderror"
-                                id="sales_order_number" name="sales_order_number">
-                            @error('sales_order_number')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="sales_order_number">No Sales Order <span class="text-danger">*</span>
+                                </label>
+                                <input readonly value="{{$sales_order->sales_order_number}}" type="text"
+                                    class="text-bold form-control @error('sales_order_number') is-invalid @enderror"
+                                    id="sales_order_number" name="sales_order_number">
+                                @error('sales_order_number')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+
+                                <label for="delivery_order_number">No Delivery Order <span class="text-danger">*</span>
+                                </label>
+                                <input value="{{old('delivery_order_number')}}" type="text"
+                                    class="form-control @error('delivery_order_number') is-invalid @enderror"
+                                    id="delivery_order_number" name="delivery_order_number" />
+                                @error('delivery_order_number')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group row mt-2">
-                        <div class="offset-sm-2 col-sm-10">
-                            <label class="form-check-label text-bold" for="exampleCheck2">Form Delivery Order</label>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="customer_name">Di serahkan Kepada
+                                </label>
+                                <input readonly value="{{$sales_order->customer->name}}" type="text"
+                                    class="text-bold form-control" id="customer_name">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="agen_name">Agen / Transportir
+                                </label>
+                                <input readonly value="{{$sales_order->agen->name}}" type="text"
+                                    class="text-bold form-control" id="agen_name">
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="delivery_order_number" class="col-sm-2 col-form-label">No Delivery Order <span
-                                class="text-danger">*</span> </label>
-                        <div class="col-sm-6 col-lg-6 col-md-6">
-                            <input value="{{old('delivery_order_number')}}" type="text"
-                                class="form-control @error('delivery_order_number') is-invalid @enderror"
-                                id="delivery_order_number" name="delivery_order_number">
-                            @error('delivery_order_number')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="customer_npwp">NPWP
+                                </label>
+                                <input readonly
+                                    value="{{$sales_order->customer->npwp ? $sales_order->customer->npwp : '-'}}"
+                                    type="text" class="text-bold form-control" id="customer_npwp">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="agen_npwp">NPWP
+                                </label>
+                                <input readonly value="{{$sales_order->agen->npwp ? $sales_order->agen->npwp : '-'}}"
+                                    type="text" class="text-bold form-control" id="agen_npwp">
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="effective_date_start" class="col-sm-2 col-form-label">Tanggal Mulai Berlaku <span
-                                class="text-danger">*</span> </label>
-                        <div class="col-sm-6 col-lg-6 col-md-6 ">
-                            <div class="input-group date " id="effective_date_start" data-target-input="nearest">
-                                <input value="{{old('effective_date_start')}}" type="text"
-                                    class="form-control @error('effective_date_start') is-invalid @enderror  datetimepicker-input"
-                                    data-target="#effective_date_start" name="effective_date_start" />
-                                <div class="input-group-append" data-target="#effective_date_start"
-                                    data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="customer_address">Alamat Serah
+                                </label>
+                                <input readonly
+                                    value="{{$sales_order->customer->address ? $sales_order->customer->address : '-'}}"
+                                    type="text" class="text-bold form-control" id="customer_address">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="agen_address">Alamat Agen / Transportir
+                                </label>
+                                <input readonly
+                                    value="{{$sales_order->agen->address ? $sales_order->agen->address : '-'}}"
+                                    type="text" class="text-bold form-control" id="agen_address">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+
+                                <label for="product">Produk<span class="text-danger">*</span>
+                                </label>
+                                <select class="select2 @error('product') is-invalid @enderror" id="select-product"
+                                    name="product" data-placeholder="Dikirim Dengan" style="width: 100%;">
+                                    <option value="Patra bio diesel - PTM Stock (bio solar)">Patra bio diesel - PTM
+                                        Stock
+                                        (bio solar)</option>
+                                    <option value="Patra bio diesel - PTM (bio solar) A040900111">Patra bio diesel - PTM
+                                        (bio solar) A040900111</option>
+                                    <option value="MFO">MFO</option>
+                                </select>
+                                @error('product')
+                                <span class="text-sm text-danger" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+
+                                <label for="effective_date_start">Tanggal Mulai Berlaku <span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="input-group date " id="effective_date_start" data-target-input="nearest">
+                                    <input value="{{old('effective_date_start')}}" type="text"
+                                        class="form-control @error('effective_date_start') is-invalid @enderror  datetimepicker-input"
+                                        data-target="#effective_date_start" name="effective_date_start" />
+                                    <div class="input-group-append" data-target="#effective_date_start"
+                                        data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                    @error('effective_date_start')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                 </div>
-                                @error('effective_date_start')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="effective_date_end" class="col-sm-2 col-form-label">Tanggal Akhir Berlaku <span
-                                class="text-danger">*</span> </label>
-                        <div class="col-sm-6 col-lg-6 col-md-6">
-                            <div class="input-group date" id="effective_date_end" data-target-input="nearest">
-                                <input value="{{old('effective_date_end')}}" type="text"
-                                    class="form-control @error('effective_date_end') is-invalid @enderror datetimepicker-input"
-                                    data-target="#effective_date_end" name="effective_date_end" />
-                                <div class="input-group-append" data-target="#effective_date_end"
-                                    data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+
+                                <label for="effective_date_end">Tanggal Akhir Berlaku <span class="text-danger">*</span>
+                                </label>
+                                <div class="input-group date" id="effective_date_end" data-target-input="nearest">
+                                    <input value="{{old('effective_date_end')}}" type="text"
+                                        class="form-control @error('effective_date_end') is-invalid @enderror datetimepicker-input"
+                                        data-target="#effective_date_end" name="effective_date_end" />
+                                    <div class="input-group-append" data-target="#effective_date_end"
+                                        data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                    @error('effective_date_end')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                 </div>
-                                @error('effective_date_end')
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="quantity">Kwantitas <span class="text-danger">*</span> </label>
+                                <input value="{{old('quantity')}}" type="number"
+                                    class="form-control @error('quantity') is-invalid @enderror" id="quantity"
+                                    name="quantity">
+                                @error('quantity')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+
+                                <label for="driver_id">Driver <span class="text-danger">*</span> </label>
+                                <select class="select2 @error('driver_id') is-invalid @enderror" id="select-driver"
+                                    name="driver_id" data-placeholder="Dikirim Dengan" style="width: 100%;">
+                                    @foreach ($drivers as $driver)
+                                    <option value="{{$driver->id}}">{{$driver->name}} | Jalur
+                                        {{$driver->route == 0? "Darat":"Laut"}}</option>
+                                    @endforeach
+                                </select>
+                                @error('driver_id')
+                                <span class="text-sm text-danger" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="sg_meter">SG Meter </label>
+                                <input value="{{old('sg_meter')}}" type="number"
+                                    class="form-control @error('sg_meter') is-invalid @enderror" id="sg_meter"
+                                    name="sg_meter">
+                                @error('sg_meter')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -111,183 +241,193 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="product" class="col-sm-2 col-form-label">Produk<span class="text-danger">*</span>
-                        </label>
-                        <div class="col-sm-6 col-lg-6 col-md-6">
-                            <input value="{{old('product')}}" type="text"
-                                class="form-control @error('product') is-invalid @enderror" id="product" name="product">
-                            @error('product')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="quantity" class="col-sm-2 col-form-label">Kwantitas <span
-                                class="text-danger">*</span> </label>
-                        <div class="col-sm-6 col-lg-6 col-md-6">
-                            <input value="{{old('quantity')}}" type="number"
-                                class="form-control @error('quantity') is-invalid @enderror" id="quantity"
-                                name="quantity">
-                            @error('quantity')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="top_seal" class="col-sm-2 col-form-label">Segel Atas <span
-                                class="text-danger">*</span> </label>
-                        <div class="col-sm-6 col-lg-6 col-md-6">
-                            <input value="{{old('top_seal')}}" type="text"
-                                class="form-control @error('top_seal') is-invalid @enderror" id="top_seal"
-                                name="top_seal">
-                            @error('top_seal')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="bottom_seal" class="col-sm-2 col-form-label">Segel Bawah <span
-                                class="text-danger">*</span> </label>
-                        <div class="col-sm-6 col-lg-6 col-md-6">
-                            <input value="{{old('bottom_seal')}}" type="text"
-                                class="form-control @error('bottom_seal') is-invalid @enderror" id="bottom_seal"
-                                name="bottom_seal">
-                            @error('bottom_seal')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="temperature" class="col-sm-2 col-form-label">Temperatur <span
-                                class="text-danger">*</span> </label>
-                        <div class="col-sm-6 col-lg-6 col-md-6">
-                            <input value="{{old('temperature')}}" type="number"
-                                class="form-control @error('temperature') is-invalid @enderror" id="temperature"
-                                name="temperature">
-                            @error('temperature')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="delivery_order_number" class="col-sm-2 col-form-label">Driver <span
-                                class="text-danger">*</span> </label>
-                        <div class="col-sm-6 col-lg-6 col-md-6">
-                            <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" type="checkbox" id="jalurdarat" name="shipped_via[]"
-                                    value="0">
-                                <label for="jalurdarat" class="custom-control-label">Jalur Darat</label>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+
+                                <label for="kwantitas_terbilang">Kwantitas Terbilang<span class="text-danger">*</span>
+                                </label>
+                                <input type="text" disabled class="form-control" id="kwantitas_terbilang"
+                                    name="kwantitas_terbilang" />
                             </div>
-                            <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" type="checkbox" id="jalurlaut" name="shipped_via[]"
-                                    value="1">
-                                <label for="jalurlaut" class="custom-control-label">Jalur Laut</label>
+
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="shipped_with">Dikirim Dengan <span class="text-danger">*</span> </label>
+                                <select class="select2 @error('shipped_with') is-invalid @enderror"
+                                    id="select-shipped-with" name="shipped_with" data-placeholder="Dikirim Dengan"
+                                    style="width: 100%;">
+                                    <option value="Kapal">Kapal</option>
+                                    <option value="Mobil Tangki">Mobil Tangki</option>
+                                </select>
+                                @error('shipped_with')
+                                <span class="text-sm text-danger" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
-                            @error('delivery_order_number')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
+                        </div>
+                        <div class="col-md-4">
+                            <label for="jam">Estimasi Waktu (jam:menit)</label>
+                            <div class="form-group row">
+                                <div class="col-md-6">
+
+                                    <input min="0" max="24" value="{{old('jam') ? old('jam') : '0'}}" type="number"
+                                        class="form-control @error('jam') is-invalid @enderror" id="jam" name="jam">
+                                    @error('jam')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                                <div class="col-md-6">
+
+                                    <input min="0" max="60" value="{{old('menit')? old('menit') : '0'}}" type="number"
+                                        class="form-control @error('menit') is-invalid @enderror" id="menit"
+                                        name="menit">
+                                    @error('menit')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="shipped_with" class="col-sm-2 col-form-label">Dikirim Dengan <span
-                                class="text-danger">*</span> </label>
-                        <div class="col-sm-6 col-lg-6 col-md-6">
-                            <input value="{{old('shipped_with')}}" type="text"
-                                class="form-control @error('shipped_with') is-invalid @enderror" id="shipped_with"
-                                name="shipped_with">
-                            @error('shipped_with')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="no_vehicles" class="col-sm-2 col-form-label">No Kendaraan <span
-                                class="text-danger">*</span> </label>
-                        <div class="col-sm-6 col-lg-6 col-md-6">
-                            <input value="{{old('no_vehicles')}}" type="text"
-                                class="form-control @error('no_vehicles') is-invalid @enderror" id="no_vehicles"
-                                name="no_vehicles">
-                            @error('no_vehicles')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="km_start" class="col-sm-2 col-form-label">KM Awal </label>
-                        <div class="col-sm-6 col-lg-6 col-md-6">
-                            <input value="{{old('km_start')}}" type="number"
-                                class="form-control @error('km_start') is-invalid @enderror" id="km_start"
-                                name="km_start">
-                            @error('km_start')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="km_end" class="col-sm-2 col-form-label">KM Akhir </label>
-                        <div class="col-sm-6 col-lg-6 col-md-6">
-                            <input value="{{old('km_end')}}" type="number"
-                                class="form-control @error('km_end') is-invalid @enderror" id="km_end" name="km_end">
-                            @error('km_end')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="sg_meter" class="col-sm-2 col-form-label">SG Meter </label>
-                        <div class="col-sm-6 col-lg-6 col-md-6">
-                            <input value="{{old('sg_meter')}}" type="number"
-                                class="form-control @error('sg_meter') is-invalid @enderror" id="sg_meter"
-                                name="sg_meter">
-                            @error('sg_meter')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="jam" class="col-sm-2 col-form-label">Estimasi Waktu (jam:menit)</label>
-                        <div class="col-sm-1 col-lg-1 col-md-1">
-                            <input min="0" max="24" value="{{old('jam') ? old('jam') : '0'}}" type="number"
-                                class="form-control @error('jam') is-invalid @enderror" id="jam"
-                                name="jam">
-                                @error('jam')
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+
+                                <label for="top_seal">Segel Atas <span class="text-danger">*</span> </label>
+                                <input value="{{old('top_seal')}}" type="text"
+                                    class="form-control @error('top_seal') is-invalid @enderror" id="top_seal"
+                                    name="top_seal">
+                                @error('top_seal')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror
-                        </div><h3 class="text-bold">:</h3>
-                        <div class="col-sm-1 col-lg-1 col-md-1">
-                            <input min="0" max="60" value="{{old('menit')? old('menit') : '0'}}" type="number"
-                                class="form-control @error('menit') is-invalid @enderror" id="menit"
-                                name="menit">
-                            @error('menit')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="form-group">
+
+                                    <label for="no_vehicles">No Kendaraan <span class="text-danger">*</span> </label>
+                                    <input value="{{old('no_vehicles')}}" type="text"
+                                        class="form-control @error('no_vehicles') is-invalid @enderror" id="no_vehicles"
+                                        name="no_vehicles">
+                                    @error('no_vehicles')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+
+                                <label for="distribution">Distribusi <span class="text-danger">*</span>
+                                </label>
+                                <input value="{{old('distribution')}}" type="text"
+                                    class="form-control @error('distribution') is-invalid @enderror" id="distribution"
+                                    name="distribution" />
+                                @error('distribution')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+
+                                <label for="bottom_seal">Segel Bawah <span class="text-danger">*</span> </label>
+                                <input value="{{old('bottom_seal')}}" type="text"
+                                    class="form-control @error('bottom_seal') is-invalid @enderror" id="bottom_seal"
+                                    name="bottom_seal">
+                                @error('bottom_seal')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="km_start">KM Awal </label>
+                                <input value="{{old('km_start')}}" type="number"
+                                    class="form-control @error('km_start') is-invalid @enderror" id="km_start"
+                                    name="km_start">
+                                @error('km_start')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+
+                                <label for="admin_name">Nama Admin <span class="text-danger">*</span>
+                                </label>
+                                <input value="{{old('admin_name')}}" type="text"
+                                    class="form-control @error('admin_name') is-invalid @enderror" id="admin_name"
+                                    name="admin_name" />
+                                @error('admin_name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+
+                                <label for="temperature">Temperatur <span class="text-danger">*</span> </label>
+                                <input value="{{old('temperature')}}" type="number"
+                                    class="form-control @error('temperature') is-invalid @enderror" id="temperature"
+                                    name="temperature">
+                                @error('temperature')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="km_end">KM Akhir </label>
+                                <input value="{{old('km_end')}}" type="number"
+                                    class="form-control @error('km_end') is-invalid @enderror" id="km_end"
+                                    name="km_end">
+                                @error('km_end')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+
+                                <label for="knowing">Mengetahui<span class="text-danger">*</span>
+                                </label>
+                                <input value="{{old('knowing')}}" type="text"
+                                    class="form-control @error('knowing') is-invalid @enderror" id="knowing"
+                                    name="knowing" />
+                                @error('knowing')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -312,6 +452,7 @@
 <script type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js">
 </script>
+<script src="{{asset('plugins/terbilang.min.js')}}"></script>
 <script>
     //menampilkan foto setiap ada perubahan pada modal tambah
     $('#image').on('change', function () {
@@ -333,6 +474,9 @@
 </script>
 <script>
     $(function () {
+        $('#select-shipped-with').select2()
+        $('#select-product').select2()
+        $('#select-driver').select2()
 
         $('#effective_date_start').datetimepicker({
             format: 'L',
@@ -365,6 +509,12 @@
                 title: 'Delivery Order create failed'
             })
         }
+
+        $('#quantity').change(function(){
+            var qty = $('#quantity').val();
+            var qty_r = terbilang(qty);
+            $('#kwantitas_terbilang').val(qty_r + " Liter")
+        })
     });
 
 </script>

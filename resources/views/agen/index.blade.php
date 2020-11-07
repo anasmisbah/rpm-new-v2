@@ -44,6 +44,7 @@
                   <th>No</th>
                   <th>Nama</th>
                   <th>NPWP</th>
+                  <th>Member</th>
                   <th>Logo</th>
                   <th class="text-center">Aksi</th>
                 </tr>
@@ -54,6 +55,7 @@
                     <td>{{$loop->iteration}}</td>
                     <td>{{$agen->name}}</td>
                     <td>{{$agen->npwp}}</td>
+                    <td><small class="badge badge-info">{{$agen->card->name}}</small></td>
                     <td><img class="img-thumbnail" width="50px" src="{{asset("/uploads/".$agen->logo)}}" alt=""></td>
                     <td class="text-center">
                         <a data-toggle="tooltip" data-placement="top" title="Customer" href="{{route('customer.agen.index',$agen->id)}}" class="btn btn-primary btn-sm">
