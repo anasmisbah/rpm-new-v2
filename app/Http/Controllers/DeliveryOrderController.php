@@ -51,7 +51,7 @@ class DeliveryOrderController extends Controller
             return route('deliveryorder.agen.destroy',$data->id);
         })
         ->addColumn('url_print', function ($data) {
-            return route('deliveryorder.agen.index',$data->id);
+            return route('deliveryorder.agen.print',$data->id);
         });
 
         return $dataTable->make(true);

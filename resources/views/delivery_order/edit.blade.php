@@ -40,20 +40,6 @@
                 @method('PUT')
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label for="sales_order_number">No Sales Order <span class="text-danger">*</span>
-                                </label>
-                                <input readonly value="{{$sales_order->sales_order_number}}" type="text"
-                                class="text-bold form-control @error('sales_order_number') is-invalid @enderror"
-                                id="sales_order_number" name="sales_order_number">
-                            @error('sales_order_number')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                            </div>
-                        </div>
                         <div class="col-md-6">
                             <div class="form-group">
 
@@ -70,6 +56,21 @@
                             @enderror
                             </div>
                         </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="sales_order_number">No Sales Order <span class="text-danger">*</span>
+                                </label>
+                                <input readonly value="{{$sales_order->sales_order_number}}" type="text"
+                                class="text-bold form-control @error('sales_order_number') is-invalid @enderror"
+                                id="sales_order_number" name="sales_order_number">
+                            @error('sales_order_number')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                            </div>
+                        </div>
+
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
@@ -273,7 +274,7 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <label for="jam">Estimasi Waktu (jam:menit)</label>
+                            <label for="jam">Estimasi Waktu (jam:menit)<span class="text-danger">*</span> </label></label>
                             <div class="form-group row">
                                 <div class="col-md-6">
                                     <input min="0" max="24" value="{{old('jam') ? old('jam') : $estimate->hour}}" type="number"
@@ -331,7 +332,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
 
-                                <label for="distribution">Distribusi <span class="text-danger">*</span>
+                                <label for="distribution">Distribusi
                                 </label>
                                 <input value="{{old('distribution')?old('distribution'): $delivery_order->distribution}}" type="text"
                                     class="form-control @error('distribution') is-invalid @enderror"
@@ -375,7 +376,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
 
-                                <label for="admin_name">Nama Admin <span class="text-danger">*</span>
+                                <label for="admin_name">Nama Admin
                                 </label>
                                 <input value="{{old('admin_name')?old('admin_name'): $delivery_order->admin_name}}" type="text"
                                     class="form-control @error('admin_name') is-invalid @enderror"
@@ -418,7 +419,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
 
-                                <label for="knowing">Mengetahui<span class="text-danger">*</span>
+                                <label for="knowing">Mengetahui
                                 </label>
                                 <input value="{{old('knowing')?old('knowing'): $delivery_order->knowing}}" type="text"
                                     class="form-control @error('knowing') is-invalid @enderror"

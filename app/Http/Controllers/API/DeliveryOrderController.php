@@ -144,7 +144,7 @@ class DeliveryOrderController extends Controller
         ];
         $title_customer = 'Delivery Order';
         $message_customer = "DO No $delivery_order->delivery_order_number telah terbit. $delivery_order->shipped_with $delivery_order->no_vehicles sedang melakukan Proses Pengisian BBM ";
-        $this->sendNotif($message,$title,$fcm_token);
+        $this->sendNotif($message_customer,$title_customer,$fcm_token_customer);
         Notifdo::create([
             'date'=>$date,
             'description'=>$message_customer,
