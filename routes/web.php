@@ -123,6 +123,7 @@ Route::middleware(['auth','admin'])->group(function (){
         Route::put('deliveryorder/agen/update/{id}','DeliveryOrderController@update')->name('deliveryorder.agen.update');
         Route::get('deliveryorder/agen/print/{id}','DeliveryOrderController@print')->name('deliveryorder.agen.print');
         Route::get('deliveryorder/agen/notif/{id}','DeliveryOrderController@push_notif')->name('deliveryorder.agen.notif');
+        Route::get('deliveryorder/agen/driver/notif/{id}','DeliveryOrderController@notif_driver')->name('deliveryorder.agen.driver.notif');
 
 
         Route::get('/user','UserController@index')->name('user.index');

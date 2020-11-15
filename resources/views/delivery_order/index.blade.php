@@ -166,7 +166,7 @@
 
                             0: {
                                 'html': `
-                                        <a href="${full.url_notif}" title="Kirim Notifikasi" class="btn btn-secondary btn-sm">
+                                        <a href="${full.url_notif}" title="Kirim Notifikasi ke Agen" class="btn btn-secondary btn-sm">
                                         <i class="fas fa-bell"></i>
                                         </a>
                                         <a href="${full.url_edit}" title="Edit" class="btn btn-warning btn-sm">
@@ -182,6 +182,9 @@
 							1: {
                                 'html': `<a href="${full.url_detail}" title="Detail" class="btn btn-info btn-sm">
                                             <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="${full.url_notif_driver}" title="Kirim Notifikasi Ke Driver" class="btn btn-secondary btn-sm">
+                                        <i class="fas fa-bell"></i>
                                         </a>`,
                             },
 							2: {

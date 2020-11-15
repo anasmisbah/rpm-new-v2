@@ -41,6 +41,9 @@ class DeliveryOrderController extends Controller
         ->addColumn('url_notif', function ($data) {
             return route('deliveryorder.agen.notif',$data->id);
         })
+        ->addColumn('url_notif_driver', function ($data) {
+            return route('deliveryorder.agen.driver.notif',$data->id);
+        })
         ->addColumn('url_detail', function ($data) {
             return route('deliveryorder.agen.show',$data->id);
         })
@@ -308,6 +311,17 @@ class DeliveryOrderController extends Controller
             'date'=>$delivery_order->sales_order->created_at,
             'delivery_order_id'=>$delivery_order->id,
         ]);
+
+        return redirect()->back()->with('status','Successfully send notif delivery order '.$delivery_order->delivery_order_number);
+    }
+    public function notif_driver($id)
+    {
+        $delivery_order = DeliveryOrder::findOrFail($id);
+        $fcm_token = [];
+        $title = 'Delivery Order';
+        $message = "Dari Agent - Driver. DO No $delivery_order->delivery_order_number telah terbit. $delivery_order->shipped_with $delivery_order->no_vehicles sudah dapat melakukan Proses Pengisian BBM ";
+        $fcm_token[] = $delivery_order->driver->user->fcm_token;
+        $this->sendNotif($message,$title,$fcm_token);
 
         return redirect()->back()->with('status','Successfully send notif delivery order '.$delivery_order->delivery_order_number);
     }
