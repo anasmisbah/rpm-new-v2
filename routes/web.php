@@ -134,6 +134,7 @@ Route::middleware(['auth','admin'])->group(function (){
 
         Route::resource('video', 'VideoController');
         Route::resource('card', 'CardController');
+        Route::resource('product', 'ProductController');
 
 
         Route::get('/company','CompanyController@index')->name('company.index');

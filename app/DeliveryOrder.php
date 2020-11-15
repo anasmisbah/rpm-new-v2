@@ -29,6 +29,7 @@ class DeliveryOrder extends Model
         'status',
         'sales_order_id',
         'driver_id',
+        'product_id',
         'bast',
         'estimate',
         'distribution',
@@ -48,6 +49,10 @@ class DeliveryOrder extends Model
     public function driver()
     {
         return $this->belongsTo('App\Driver');
+    }
+    public function product()
+    {
+        return $this->belongsTo('App\Product');
     }
 
     public function sales_order()

@@ -93,6 +93,14 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="{{route('product.index')}}" class="nav-link {{ Request::segment(1) == 'product'?'active':'' }}">
+                    <i class="nav-icon fas fa-tags"></i>
+                    <p>
+                    Produk
+                    </p>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="{{route('agen.index')}}" class="nav-link {{ Request::segment(1) == 'agen'?'active':'' }}">
                     <i class="nav-icon far fa-building"></i>
                     <p>

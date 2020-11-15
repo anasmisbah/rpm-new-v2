@@ -18,7 +18,6 @@ class CreateDeliveryOrdersTable extends Migration
             $table->string('delivery_order_number');
             $table->date('effective_date_start')->nullable();
             $table->date('effective_date_end')->nullable();
-            $table->string('product');
             $table->double('quantity');
             $table->string('shipped_with');
             $table->tinyInteger('shipped_via')->nullable();
@@ -44,6 +43,8 @@ class CreateDeliveryOrdersTable extends Migration
             $table->foreign('sales_order_id')->references('id')->on('sales_orders')->onDelete('cascade');
             $table->unsignedBigInteger('driver_id')->nullable();
             $table->foreign('driver_id')->references('id')->on('drivers')->onDelete('cascade');
+            $table->unsignedBigInteger('product_id')->nullable();
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->timestamps();
         });
     }
