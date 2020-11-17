@@ -94,7 +94,7 @@
             </li>
             <li class="nav-item">
                 <a href="{{route('product.index')}}" class="nav-link {{ Request::segment(1) == 'product'?'active':'' }}">
-                    <i class="nav-icon fas fa-tags"></i>
+                    <i class="nav-icon far fa-copy"></i>
                     <p>
                     Produk
                     </p>

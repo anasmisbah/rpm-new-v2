@@ -45,6 +45,9 @@ class CreateDeliveryOrdersTable extends Migration
             $table->foreign('driver_id')->references('id')->on('drivers')->onDelete('cascade');
             $table->unsignedBigInteger('product_id')->nullable();
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->string('piece')->nullable();
+            $table->string('depot')->nullable();
+            $table->string('quantity_text');
             $table->timestamps();
         });
     }

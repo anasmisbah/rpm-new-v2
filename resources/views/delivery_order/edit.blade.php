@@ -73,6 +73,47 @@
 
                     </div>
                     <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <div class="col-md-6">
+                                    <label for="delivery_order_date">Tanggal Delivery Order <span class="text-danger">*</span>
+                                    </label>
+                                    <input value="{{ $delivery_order->created_at->day." ".$delivery_order->created_at->monthName." ".$delivery_order->created_at->year }}" readonly type="text" class="text-bold form-control" id="delivery_order_date" name="delivery_order_date" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="depot">Depot <span class="text-danger">*</span> </label>
+                                    <select class="select2 @error('depot') is-invalid @enderror" id="select-depot"
+                                        name="depot" data-placeholder="Dikirim Dengan" style="width: 100%;">
+                                        <option value="Samarinda" {{$delivery_order->depot == "Samarinda"?'selected':''}}>Samarinda</option>
+                                        <option value="Palaran" {{$delivery_order->depot == "Palaran"?'selected':''}}>Palaran</option>
+                                        <option value="TBBM Bpp" {{$delivery_order->depot == "TBBM Bpp"?'selected':''}}>TBBM Bpp</option>
+                                        <option value="TBBM Tarakan" {{$delivery_order->depot == "TBBM Tarakan"?'selected':''}}>TBBM Tarakan</option>
+                                        <option value="TBBM Berau" {{$delivery_order->depot == "TBBM Berau"?'selected':''}}>TBBM Berau</option>
+                                    </select>
+                                    @error('depot')
+                                    <span class="text-sm text-danger" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="sales_order_date">Tanggal Sales Order <span class="text-danger">*</span>
+                                </label>
+                                <input readonly value="{{ $sales_order->created_at->day." ".$sales_order->created_at->monthName." ".$sales_order->created_at->year }}" type="text"
+                                    class="text-bold form-control @error('sales_order_date') is-invalid @enderror"
+                                    id="sales_order_date" name="sales_order_date">
+                                @error('sales_order_date')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="customer_name">Di serahkan Kepada
@@ -133,16 +174,13 @@
                         <div class="col-md-4">
                             <div class="form-group">
 
-                                <label for="product">Produk<span class="text-danger">*</span>
+                                <label for="product_id">Produk<span class="text-danger">*</span>
                                 </label>
-                                <select class="select2 @error('product') is-invalid @enderror" id="select-product"
-                                    name="product" data-placeholder="Dikirim Dengan" style="width: 100%;">
-                                    <option value="Patra bio diesel - PTM Stock (bio solar)" {{$delivery_order == "Patra bio diesel - PTM Stock (bio solar)"?'selected':''}}>Patra bio diesel - PTM
-                                        Stock
-                                        (bio solar)</option>
-                                    <option value="Patra bio diesel - PTM (bio solar) A040900111" {{$delivery_order == "Patra bio diesel - PTM (bio solar) A040900111"?'selected':''}}>Patra bio diesel - PTM
-                                        (bio solar) A040900111</option>
-                                    <option value="MFO" {{$delivery_order == "MFO"?'selected':''}}>MFO</option>
+                                <select class="select2 @error('product_id') is-invalid @enderror" id="select-product"
+                                    name="product_id" data-placeholder="Dikirim Dengan" style="width: 100%;">
+                                    @foreach ($products as $product)
+                                    <option value="{{$product->id}}" {{$product->id == $delivery_order->product_id?'selected':''}}>{{$product->name}}</option>
+                                    @endforeach
                                 </select>
                                 @error('product')
                                 <span class="text-sm text-danger" role="alert">
@@ -201,17 +239,32 @@
                     </div>
                     <div class="row">
                         <div class="col-md-4">
-                            <div class="form-group">
-
-                                <label for="quantity">Kwantitas <span class="text-danger">*</span> </label>
-                                <input value="{{old('quantity')?old('quantity'): $delivery_order->quantity}}" type="number"
-                                class="form-control @error('quantity') is-invalid @enderror" id="quantity"
-                                name="quantity">
-                            @error('quantity')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
+                            <div class="form-group row">
+                                <div class="col-md-6">
+                                    <label for="quantity">Kwantitas <span class="text-danger">*</span> </label>
+                                    <input value="{{old('quantity')?old('quantity'): $delivery_order->quantity}}" type="number"
+                                    class="form-control @error('quantity') is-invalid @enderror" id="quantity"
+                                    name="quantity">
+                                @error('quantity')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="piece">Satuan <span class="text-danger">*</span> </label>
+                                    <select class="select2 @error('piece') is-invalid @enderror" id="select-piece"
+                                        name="piece" data-placeholder="Dikirim Dengan" style="width: 100%;">
+                                        <option value="Liter" {{$delivery_order->piece == "Liter"?'selected':''}}>Liter</option>
+                                        <option value="L15" {{$delivery_order->piece == "L15"?'selected':''}}>L15</option>
+                                        <option value="MT" {{$delivery_order->piece == "MT"?'selected':''}}>MT</option>
+                                    </select>
+                                    @error('piece')
+                                    <span class="text-sm text-danger" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
 
@@ -252,8 +305,8 @@
 
                                 <label for="kwantitas_terbilang">Kwantitas Terbilang<span class="text-danger">*</span>
                                 </label>
-                                <input value="{{$quantity_terbilang}}" type="text" disabled class="form-control" id="kwantitas_terbilang"
-                                    name="kwantitas_terbilang" />
+                                <input value="{{$quantity_terbilang}}" type="text" readonly class="form-control" id="kwantitas_terbilang"
+                                    name="quantity_text" />
                             </div>
 
                         </div>
@@ -480,6 +533,9 @@
         $('#select-shipped-with').select2()
         $('#select-product').select2()
         $('#select-driver').select2()
+        $('#select-piece').select2()
+        $('#select-depot').select2()
+
         $('#effective_date_start').datetimepicker({
             format: 'L',
             format: 'YYYY-MM-D',
@@ -513,8 +569,15 @@
         }
         $('#quantity').change(function(){
             var qty = $('#quantity').val();
+            var piece = $('#select-piece').val();
             var qty_r = terbilang(qty);
-            $('#kwantitas_terbilang').val(qty_r + " Liter")
+            $('#kwantitas_terbilang').val(qty_r + " "+piece)
+        })
+        $('#select-piece').change(function(){
+            var qty = $('#quantity').val();
+            var piece = $('#select-piece').val();
+            var qty_r = terbilang(qty);
+            $('#kwantitas_terbilang').val(qty_r + " "+piece)
         })
     });
 

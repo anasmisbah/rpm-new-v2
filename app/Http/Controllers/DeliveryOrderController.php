@@ -11,6 +11,7 @@ use App\Company;
 use Carbon\Carbon;
 use App\Notifdo;
 use DataTables;
+use App\Product;
 class DeliveryOrderController extends Controller
 {
     /**
@@ -77,21 +78,22 @@ class DeliveryOrderController extends Controller
         }
         $estimate = $jam.' '.$menit;
 
-        $quantity_terbilang = $this->terbilang($delivery_order->quantity)." Liter";
+        $quantity_terbilang = $this->terbilang($delivery_order->quantity)." ".$delivery_order->piece;
         return view('delivery_order.detail',compact('sales_order','agen','delivery_order','estimate','quantity_terbilang'));
     }
 
     public function create($id)
     {
         $sales_order = SalesOrder::findOrFail($id);
+        $products = Product::all();
         $agen = $sales_order->agen;
         $drivers = $agen->drivers;
-        return view('delivery_order.create',compact('sales_order','agen','drivers'));
+        $do_date = Carbon::now();
+        return view('delivery_order.create',compact('sales_order','agen','drivers','do_date','products'));
     }
 
     public function store(Request $request,$id)
     {
-
         $sales_order = SalesOrder::findOrFail($id);
         $agen = $sales_order->agen;
 
@@ -99,7 +101,6 @@ class DeliveryOrderController extends Controller
             'delivery_order_number'=>'required',
             'effective_date_start'=>'required',
             'effective_date_end'=>'required',
-            'product'=>'required',
             'quantity'=>'required',
             'shipped_with'=>'required',
             'no_vehicles'=>'required',
@@ -108,14 +109,18 @@ class DeliveryOrderController extends Controller
             'temperature'=>'required',
             'jam'=>'required',
             'menit'=>'required',
-            'driver_id'=>'required'
+            'driver_id'=>'required',
+            'product_id'=>'required',
+            'depot'=>'required',
+            'piece'=>'required',
+
         ]);
 
         $data = [
             'delivery_order_number'=>$request->delivery_order_number,
             'effective_date_start'=>$request->effective_date_start,
             'effective_date_end'=>$request->effective_date_end,
-            'product'=>$request->product,
+            'product_id'=>$request->product_id,
             'quantity'=>$request->quantity,
             'shipped_with'=>$request->shipped_with,
             'no_vehicles'=>$request->no_vehicles,
@@ -131,6 +136,9 @@ class DeliveryOrderController extends Controller
             'distribution'=>$request->distribution,
             'admin_name'=>$request->admin_name,
             'knowing'=>$request->knowing,
+            'depot'=>$request->depot,
+            'piece'=>$request->piece,
+            'quantity_text'=>$request->quantity_text,
         ];
 
 
@@ -185,8 +193,9 @@ class DeliveryOrderController extends Controller
         $agen = $sales_order->agen;
         $drivers = $agen->drivers;
         $estimate = Carbon::createFromTimeString($delivery_order->estimate);
-        $quantity_terbilang = $this->terbilang($delivery_order->quantity)." Liter";
-        return view('delivery_order.edit',compact('sales_order','agen','delivery_order','estimate','drivers','quantity_terbilang'));
+        $quantity_terbilang = $this->terbilang($delivery_order->quantity)." ".$delivery_order->piece;
+        $products = Product::all();
+        return view('delivery_order.edit',compact('sales_order','agen','delivery_order','estimate','drivers','quantity_terbilang','products'));
     }
 
     public function update(Request $request,$id)
@@ -196,7 +205,7 @@ class DeliveryOrderController extends Controller
             'delivery_order_number'=>'required',
             'effective_date_start'=>'required',
             'effective_date_end'=>'required',
-            'product'=>'required',
+            'product_id'=>'required',
             'quantity'=>'required',
             'shipped_with'=>'required',
             'no_vehicles'=>'required',
@@ -205,14 +214,16 @@ class DeliveryOrderController extends Controller
             'temperature'=>'required',
             'jam'=>'required',
             'menit'=>'required',
-            'driver_id'=>'required'
+            'driver_id'=>'required',
+            'depot'=>'required',
+            'piece'=>'required',
         ]);
 
         $data = [
             'delivery_order_number'=>$request->delivery_order_number,
             'effective_date_start'=>$request->effective_date_start,
             'effective_date_end'=>$request->effective_date_end,
-            'product'=>$request->product,
+            'product_id'=>$request->product_id,
             'quantity'=>$request->quantity,
             'shipped_with'=>$request->shipped_with,
             'no_vehicles'=>$request->no_vehicles,
@@ -227,6 +238,9 @@ class DeliveryOrderController extends Controller
             'distribution'=>$request->distribution,
             'admin_name'=>$request->admin_name,
             'knowing'=>$request->knowing,
+            'depot'=>$request->depot,
+            'piece'=>$request->piece,
+            'quantity_text'=>$request->quantity_text,
         ];
 
         $delivery_order->update($data);

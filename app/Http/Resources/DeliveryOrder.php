@@ -47,7 +47,7 @@ class DeliveryOrder extends JsonResource
             'delivery_order_number'=>$this->delivery_order_number,
             'effective_date_start'=>$this->effective_date_start->dayName.", ".$this->effective_date_start->day." ".$this->effective_date_start->monthName." ".$this->effective_date_start->year,
             'effective_date_end'=>$this->effective_date_end->dayName.", ".$this->effective_date_end->day." ".$this->effective_date_end->monthName." ".$this->effective_date_end->year,
-            'product'=>$this->product,
+            'product'=>$this->product->name,
             'quantity'=>$this->quantity,
             'shipped_with'=>$this->shipped_with,
             'shipped_via'=>$shipped_via,
@@ -66,7 +66,11 @@ class DeliveryOrder extends JsonResource
             'status'=>$status,
             'sales_order_id'=>$this->sales_order->id,
             'driver'=>new DriverResource($this->driver),
-            'bast'=>url('/uploads/' . $this->bast)
+            'bast'=>url('/uploads/' . $this->bast),
+            'piece'=>$this->piece,
+            'depot'=>$this->depot,
+            'quantity_text'=>$this->quantity_text,
+            'do_date'=>$this->created_at->day." ".$this->created_at->monthName." ".$this->created_at->year,
         ];
     }
 }

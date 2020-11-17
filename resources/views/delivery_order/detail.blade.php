@@ -58,7 +58,7 @@
                     <td style="width:15%" class="text-bold">Tanggal SO dibuat</td>
                     <td>{{$sales_order->created_at->day." ".$sales_order->created_at->monthName." ".$sales_order->created_at->year}} </td>
                     <td style="width:15%" class="text-bold">Tanggal DO dibuat</td>
-                    <td>{{$delivery_order->created_at->day." ".$delivery_order->created_at->monthName." ".$delivery_order->created_at->year}}</td>
+                    <td>{{$delivery_order->created_at->day." ".$delivery_order->created_at->monthName." ".$delivery_order->created_at->year."  ".$delivery_order->depot}}</td>
                 </tr>
                 <tr>
                     <td colspan="4" class="text-bold mt-2 text-center">Detail Delivery Order</td>
@@ -93,7 +93,7 @@
                 </tr>
                 <tr>
                     <td style="width:15%" class="text-bold">Produk</td>
-                    <td>{{$delivery_order->product}}</td>
+                    <td>{{$delivery_order->product->name}}</td>
                     <td style="width:15%" class="text-bold">Dikirim Via</td>
                     <td>
                         @if ($delivery_order->shipped_via == 0)
@@ -107,7 +107,7 @@
                 </tr>
                 <tr>
                     <td style="width:15%" class="text-bold">Kwantitas</td>
-                    <td>{{$delivery_order->quantity}} Liter ({{$quantity_terbilang}})</td>
+                    <td>{{$delivery_order->quantity}} {{$delivery_order->piece}} ({{$quantity_terbilang}})</td>
                     <td style="width:15%" class="text-bold">NO. Kendaraan</td>
                     <td>{{$delivery_order->no_vehicles}}</td>
                 </tr>

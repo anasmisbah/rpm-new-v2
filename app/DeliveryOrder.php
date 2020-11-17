@@ -34,7 +34,10 @@ class DeliveryOrder extends Model
         'estimate',
         'distribution',
         'admin_name',
-        'knowing'
+        'knowing',
+        'piece',
+        'depot',
+        'quantity_text'
 
     ];
 
