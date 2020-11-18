@@ -252,7 +252,7 @@
                                 <td><a
                                         href="{{route('deliveryorder.agen.show',$delivery_order->id)}}">{{$delivery_order->delivery_order_number}}</a>
                                 </td>
-                                <td>{{$delivery_order->product}}</td>
+                                <td>{{$delivery_order->product->name}}</td>
                                 <td><a
                                         href="{{route('customer.agen.show',$delivery_order->sales_order->customer->id)}}">{{$delivery_order->sales_order->customer->name}}</a>
                                 </td>

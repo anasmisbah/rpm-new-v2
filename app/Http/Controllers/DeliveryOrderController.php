@@ -159,7 +159,11 @@ class DeliveryOrderController extends Controller
 
         // SEND NOTIF TO AGEN TO GET ACCEPTED
         $fcm_token[] = $sales_order->agen->user->fcm_token;
-        $this->sendNotif($message,$title,$fcm_token);
+        $data_notif=[
+            'screen'=>'detaildo',
+            'id'=>$delivery_order->id
+        ];
+        $this->sendNotif($message,$title,$fcm_token,$data_notif);
 
         Notifdo::updateOrCreate([
             'description'=>$message,
@@ -172,7 +176,7 @@ class DeliveryOrderController extends Controller
         $fcm_token_customer = [
             $sales_order->customer->user->fcm_token
         ];
-        $title_customer = 'Delivery Order';
+        $title_customer = 'Sales Order';
         $message_customer = 'SO No '. $delivery_order->sales_order->sales_order_number .' telah terbit';
 
         Notifdo::updateOrCreate([
@@ -257,7 +261,7 @@ class DeliveryOrderController extends Controller
         return redirect()->back()->with('status','successfully deleted Delivery Order');
     }
 
-    private function sendNotif($message, $title, $fcm_token)
+    private function sendNotif($message, $title, $fcm_token,$data_notif)
     {
         $client = new Client();
 
@@ -273,7 +277,8 @@ class DeliveryOrderController extends Controller
             'notification'      =>  [
             'body'  =>  $message,
             'title' =>  $title
-            ]
+            ],
+            'data'=>$data_notif
       ];
       $response   = $client->post('https://fcm.googleapis.com/fcm/send', ['headers' => $headers, 'json' => $body]);
 
@@ -302,7 +307,11 @@ class DeliveryOrderController extends Controller
 
         // SEND NOTIF TO AGEN TO GET ACCEPTED
         $fcm_token[] = $sales_order->agen->user->fcm_token;
-        $this->sendNotif($message,$title,$fcm_token);
+        $data_notif=[
+            'screen'=>'detaildo',
+            'id'=>$delivery_order->id
+        ];
+        $this->sendNotif($message,$title,$fcm_token,$data_notif);
 
         Notifdo::updateOrCreate([
             'description'=>$message,
@@ -315,7 +324,7 @@ class DeliveryOrderController extends Controller
         $fcm_token_customer = [
             $sales_order->customer->user->fcm_token
         ];
-        $title_customer = 'Delivery Order';
+        $title_customer = 'Sales Order';
         $message_customer = 'SO No '. $delivery_order->sales_order->sales_order_number .' telah terbit';
 
         Notifdo::updateOrCreate([
@@ -335,7 +344,11 @@ class DeliveryOrderController extends Controller
         $title = 'Delivery Order';
         $message = "Dari Agent - Driver. DO No $delivery_order->delivery_order_number telah terbit. $delivery_order->shipped_with $delivery_order->no_vehicles sudah dapat melakukan Proses Pengisian BBM ";
         $fcm_token[] = $delivery_order->driver->user->fcm_token;
-        $this->sendNotif($message,$title,$fcm_token);
+        $data_notif=[
+            'screen'=>'detaildo',
+            'id'=>$delivery_order->id
+        ];
+        $this->sendNotif($message,$title,$fcm_token,$data_notif);
 
         return redirect()->back()->with('status','Successfully send notif delivery order '.$delivery_order->delivery_order_number);
     }

@@ -105,13 +105,17 @@ class SalesOrderController extends Controller
         $fcm_token = [
             $sales_order->agen->user->fcm_token,
         ];
-        $this->sendNotif($message,$title,$fcm_token);
+        $data_notif=[
+            'screen'=>'detailso',
+            'id'=>$sales_order->id
+        ];
+        $this->sendNotif($message,$title,$fcm_token,$data_notif);
 
         $message = "SO No $sales_order->sales_order_number telah terbit";
         $fcm_token = [
             $sales_order->customer->user->fcm_token,
         ];
-        $this->sendNotif($message,$title,$fcm_token);
+        $this->sendNotif($message,$title,$fcm_token,$data_notif);
 
         return redirect()->back()->with('status','successfully created Sales Order');
     }
@@ -201,7 +205,7 @@ class SalesOrderController extends Controller
         return redirect()->back()->with('status','successfully Deleted Sales Order');
     }
 
-    private function sendNotif($message, $title, $fcm_token)
+    private function sendNotif($message, $title, $fcm_token,$data_notif)
     {
         $client = new Client();
 
@@ -217,7 +221,8 @@ class SalesOrderController extends Controller
             'notification'      =>  [
             'body'  =>  $message,
             'title' =>  $title
-            ]
+            ],
+            'data'=>$data_notif
       ];
       $response   = $client->post('https://fcm.googleapis.com/fcm/send', ['headers' => $headers, 'json' => $body]);
 
@@ -233,13 +238,17 @@ class SalesOrderController extends Controller
         $fcm_token = [
             $sales_order->agen->user->fcm_token,
         ];
-        $this->sendNotif($message,$title,$fcm_token);
+        $data_notif=[
+            'screen'=>'detailso',
+            'id'=>$sales_order->id
+        ];
+        $this->sendNotif($message,$title,$fcm_token,$data_notif);
 
         $message = "SO No $sales_order->sales_order_number telah terbit";
         $fcm_token = [
             $sales_order->customer->user->fcm_token,
         ];
-        $this->sendNotif($message,$title,$fcm_token);
+        $this->sendNotif($message,$title,$fcm_token,$data_notif);
 
         return redirect()->back()->with('status','Successfully send notif sales order '.$sales_order->sales_order_number);
     }

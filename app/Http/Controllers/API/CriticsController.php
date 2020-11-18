@@ -28,7 +28,11 @@ class CriticsController extends Controller
         $title = 'Delivery Order';
         $message = "Dari Customer - Agen. Customer $customer->name telah memberikan rating pada DO $delivery_order->delivery_order_number.";
         $fcm_token[] = $agen->user->fcm_token;
-        $this->sendNotif($message,$title,$fcm_token);
+        $data_notif=[
+            'screen'=>'detaildo',
+            'id'=>$delivery_order->id
+        ];
+        $this->sendNotif($message,$title,$fcm_token,$data_notif);
         return response()->json($data, 200);
     }
 
@@ -71,7 +75,7 @@ class CriticsController extends Controller
         return response()->json($data, 200);
     }
 
-    private function sendNotif($message, $title, $fcm_token)
+    private function sendNotif($message, $title, $fcm_token,$data_notif)
     {
         $client = new Client();
 
@@ -87,7 +91,8 @@ class CriticsController extends Controller
             'notification'      =>  [
             'body'  =>  $message,
             'title' =>  $title
-            ]
+            ],
+            'data'=>$data_notif
       ];
       $response   = $client->post('https://fcm.googleapis.com/fcm/send', ['headers' => $headers, 'json' => $body]);
 

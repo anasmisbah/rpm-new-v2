@@ -54,7 +54,11 @@ class DriverController extends Controller
 
         $title = 'Delivery Order';
         $message = "Proses Pengisian BBM telah selesai ($delivery_order->no_vehicles) sedang menuju lokasi anda (Estimasi Perjalanan $estimasi) tiba jam $waktuStr WITA";
-        $this->sendNotif($message,$title,$fcm_token);
+        $data_notif=[
+            'screen'=>'detaildo',
+            'id'=>$delivery_order->id
+        ];
+        $this->sendNotif($message,$title,$fcm_token,$data_notif);
 
         $delivery_order->notifs()->create([
             'date'=>$date,
@@ -70,7 +74,7 @@ class DriverController extends Controller
 
     }
 
-    private function sendNotif($message, $title, $fcm_token)
+    private function sendNotif($message, $title, $fcm_token,$data_notif)
     {
         $client = new Client();
 
@@ -86,7 +90,8 @@ class DriverController extends Controller
             'notification'      =>  [
             'body'  =>  $message,
             'title' =>  $title
-            ]
+            ],
+            'data'=>$data_notif
       ];
       $response   = $client->post('https://fcm.googleapis.com/fcm/send', ['headers' => $headers, 'json' => $body]);
 
@@ -143,7 +148,11 @@ class DriverController extends Controller
         $fcm_token[] = $agen->user->fcm_token;
         $title = 'Delivery Order';
         $message = "Proses Pembongkaran $delivery_order->shipped_with $delivery_order->no_vehicles telah selesai (BAST, Terlampir)";
-        $this->sendNotif($message,$title,$fcm_token);
+        $data_notif=[
+            'screen'=>'detaildo',
+            'id'=>$delivery_order->id
+        ];
+        $this->sendNotif($message,$title,$fcm_token,$data_notif);
 
         $delivery_order->notifs()->create([
             'date'=>$date,

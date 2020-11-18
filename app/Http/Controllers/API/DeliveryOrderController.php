@@ -129,7 +129,11 @@ class DeliveryOrderController extends Controller
         $title = 'Delivery Order';
         $message = "Dari Agent - Driver. DO No $delivery_order->delivery_order_number telah terbit. $delivery_order->shipped_with $delivery_order->no_vehicles sudah dapat melakukan Proses Pengisian BBM ";
         $fcm_token[] = $delivery_order->driver->user->fcm_token;
-        $this->sendNotif($message,$title,$fcm_token);
+        $data_notif=[
+            'screen'=>'detaildo',
+            'id'=>$delivery_order->id
+        ];
+        $this->sendNotif($message,$title,$fcm_token,$data_notif);
         // Get time server
         $date = Carbon::now();
         Notifdo::create([
@@ -144,7 +148,11 @@ class DeliveryOrderController extends Controller
         ];
         $title_customer = 'Delivery Order';
         $message_customer = "DO No $delivery_order->delivery_order_number telah terbit. $delivery_order->shipped_with $delivery_order->no_vehicles sedang melakukan Proses Pengisian BBM ";
-        $this->sendNotif($message_customer,$title_customer,$fcm_token_customer);
+        $data_notif=[
+            'screen'=>'detaildo',
+            'id'=>$delivery_order->id
+        ];
+        $this->sendNotif($message_customer,$title_customer,$fcm_token_customer,$data_notif);
         Notifdo::create([
             'date'=>$date,
             'description'=>$message_customer,
@@ -159,7 +167,7 @@ class DeliveryOrderController extends Controller
 
     }
 
-    private function sendNotif($message, $title, $fcm_token)
+    private function sendNotif($message, $title, $fcm_token,$data_notif)
     {
         $client = new Client();
 
@@ -175,7 +183,8 @@ class DeliveryOrderController extends Controller
             'notification'      =>  [
             'body'  =>  $message,
             'title' =>  $title
-            ]
+            ],
+            'data'=>$data_notif
       ];
       $response   = $client->post('https://fcm.googleapis.com/fcm/send', ['headers' => $headers, 'json' => $body]);
 
