@@ -13,7 +13,7 @@ class AgenSeeder extends Seeder
     {
         DB::table('agens')->insert([
             [
-                'name' => 'PT. Sumber Harapan Mulia',
+                'name' => 'PT. Sumber Harapan Mulia test',
                 'address'=>'jl cendana no 1',
                 'phone'=>'08523212546',
                 'website'=>'www.sumberharapanmulia.com',

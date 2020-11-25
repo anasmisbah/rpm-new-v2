@@ -30,15 +30,12 @@
           <h3 class="card-title">Detail Delivery Order </h3>
           <div class="card-tools">
             <ul class="nav nav-pills ml-auto">
-                @if ($delivery_order->status == 0)
                     <li class="nav-item">
                     <a class="btn btn-warning mr-1" href="{{route('deliveryorder.agen.edit',$delivery_order->id)}}"><i class="fas fa-edit"></i></a>
                     </li>
-                @elseif ($delivery_order->status == 3)
                     <li class="nav-item mr-1">
                         <a class="btn btn-info" href="{{route('deliveryorder.agen.print',$delivery_order->id)}}"><i class="fas fa-print"></i></a>
                     </li>
-                @endif
               <li class="nav-item">
                 <a class="btn btn-danger" href="{{ route('deliveryorder.agen.index',$sales_order->id) }}"><i class=" fas fa-times"></i></a>
               </li>
@@ -80,6 +77,12 @@
                     <td>{{$sales_order->customer->address}}</td>
                     <td style="width:15%" class="text-bold">Alamat Agen / Transportir</td>
                     <td>{{$agen->address}}</td>
+                </tr>
+                <tr>
+                    <td style="width:15%" class="text-bold">Detail Alamat Serah</td>
+                    <td>{{$delivery_order->detail_address}}</td>
+                    <td style="width:15%" class="text-bold">Transportir</td>
+                    <td>{{$delivery_order->transportir}}</td>
                 </tr>
                 <tr>
                     <td colspan="2" class="text-bold mt-2 text-center">Detail Product</td>

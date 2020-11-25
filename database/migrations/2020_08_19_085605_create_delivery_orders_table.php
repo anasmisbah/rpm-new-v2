@@ -47,7 +47,9 @@ class CreateDeliveryOrdersTable extends Migration
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->string('piece')->nullable();
             $table->string('depot')->nullable();
-            $table->string('quantity_text');
+            $table->string('quantity_text')->nullable();
+            $table->string('detail_address')->nullable();
+            $table->string('transportir')->nullable();
             $table->timestamps();
         });
     }

@@ -27,7 +27,7 @@
     <div class="row">
       <div class="col-12">
         <h2 class="page-header">
-            <img src="{{asset('img/logo.jpg')}}" class="img-circle" alt="comp pict" width="50px"> {{$company->name}}
+            <img src="{{asset('img/logo.png')}}" class="img-circle" alt="comp pict" width="200px"> 
           <small class="float-right">{{$date->dayName.", ".$date->day." ".$date->monthName." ".$date->year}}</small>
         </h2>
       </div>

@@ -71,6 +71,11 @@ class DeliveryOrder extends JsonResource
             'depot'=>$this->depot,
             'quantity_text'=>$this->quantity_text,
             'do_date'=>$this->created_at->day." ".$this->created_at->monthName." ".$this->created_at->year,
+            'detail_address'=>$this->detail_address,
+            'transportir'=>$this->transportir,
+            'distribution'=>$this->distribution,
+            'admin_name'=>$this->admin_name,
+            'knowing'=>$this->knowing,
         ];
     }
 }

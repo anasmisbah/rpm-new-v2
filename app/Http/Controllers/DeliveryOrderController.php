@@ -138,7 +138,9 @@ class DeliveryOrderController extends Controller
             'knowing'=>$request->knowing,
             'depot'=>$request->depot,
             'piece'=>$request->piece,
+            'detail_address'=>$request->detail_address,
             'quantity_text'=>$request->quantity_text,
+            'transportir'=>$request->transportir,
         ];
 
 
@@ -245,6 +247,8 @@ class DeliveryOrderController extends Controller
             'depot'=>$request->depot,
             'piece'=>$request->piece,
             'quantity_text'=>$request->quantity_text,
+            'detail_address'=>$request->detail_address,
+            'transportir'=>$request->transportir,
         ];
 
         $delivery_order->update($data);
@@ -293,7 +297,8 @@ class DeliveryOrderController extends Controller
         $agen = $sales_order->agen;
         $company = Company::first();
         $date = Carbon::now();
-        return view('delivery_order.print',compact('sales_order','agen','delivery_order','company','date'));
+        $quantity_terbilang = $this->terbilang($delivery_order->quantity)." ".$delivery_order->piece;
+        return view('delivery_order.print2',compact('sales_order','agen','delivery_order','company','date','quantity_terbilang'));
     }
 
     public function push_notif($id)

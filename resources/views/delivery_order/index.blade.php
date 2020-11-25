@@ -177,6 +177,9 @@
                                         </a>
                                         <a href="${full.url_detail}" title="Detail" class="btn btn-info btn-sm">
                                             <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="${full.url_print}" title="Print" data-placement="top" title="Delivery Order" class="btn btn-primary btn-sm">
+                                            <i class="fas fa-print"></i>
                                         </a>`,
                             },
 							1: {
@@ -185,11 +188,17 @@
                                         </a>
                                         <a href="${full.url_notif_driver}" title="Kirim Notifikasi Ke Driver" class="btn btn-secondary btn-sm">
                                         <i class="fas fa-bell"></i>
+                                        </a>
+                                        <a href="${full.url_print}" title="Print" data-placement="top" title="Delivery Order" class="btn btn-primary btn-sm">
+                                            <i class="fas fa-print"></i>
                                         </a>`,
                             },
 							2: {
                                 'html': `<a href="${full.url_detail}" title="Detail" class="btn btn-info btn-sm">
                                             <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a href="${full.url_print}" title="Print" data-placement="top" title="Delivery Order" class="btn btn-primary btn-sm">
+                                            <i class="fas fa-print"></i>
                                         </a>`,
                             },
 							3: {

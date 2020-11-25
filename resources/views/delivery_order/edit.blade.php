@@ -171,6 +171,26 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="detail_address">Detail Alamat Serah
+                                </label>
+                                <input value="{{old('detail_address')?old('detail_address'): $delivery_order->detail_address}}"
+
+                                    type="text" name="detail_address" class="form-control" id="detail_address">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="transportir">Transportir
+                                </label>
+                                <input
+                                value="{{old('transportir')?old('transportir'): $delivery_order->transportir}}"
+                                    type="text" name="transportir" class="form-control" id="transportir">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
 
