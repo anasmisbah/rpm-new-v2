@@ -39,7 +39,8 @@ class DeliveryOrder extends Model
         'depot',
         'quantity_text',
         'detail_address',
-        'transportir'
+        'transportir',
+        'address_transportir'
 
     ];
 

@@ -85,6 +85,12 @@
                     <td>{{$delivery_order->transportir}}</td>
                 </tr>
                 <tr>
+                    <td style="width:15%" class="text-bold"></td>
+                    <td></td>
+                    <td style="width:15%" class="text-bold">Alamat Transportir</td>
+                    <td>{{$delivery_order->address_transportir}}</td>
+                </tr>
+                <tr>
                     <td colspan="2" class="text-bold mt-2 text-center">Detail Product</td>
                     <td colspan="2" class="text-bold mt-2 text-center">Detail Pengiriman</td>
                 </tr>

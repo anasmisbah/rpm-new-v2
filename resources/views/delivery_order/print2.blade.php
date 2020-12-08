@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <link rel="stylesheet" href="{{asset('plugins/fontawesome-free/css/all.min.css')}}">
-    <link rel="shortcut icon" href="{{asset('/img/favico.jpg')}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{asset('/img/favico.png')}}" type="image/x-icon">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
@@ -41,7 +41,7 @@
     <div class="border border-dark p-3">
         <div class="row">
             <div class="col-4">
-                <img src="{{asset('img/logo.png')}}" width="200px" alt="">
+                <img src="{{asset('img/logo_print.png')}}" width="200px" alt="">
             </div>
             <div class="col-6 ">
                 <h3 class="mt-auto mb-auto d-block">SURAT PENGANTAR PENGIRIMAN (SPP)</h3>
@@ -62,11 +62,11 @@
                 </p>
             </div>
             <div class="col-7">
-                No.DO : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$delivery_order->delivery_order_number}} / {{$sales_order->sales_order_number}}
+                No.DO : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$delivery_order->delivery_order_number}}
                 <br>
                 Tgl. DO : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$delivery_order->created_at->day." ".$delivery_order->created_at->monthName." ".$delivery_order->created_at->year}}
                 <br>
-                <p class="text-right">PO 344</p>
+                No.SO : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{$sales_order->sales_order_number}}
             </div>
         </div>
     </div>
@@ -140,13 +140,13 @@
                     <td width="16.65%">{{$delivery_order->shipped_with}}</td>
                     <td rowspan="2" width="33.3%" class="pt-4">Segel Atas : {{$delivery_order->top_seal}}</td>
                     <td width="20%">Jam Berangkat</td>
-                    <td width="14.65%">{{$delivery_order->departure_time?$delivery_order->departure_time->day." ".$delivery_order->departure_time->monthName." ".$delivery_order->departure_time->year.' | '.$delivery_order->departure_time->format('H:i:s'):'-'}}</td>
+                    <td width="14.65%">{{$delivery_order->departure_time?$delivery_order->departure_time->day." ".$delivery_order->departure_time->monthName." ".$delivery_order->departure_time->year.' '.$delivery_order->departure_time->format('H:i:s'):'-'}}</td>
                 </tr>
                 <tr>
                     <td width="16.65%">No. Kendaraan</td>
                     <td width="16.65%">{{$delivery_order->no_vehicles}}</td>
                     <td width="20%">Jam Tiba</td>
-                    <td width="14.65%">{{$delivery_order->arrival_time?$delivery_order->arrival_time->day." ".$delivery_order->arrival_time->monthName." ".$delivery_order->arrival_time->year.' | '.$delivery_order->arrival_time->format('H:i:s'):'-'}}</td>
+                    <td width="14.65%">{{$delivery_order->arrival_time?$delivery_order->arrival_time->day." ".$delivery_order->arrival_time->monthName." ".$delivery_order->arrival_time->year.' '.$delivery_order->arrival_time->format('H:i:s'):'-'}}</td>
                 </tr>
                 <tr>
                     <td width="16.65%">Km. Awal</td>
@@ -207,7 +207,6 @@
         </div>
         <div class="row">
             <div class="col-3 border border-dark border-bottom-0 text-center">
-                Operator Depot
                 <br>
                 <br>
                 <br>
@@ -215,7 +214,6 @@
                 {{$delivery_order->distribution}}
             </div>
             <div class="col-3  border border-dark border-right-0 border-bottom-0 text-center">
-                    Sales Representative
                     <br>
                     <br>
                     <br>
@@ -229,11 +227,11 @@
                     <br>
             </div>
             <div class="col-3  border border-dark  border-bottom-0 ">
-                <p>1.Sopir : {{$delivery_order->driver->name}}
+                <p>1.Sopir :
                     <br>
                     <br>
                     <br>
-                    2.Kernet: -</p>
+                    2.Kernet:</p>
 
             </div>
         </div>

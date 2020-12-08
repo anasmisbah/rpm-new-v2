@@ -50,6 +50,7 @@ class CreateDeliveryOrdersTable extends Migration
             $table->string('quantity_text')->nullable();
             $table->string('detail_address')->nullable();
             $table->string('transportir')->nullable();
+            $table->string('address_transportir')->nullable();
             $table->timestamps();
         });
     }

@@ -122,11 +122,25 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <div class="form-group">
-                                <label for="agen_name">Agen / Transportir
-                                </label>
-                                <input readonly value="{{$sales_order->agen->name}}" type="text"
-                                    class="text-bold form-control" id="agen_name">
+                            <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <label for="agen_name">Agen
+                                        </label>
+                                        <input readonly value="{{$sales_order->agen->name}}" type="text"
+                                            class="text-bold form-control" id="agen_name">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="transportir">Transportir
+                                        </label>
+                                        <input
+                                        value="{{old('transportir')}}"
+                                            type="text" name="transportir" class="form-control" id="transportir">
+                                        @error('transportir')
+                                        <span class="text-sm text-danger" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
                             </div>
                         </div>
                     </div>
@@ -161,7 +175,7 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="agen_address">Alamat Agen / Transportir
+                                <label for="agen_address">Alamat Agen
                                 </label>
                                 <input readonly
                                     value="{{$sales_order->agen->address ? $sales_order->agen->address : '-'}}"
@@ -181,11 +195,11 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="transportir">Transportir
+                                <label for="address_transportir">Alamat Transportir
                                 </label>
                                 <input
-                                value="{{old('transportir')}}"
-                                    type="text" name="transportir" class="form-control" id="transportir">
+                                value="{{old('address_transportir')}}"
+                                    type="text" name="address_transportir" class="form-control" id="address_transportir">
                             </div>
                         </div>
                     </div>

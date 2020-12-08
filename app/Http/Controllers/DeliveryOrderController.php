@@ -139,6 +139,7 @@ class DeliveryOrderController extends Controller
             'depot'=>$request->depot,
             'piece'=>$request->piece,
             'detail_address'=>$request->detail_address,
+            'address_transportir'=>$request->address_transportir,
             'quantity_text'=>$request->quantity_text,
             'transportir'=>$request->transportir,
         ];
@@ -249,6 +250,7 @@ class DeliveryOrderController extends Controller
             'quantity_text'=>$request->quantity_text,
             'detail_address'=>$request->detail_address,
             'transportir'=>$request->transportir,
+            'address_transportir'=>$request->address_transportir,
         ];
 
         $delivery_order->update($data);
