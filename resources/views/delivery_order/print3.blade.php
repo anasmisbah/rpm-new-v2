@@ -84,12 +84,12 @@
                     <tr>
                         <td width="50%"></td>
                         <td></td>
-                        <td>{{$sales_order->customer->name}}</td>
+                        <td>{{$sales_order->customer->name}}&nbsp;</td>
                     </tr>
                     <tr>
                         <td></td>
                         <td></td>
-                        <td>{{$delivery_order->detail_address != null ? $delivery_order->detail_address : $sales_order->customer->address}}</td>
+                        <td>{{$delivery_order->detail_address != null ? $delivery_order->detail_address : $sales_order->customer->address}}&nbsp;</td>
                     </tr>
                     <tr>
                         <td></td>
@@ -99,7 +99,7 @@
                     <tr>
                         <td></td>
                         <td></td>
-                        <td>{{$sales_order->customer->npwp}}</td>
+                        <td>{{$sales_order->customer->npwp}}&nbsp;</td>
                     </tr>
                 </table>
             </div>
@@ -108,12 +108,12 @@
                     <tr>
                         <td width="50%"></td>
                         <td></td>
-                        <td>{{$agen->name}} @if ($delivery_order->transportir) {{"/ ".$delivery_order->transportir}} @endif</td>
+                        <td>{{$agen->name}} @if ($delivery_order->transportir) {{"/ ".$delivery_order->transportir}} @endif &nbsp;</td>
                     </tr>
                     <tr>
                         <td class="alamat"></td>
                         <td class="alamat"></td>
-                        <td>{{ $delivery_order->address_transportir != null ? $delivery_order->address_transportir : $agen->address}}</td>
+                        <td>{{ $delivery_order->address_transportir != null ? $delivery_order->address_transportir : $agen->address}} &nbsp;</td>
                     </tr>
                     <tr>
                         <td></td>
@@ -123,7 +123,7 @@
                     <tr>
                         <td></td>
                         <td></td>
-                        <td>{{$agen->npwp}}</td>
+                        <td>{{$agen->npwp}}&nbsp;</td>
                     </tr>
                 </table>
             </div>
@@ -146,8 +146,8 @@
                     <td width="16.65%"></td>
                     <td width="16.65%">{{$delivery_order->shipped_with}}</td>
                     <td rowspan="2" width="33.3%" class="pt-4">
-                        <table>
-                            <td width="85%"></td>
+                        <table width="100%">
+                            <td width="50%">&nbsp;</td>
                             <td>{{$delivery_order->top_seal}}</td>
                         </table>
                         </td>
@@ -163,8 +163,9 @@
                 <tr>
                     <td width="16.65%"></td>
                     <td width="16.65%">{{$delivery_order->km_start}}</td>
-                    <td rowspan="2" width="33.3%" class="pt-4"><table>
-                        <td width="85%"></td>
+                    <td rowspan="2" width="33.3%" class="pt-4">
+                        <table width="100%">
+                        <td width="50%">&nbsp;</td>
                         <td>{{$delivery_order->bottom_seal}}</td>
                     </table>
                     </td>
@@ -180,11 +181,11 @@
                 <tr>
                     <td width="16.65%"></td>
                     <td width="16.65%">{{$delivery_order->sg_meter}}</td>
-                    <td width="33.3%" class="pt-4">
-                        <table>
-                            <td width="86%"></td>
-                            <td>{{$delivery_order->temperature}}<sup>o</sup></td>
-                        </table> </td>
+                    <td rowspan="2" width="33.3%" class="pt-4"><table width="100%">
+                        <td width="50%">&nbsp;</td>
+                        <td >{{$delivery_order->temperature}}<sup>o</sup></td>
+                    </table>
+                    </td>
                     <td width="20%"></td>
                     <td width="14.65%"></td>
                 </tr>
@@ -247,7 +248,7 @@
                     <br>
             </div>
             <div class="col-3 ">
-              
+
 
             </div>
         </div>
