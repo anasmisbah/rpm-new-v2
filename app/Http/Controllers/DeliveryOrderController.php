@@ -300,7 +300,7 @@ class DeliveryOrderController extends Controller
         $company = Company::first();
         $date = Carbon::now();
         $quantity_terbilang = $this->terbilang($delivery_order->quantity)." ".$delivery_order->piece;
-        return view('delivery_order.print2',compact('sales_order','agen','delivery_order','company','date','quantity_terbilang'));
+        return view('delivery_order.print3',compact('sales_order','agen','delivery_order','company','date','quantity_terbilang'));
     }
 
     public function push_notif($id)
