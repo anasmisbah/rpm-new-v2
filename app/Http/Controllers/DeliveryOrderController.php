@@ -299,7 +299,8 @@ class DeliveryOrderController extends Controller
         $agen = $sales_order->agen;
         $company = Company::first();
         $date = Carbon::now();
-        $quantity_terbilang = $this->terbilang($delivery_order->quantity)." ".$delivery_order->piece;
+        $quantity_terbilang = ucfirst($this->terbilang($delivery_order->quantity)." ".$delivery_order->piece);
+
         return view('delivery_order.print3',compact('sales_order','agen','delivery_order','company','date','quantity_terbilang'));
     }
 

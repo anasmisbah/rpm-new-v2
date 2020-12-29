@@ -59,7 +59,7 @@
                     NPWP Np: 01.061.157.2.051.000
                 </p>
             </div> --}}
-            <div class="col-7 offset-4 " >
+            <div class="col-7 offset-4 " style="min-height: 150px">
                 <table>
                     <tr>
                         <td width="30%"></td>
@@ -78,21 +78,54 @@
         </div>
     </div>
     <div class="">
-        <div class="row justify-content-center">
-            <div class="col-3 offset-2">
-                    {{$sales_order->customer->name}}&nbsp;
-                    <br>
-                    {{$delivery_order->detail_address != null ? $delivery_order->detail_address : $sales_order->customer->address}}&nbsp;
-                    <br><br>
-                    {{$sales_order->customer->npwp}}&nbsp;
+        <div class="row">
+            <div class="col-6">
+                <table>
+                    <tr>
+                        <td width="50%"></td>
+                        <td></td>
+                        <td>{{$sales_order->customer->name}}&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>{{$delivery_order->detail_address != null ? $delivery_order->detail_address : $sales_order->customer->address}}&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>&nbsp;</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>{{$sales_order->customer->npwp}}&nbsp;</td>
+                    </tr>
+                </table>
             </div>
-            <div class="col-4 offset-1">
-                    {{$agen->name}}  @if ($delivery_order->transportir) <br> {{"(".$delivery_order->transportir.")"}} @endif &nbsp;
-                    <br>
-                    {{ $delivery_order->address_transportir != null ? $delivery_order->address_transportir : $agen->address}} &nbsp;
-                    <br><br>
-                    {{$agen->npwp}}&nbsp;
-
+            <div class="col-6">
+                <table>
+                    <tr>
+                        <td width="50%"></td>
+                        <td></td>
+                        <td>{{$agen->name}} @if ($delivery_order->transportir) {{"/ ".$delivery_order->transportir}} @endif &nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td class="alamat"></td>
+                        <td class="alamat"></td>
+                        <td>{{ $delivery_order->address_transportir != null ? $delivery_order->address_transportir : $agen->address}} &nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>&nbsp;</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>{{$agen->npwp}}&nbsp;</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
@@ -104,7 +137,7 @@
                     <td width="33.3%">&nbsp;</td>
                     <td colspan="2" width="33.3%">&nbsp;</td>
                 </tr>
-                <tr class="text-center" height="50px">
+                <tr class="text-center">
                     <td colspan="2" width="33.3%">{{$delivery_order->effective_date_start->day." ".$delivery_order->effective_date_start->monthName." ".$delivery_order->effective_date_start->year}} s/d {{$delivery_order->effective_date_start->day." ".$delivery_order->effective_date_start->monthName." ".$delivery_order->effective_date_start->year}}</td>
                     <td width="33.3%">{{$delivery_order->product->name}}</td>
                     <td colspan="2" width="33.3%"> <span class="amount">{{$delivery_order->quantity}}</span> {{$delivery_order->piece}}</td>
@@ -156,22 +189,15 @@
                     <td width="20%"></td>
                     <td width="14.65%"></td>
                 </tr>
-                <tr></tr>
-                <tr height="50px">
-                    <td colspan="2" class="text-center">
-                        <i># {{$quantity_terbilang}} #</i>
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
             </table>
         </div>
     </div>
-    {{-- <div class="">
+    <div class="">
         <div class="row">
-            <div class=" offset-1 col-11  ">
-                    <i># {{$quantity_terbilang}} Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi, beatae. #</i>
+            <div class="col-2 p-3 ">
+                <p class="text-center">
+
+                </p>
             </div>
             <div class="col-9 p-3">
                 <div class="kotak pl-3">
@@ -182,7 +208,7 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
     <div class="">
         <div class="row">
             <div class="col-3  text-center">
@@ -198,9 +224,10 @@
 
             </div>
         </div>
-        <div class="row mt-5">
+        <div class="row">
             <div class="col-3  text-center">
                 Administrasi
+                <br>
                 <br>
                 <br>
                 <br>
@@ -208,6 +235,7 @@
             </div>
             <div class="col-3   text-center">
                 Site Supervisor
+                    <br>
                     <br>
                     <br>
                     <br>
@@ -220,8 +248,7 @@
                     <br>
             </div>
             <div class="col-3 ">
-                <br>
-                {{$delivery_order->driver->name}}
+
 
             </div>
         </div>
