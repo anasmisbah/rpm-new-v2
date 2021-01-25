@@ -12,6 +12,9 @@ use Carbon\Carbon;
 use App\Notifdo;
 use DataTables;
 use App\Product;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Facades\Storage;
+use File;
 class DeliveryOrderController extends Controller
 {
     /**
@@ -144,6 +147,11 @@ class DeliveryOrderController extends Controller
             'transportir'=>$request->transportir,
         ];
 
+        $path_qr_code = 'qrcodes/'.time().''.$request->delivery_order_number.'.svg';
+        QrCode::format('svg')->size(300)->generate($request->delivery_order_number, public_path('/uploads/'.$path_qr_code));
+
+        $data['qrcode']=$path_qr_code;
+
 
         $delivery_order = $sales_order->delivery_orders()->create($data);
         // if (count($request->shipped_via) == 2) {
@@ -252,6 +260,13 @@ class DeliveryOrderController extends Controller
             'transportir'=>$request->transportir,
             'address_transportir'=>$request->address_transportir,
         ];
+
+        File::delete('uploads/'.$delivery_order->qrcode);
+        $path_qr_code = 'qrcodes/'.time().''.$request->delivery_order_number.'.svg';
+        QrCode::format('svg')->size(300)->generate($request->delivery_order_number, public_path('/uploads/'.$path_qr_code));
+
+        $data['qrcode']=$path_qr_code;
+
 
         $delivery_order->update($data);
         $delivery_order->update([

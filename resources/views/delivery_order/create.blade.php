@@ -318,7 +318,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="sg_meter">SG Meter </label>
-                                <input value="{{old('sg_meter')}}" type="number"
+                                <input step="0.001" value="{{old('sg_meter')}}" type="number"
                                     class="form-control @error('sg_meter') is-invalid @enderror" id="sg_meter"
                                     name="sg_meter">
                                 @error('sg_meter')

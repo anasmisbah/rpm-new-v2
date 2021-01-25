@@ -40,7 +40,8 @@ class DeliveryOrder extends Model
         'quantity_text',
         'detail_address',
         'transportir',
-        'address_transportir'
+        'address_transportir',
+        'qrcode'
 
     ];
 

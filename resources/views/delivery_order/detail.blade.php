@@ -186,6 +186,12 @@
                         @endif
                     </td>
                 </tr>
+                <tr>
+                    <td style="width:15%" class="text-bold">Kode QR</td>
+                    <td><a href="{{asset("/uploads/".$delivery_order->qrcode)}}" class="foto"><img class="img-thumbnail" width="150px" src="{{asset("/uploads/".$delivery_order->qrcode)}}" alt=""></a></td>
+                    <td style="width:15%" class="text-bold">&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
                 @if ($delivery_order->status == 3)
                 <tr>
                     <td colspan="4" class="text-bold mt-2 text-center">Berita Acara Serah Terima</td>
