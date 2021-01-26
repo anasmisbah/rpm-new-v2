@@ -86,7 +86,6 @@ Route::group(['middleware' => ['auth:api']], function () {
     // DETAIL DELIVERY ORDER
     Route::get('/deliveryorder/{id}','API\DeliveryOrderController@detail');
 
-
     // *****LIST API DRIVER*******
 
     // SEE DELIVERY ORDER READY FOR DRIVER
@@ -102,6 +101,7 @@ Route::group(['middleware' => ['auth:api']], function () {
     // API SEE HISTORY NOTIF
     Route::get('/notif/deliveryorder/{id}','API\DeliveryOrderController@historynotifdo');
 
+    Route::get('/deliveryorder/qrcode/{id}','API\DeliveryOrderController@qrcodedodetail');
 
     Route::get('/critics/{id}','API\CriticsController@detail');
     Route::post('/critics/{id}','API\CriticsController@store');

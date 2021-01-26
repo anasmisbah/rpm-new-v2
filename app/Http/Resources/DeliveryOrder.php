@@ -76,6 +76,7 @@ class DeliveryOrder extends JsonResource
             'distribution'=>$this->distribution,
             'admin_name'=>$this->admin_name,
             'knowing'=>$this->knowing,
+            'qrcode'=>url('/uploads/' . $this->qrcode),
         ];
     }
 }

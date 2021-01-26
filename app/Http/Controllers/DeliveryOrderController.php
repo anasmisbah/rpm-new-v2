@@ -101,7 +101,7 @@ class DeliveryOrderController extends Controller
         $agen = $sales_order->agen;
 
         $request->validate([
-            'delivery_order_number'=>'required',
+            'delivery_order_number'=>'required|unique:delivery_orders',
             'effective_date_start'=>'required',
             'effective_date_end'=>'required',
             'quantity'=>'required',
@@ -217,7 +217,7 @@ class DeliveryOrderController extends Controller
     {
         $delivery_order = DeliveryOrder::findOrFail($id);
         $request->validate([
-            'delivery_order_number'=>'required',
+            'delivery_order_number'=>'required|unique:delivery_orders,delivery_order_number,'.$delivery_order->delivery_order_number,
             'effective_date_start'=>'required',
             'effective_date_end'=>'required',
             'product_id'=>'required',

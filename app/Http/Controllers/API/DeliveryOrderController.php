@@ -191,4 +191,17 @@ class DeliveryOrderController extends Controller
       return response()->json($response->getBody()->getContents());
 
     }
+
+    public function qrcodedodetail($id)
+    {
+        $result = DeliveryOrder::where('delivery_order_number',$id)->first();
+        if (!$result) {
+            return response()->json([
+                'status'=>false,
+                'message'=>'delivery order tidak ditemukan',
+            ], 404);
+        }
+        $delivery_order = new DeliveryOrderResource($result);
+        return response()->json($delivery_order, 200);
+    }
 }

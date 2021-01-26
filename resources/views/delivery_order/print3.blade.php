@@ -18,7 +18,7 @@
     <title>Document</title>
     <style>
         table.table-bordered>tbody>tr>td {
-
+            border: 1px solid black !important;
         }
 
         @media print {
@@ -30,6 +30,9 @@
         table td.alamat{
             display: table-cell;
   vertical-align: top;
+        }
+        body{
+            font: 1em sans-serif;
         }
 
     </style>
@@ -46,7 +49,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row mt-4">
             {{-- <div class="col-4">
                 <p>Gd. Wisma Tugu III Lt.2
                     <br>
@@ -59,111 +62,75 @@
                     NPWP Np: 01.061.157.2.051.000
                 </p>
             </div> --}}
-            <div class="col-7 offset-4 " >
-                <table>
+            <div class="col-6 offset-3" >
+                <table width="100%">
                     <tr>
-                        <td width="30%"></td>
-                        <td>{{$delivery_order->delivery_order_number}}</td>
+                        <td width="35%"></td>
+                        <td class="text-left" style="padding-left: 20px">{{$delivery_order->delivery_order_number}}</td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td>{{ $delivery_order->depot." ".$delivery_order->created_at->day." ".$delivery_order->created_at->monthName." ".$delivery_order->created_at->year}}</td>
+                        <td class="text-left" style="padding-left: 20px">&nbsp;</td>
                     </tr>
                     <tr>
-                        <td>No.SO :</td>
-                        <td>{{$sales_order->sales_order_number}}</td>
+                        <td></td>
+                        <td class="text-left" style="padding-left: 20px">{{ $delivery_order->depot." ".$delivery_order->created_at->day." ".$delivery_order->created_at->monthName." ".$delivery_order->created_at->year}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right" style="padding-right: 55px">No.SO :</td>
+                        <td class="text-left" style="padding-left: 20px">{{$sales_order->sales_order_number}}</td>
                     </tr>
                 </table>
             </div>
         </div>
     </div>
-    <div class="">
-        <div class="row justify-content-center">
-            <div class="col-3 offset-2">
+    <div class="" style="margin-top: 18.5px">
+        <div class="row offset-1">
+            <div class="col-5" style="padding-left: 80px">
                     {{$sales_order->customer->name}}&nbsp;
                     <br>
+                    <br>
                     {{$delivery_order->detail_address != null ? $delivery_order->detail_address : $sales_order->customer->address}}&nbsp;
-                    <br><br>
+                    <br><br><br>
                     {{$sales_order->customer->npwp}}&nbsp;
             </div>
-            <div class="col-4 offset-1">
+            <div class="col-5 offset-1" style="padding-left: 50px">
                     {{$agen->name}}  @if ($delivery_order->transportir) <br> {{"(".$delivery_order->transportir.")"}} @endif &nbsp;
                     <br>
+                    <br>
                     {{ $delivery_order->address_transportir != null ? $delivery_order->address_transportir : $agen->address}} &nbsp;
-                    <br><br>
+                    <br><br><br>
                     {{$agen->npwp}}&nbsp;
-
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row" style="margin-top: 30px">
         <div class="col-12">
-            <table class="" style="margin-bottom:0" width="100%">
-                <tr class="text-center">
-                    <td colspan="2" width="33.3%">&nbsp;</td>
-                    <td width="33.3%">&nbsp;</td>
-                    <td colspan="2" width="33.3%">&nbsp;</td>
+            <table class="table-borderless" style="margin-bottom:0" width="100%">
+                <tr class="text-left" height="38px">
+                    <td style="padding-left: 80px" width="28.3%">{{$delivery_order->effective_date_start->day}} - {{$delivery_order->effective_date_end->day." ".$delivery_order->effective_date_end->monthName." ".$delivery_order->effective_date_end->year}}</td>
+                    <td width="36.3%" style="padding-left: 30px">{{$delivery_order->product->name}}</td>
+                    <td  width="36.3%" style="padding-left: 80px"> <span class="amount">{{$delivery_order->quantity}}</span> {{$delivery_order->piece}}</td>
                 </tr>
-                <tr class="text-center" height="50px">
-                    <td colspan="2" width="33.3%">{{$delivery_order->effective_date_start->day." ".$delivery_order->effective_date_start->monthName." ".$delivery_order->effective_date_start->year}} s/d {{$delivery_order->effective_date_start->day." ".$delivery_order->effective_date_start->monthName." ".$delivery_order->effective_date_start->year}}</td>
-                    <td width="33.3%">{{$delivery_order->product->name}}</td>
-                    <td colspan="2" width="33.3%"> <span class="amount">{{$delivery_order->quantity}}</span> {{$delivery_order->piece}}</td>
-                </tr>
-                <tr>
-                    <td width="16.65%"></td>
-                    <td width="16.65%">{{$delivery_order->shipped_with}}</td>
-                    <td rowspan="2" width="33.3%" class="pt-4">
-                        <table width="100%">
-                            <td width="50%">&nbsp;</td>
-                            <td>{{$delivery_order->top_seal}}</td>
-                        </table>
-                        </td>
-                    <td width="20%"></td>
-                    <td width="14.65%"></td>
-                </tr>
-                <tr>
-                    <td width="16.65%"></td>
-                    <td width="16.65%">{{$delivery_order->no_vehicles}}</td>
-                    <td width="20%"></td>
-                    <td width="14.65%"></td>
-                </tr>
-                <tr>
-                    <td width="16.65%"></td>
-                    <td width="16.65%">{{$delivery_order->km_start}}</td>
-                    <td rowspan="2" width="33.3%" class="pt-4">
-                        <table width="100%">
-                        <td width="50%">&nbsp;</td>
-                        <td>{{$delivery_order->bottom_seal}}</td>
-                    </table>
+                <tr height="100px">
+                    <td style="padding-left: 141px" class="text-top">
+                        <div>{{$delivery_order->shipped_with}}</div>
+                        <div>{{$delivery_order->no_vehicles}}</div>
+                        <div>{{$delivery_order->km_start}}</div>
+                        <div>{{$delivery_order->km_end}}</div>
+                        <div>{{$delivery_order->sg_meter}}</div>
                     </td>
-                    <td width="20%"></td>
-                    <td width="14.65%"></td>
-                </tr>
-                <tr>
-                    <td width="16.65%"></td>
-                    <td width="16.65%">{{$delivery_order->km_end}}</td>
-                    <td width="20%"></td>
-                    <td width="14.65%"></td>
-                </tr>
-                <tr>
-                    <td width="16.65%"></td>
-                    <td width="16.65%">{{$delivery_order->sg_meter}}</td>
-                    <td rowspan="2" width="33.3%" class="pt-4"><table width="100%">
-                        <td width="50%">&nbsp;</td>
-                        <td >{{$delivery_order->temperature}}<sup>o</sup>C</td>
-                    </table>
+                    <td style="padding-left: 125px" class="text-top">
+                        <div>{{$delivery_order->top_seal}}</div>
+                        <div>{{$delivery_order->bottom_seal}}</div>
+                        <div class="">{{$delivery_order->temperature}}</div>
                     </td>
-                    <td width="20%"></td>
-                    <td width="14.65%"></td>
                 </tr>
                 <tr></tr>
-                <tr height="50px">
-                    <td colspan="2" class="text-center">
+                <tr height="30px">
+                    <td class="text-center">
                         <i># {{$quantity_terbilang}} #</i>
                     </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
                 </tr>
             </table>
         </div>
