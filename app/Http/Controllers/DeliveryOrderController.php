@@ -151,6 +151,7 @@ class DeliveryOrderController extends Controller
         QrCode::format('svg')->size(300)->generate($request->delivery_order_number, public_path('/uploads/'.$path_qr_code));
 
         $data['qrcode']=$path_qr_code;
+        
 
 
         $delivery_order = $sales_order->delivery_orders()->create($data);
