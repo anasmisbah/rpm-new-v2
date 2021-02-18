@@ -112,23 +112,27 @@
                     <td width="36.3%" style="padding-left: 30px">{{$delivery_order->product->name}}</td>
                     <td  width="36.3%" style="padding-left: 80px"> <span class="amount">{{$delivery_order->quantity}}</span> {{$delivery_order->piece}}</td>
                 </tr>
-                <tr height="100px">
-                    <td style="padding-left: 141px" class="text-top">
-                        <div>{{$delivery_order->shipped_with}}</div>
-                        <div>{{$delivery_order->no_vehicles}}</div>
-                        <div>{{$delivery_order->km_start}}</div>
-                        <div>{{$delivery_order->km_end}}</div>
-                        <div>{{$delivery_order->sg_meter}}</div>
+                <tr>
+                    <td style="padding-left: 141px;">
+                        <div class="height:200px">
+                            <div style="margin-top: 13px !important">{{$delivery_order->shipped_with}}</div>
+                            <div style="margin-top: 18px !important">{{$delivery_order->no_vehicles}}</div>
+                            <div style="margin-top: 18px !important">{{$delivery_order->km_start}}</div>
+                            <div style="margin-top: 18px !important">{{$delivery_order->km_end}}</div>
+                            <div style="margin-top: 18px !important;margin-bottom: 18px !important">{{$delivery_order->sg_meter}}</div>
+                        </div>
                     </td>
-                    <td style="padding-left: 125px" class="text-top">
-                        <div>{{$delivery_order->top_seal}}</div>
-                        <div>{{$delivery_order->bottom_seal}}</div>
-                        <div class="">{{$delivery_order->temperature}}</div>
+                    <td style="padding-left: 125px;vertical-align:text-top;">
+                        <div class="height:200px">
+                            <div style="margin-top: 30px !important">{{$delivery_order->top_seal}}</div>
+                            <div style="margin-top: 40px !important">{{$delivery_order->bottom_seal}}</div>
+                            <div style="margin-top: 40px !important">{{$delivery_order->temperature}} <sup>o</sup>C</div>
+                        </div>
                     </td>
                 </tr>
                 <tr></tr>
-                <tr height="30px">
-                    <td class="text-center">
+                <tr height="30px" class="text-left">
+                    <td style="padding-left: 111px;padding-top: 23px;">
                         <i># {{$quantity_terbilang}} #</i>
                     </td>
                 </tr>
@@ -150,46 +154,23 @@
             </div>
         </div>
     </div> --}}
-    <div class="">
+    <div class="" style="margin-top: 70px !important">
         <div class="row">
-            <div class="col-3  text-center">
-                &nbsp;
-            </div>
-            <div class="col-3  text-center">
-
-            </div>
-            <div class="col-3   text-center">
-
-            </div>
-            <div class="col-3   text-center">
-
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-3  text-center">
+            <div class="col-3 text-left" style="padding-left: 80px">
                 Administrasi
-                <br>
-                <br>
-                <br>
-                {{$delivery_order->distribution}}
+                <div style="height: 60px"></div>
+                {{$delivery_order->admin_name}}
             </div>
-            <div class="col-3   text-center">
+            <div class="col-3 text-left" style="padding-left: 10px">
                 Site Supervisor
-                    <br>
-                    <br>
-                    <br>
+                <div style="height: 60px"></div>
                     {{$delivery_order->knowing}}
             </div>
-            <div class="col-3 text-center">
-                    <br>
-                    <br>
-                    <br>
-                    <br>
+            <div class="col-2 text-left">
+                <div style="height: 60px"></div>
             </div>
-            <div class="col-3 ">
-                <br>
+            <div class="col-3 text-left" style="padding-left:50px">
                 {{$delivery_order->driver->name}}
-
             </div>
         </div>
     </div>

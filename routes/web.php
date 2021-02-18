@@ -34,6 +34,9 @@ Route::get('data/chart/agen/{id}','HomeController@datachartagen')->name('data.ag
 Route::get('chart/customer/{id}','HomeController@chartcustomer');
 Route::get('data/chart/customer/{id}','HomeController@datachartcustomer')->name('data.customer.chart');
 
+// DOWNLOAD
+
+
 // AJAX
 Route::get('ajax/news','NewsController@news_data')->name('ajax.data.news');
 Route::get('ajax/event','EventController@event_data')->name('ajax.data.event');
@@ -124,6 +127,7 @@ Route::middleware(['auth','admin'])->group(function (){
         Route::get('deliveryorder/agen/print/{id}','DeliveryOrderController@print')->name('deliveryorder.agen.print');
         Route::get('deliveryorder/agen/notif/{id}','DeliveryOrderController@push_notif')->name('deliveryorder.agen.notif');
         Route::get('deliveryorder/agen/driver/notif/{id}','DeliveryOrderController@notif_driver')->name('deliveryorder.agen.driver.notif');
+        Route::get('deliveryorder/agen/download/{id}','DeliveryOrderController@download_excel')->name('deliveryorder.agen.print');
 
 
         Route::get('/user','UserController@index')->name('user.index');

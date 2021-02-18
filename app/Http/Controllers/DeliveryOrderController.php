@@ -15,6 +15,8 @@ use App\Product;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Storage;
 use File;
+use App\Exports\DeliveryOrderExport;
+use Excel;
 class DeliveryOrderController extends Controller
 {
     /**
@@ -151,7 +153,7 @@ class DeliveryOrderController extends Controller
         QrCode::format('svg')->size(300)->generate($request->delivery_order_number, public_path('/uploads/'.$path_qr_code));
 
         $data['qrcode']=$path_qr_code;
-        
+
 
 
         $delivery_order = $sales_order->delivery_orders()->create($data);
@@ -317,7 +319,7 @@ class DeliveryOrderController extends Controller
         $date = Carbon::now();
         $quantity_terbilang = ucfirst($this->terbilang($delivery_order->quantity)." ".$delivery_order->piece);
 
-        return view('delivery_order.print3',compact('sales_order','agen','delivery_order','company','date','quantity_terbilang'));
+        return view('delivery_order.print4',compact('sales_order','agen','delivery_order','company','date','quantity_terbilang'));
     }
 
     public function push_notif($id)
@@ -376,6 +378,12 @@ class DeliveryOrderController extends Controller
 
         return redirect()->back()->with('status','Successfully send notif delivery order '.$delivery_order->delivery_order_number);
     }
+
+    public function download_excel($id)
+    {
+        return Excel::download(new DeliveryOrderExport($id), 'invoices.xlsx');
+    }
+
     private function penyebut($nilai) {
         $nilai = abs($nilai);
         $huruf = array("", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas");
