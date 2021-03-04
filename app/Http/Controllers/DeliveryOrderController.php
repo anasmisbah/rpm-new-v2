@@ -15,8 +15,9 @@ use App\Product;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Storage;
 use File;
-use App\Exports\DeliveryOrderExport;
-use Excel;
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 class DeliveryOrderController extends Controller
 {
     /**
@@ -59,8 +60,8 @@ class DeliveryOrderController extends Controller
         ->addColumn('url_delete', function ($data) {
             return route('deliveryorder.agen.destroy',$data->id);
         })
-        ->addColumn('url_print', function ($data) {
-            return route('deliveryorder.agen.print',$data->id);
+        ->addColumn('url_download', function ($data) {
+            return route('deliveryorder.agen.download',$data->id);
         });
 
         return $dataTable->make(true);
@@ -381,7 +382,42 @@ class DeliveryOrderController extends Controller
 
     public function download_excel($id)
     {
-        return Excel::download(new DeliveryOrderExport($id), 'invoices.xlsx');
+        $delivery_order = DeliveryOrder::findOrFail($id);
+        $sales_order = $delivery_order->sales_order;
+        $agen = $sales_order->agen;
+        $date = Carbon::now();
+        $quantity_terbilang = ucwords($this->terbilang($delivery_order->quantity)." ".$delivery_order->piece);
+
+        // return Excel::download(new DeliveryOrderExport($id), 'invoices.xlsx');
+        $reader = IOFactory::createReader("Xlsx");
+        $spreadsheet = $reader->load(public_path('uploads/excels/template.xlsx'));
+
+        $spreadsheet->getActiveSheet()->setCellValue('I4', $delivery_order->delivery_order_number);
+        $spreadsheet->getActiveSheet()->setCellValue('I6', $delivery_order->depot." ".$delivery_order->created_at->day." ".$delivery_order->created_at->monthName." ".$delivery_order->created_at->year);
+        $spreadsheet->getActiveSheet()->setCellValue('I7', $sales_order->sales_order_number);
+        $spreadsheet->getActiveSheet()->setCellValue('D10', $sales_order->customer->name);
+        $spreadsheet->getActiveSheet()->setCellValue('K10', $agen->name);
+        $spreadsheet->getActiveSheet()->setCellValue('B19', $delivery_order->effective_date_start->day." - ".$delivery_order->effective_date_end->day." ".$delivery_order->effective_date_end->monthName." ".$delivery_order->effective_date_end->year);
+        $spreadsheet->getActiveSheet()->setCellValue('G19', $delivery_order->product->name);
+        $spreadsheet->getActiveSheet()->setCellValue('K19', number_format($delivery_order->quantity,0,'.','.')." ".$delivery_order->piece);
+        $spreadsheet->getActiveSheet()->setCellValue('C21', $delivery_order->shipped_with);
+        $spreadsheet->getActiveSheet()->setCellValue('H22', $delivery_order->top_seal);
+        $spreadsheet->getActiveSheet()->setCellValue('C23', $delivery_order->no_vehicles);
+        $spreadsheet->getActiveSheet()->setCellValue('H25', $delivery_order->bottom_seal);
+        $spreadsheet->getActiveSheet()->setCellValue('C28', $delivery_order->sg_meter);
+        $spreadsheet->getActiveSheet()->setCellValue('H28', $delivery_order->temperature." C");
+        $spreadsheet->getActiveSheet()->setCellValue('C31', "# ".$quantity_terbilang." #");
+        $spreadsheet->getActiveSheet()->setCellValue('L36', $delivery_order->driver->name);
+        $spreadsheet->getActiveSheet()->setCellValue('B40', $delivery_order->admin_name);
+        $spreadsheet->getActiveSheet()->setCellValue('F40', $delivery_order->knowing);
+
+        $file_name = "SPP ".$delivery_order->delivery_order_number;
+        if (file_exists('uploads/excels/'.$file_name)) {
+            File::delete('uploads/excels/'.$file_name);
+        }
+        $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, "Xlsx");
+        $writer->save(public_path("uploads/excels/$file_name.xlsx"));
+        return response()->download(public_path("uploads/excels/$file_name.xlsx"));
     }
 
     private function penyebut($nilai) {

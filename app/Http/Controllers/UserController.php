@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use DataTables;
+use File;
+use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     /**

@@ -15,6 +15,7 @@
         "laravel/passport": "^8.3",
         "laravel/tinker": "^2.0",
         "maatwebsite/excel": "^3.1",
+        "phpoffice/phpspreadsheet": "^1.16",
         "simplesoftwareio/simple-qrcode": "~4",
         "yajra/laravel-datatables-oracle": "~9.0"
     },

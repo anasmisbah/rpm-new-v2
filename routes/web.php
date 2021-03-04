@@ -127,7 +127,7 @@ Route::middleware(['auth','admin'])->group(function (){
         Route::get('deliveryorder/agen/print/{id}','DeliveryOrderController@print')->name('deliveryorder.agen.print');
         Route::get('deliveryorder/agen/notif/{id}','DeliveryOrderController@push_notif')->name('deliveryorder.agen.notif');
         Route::get('deliveryorder/agen/driver/notif/{id}','DeliveryOrderController@notif_driver')->name('deliveryorder.agen.driver.notif');
-        Route::get('deliveryorder/agen/download/{id}','DeliveryOrderController@download_excel')->name('deliveryorder.agen.print');
+
 
 
         Route::get('/user','UserController@index')->name('user.index');
@@ -148,4 +148,5 @@ Route::middleware(['auth','admin'])->group(function (){
         Route::get('/data/uploads','UploadController@create')->name('uploads.create');
         Route::post('/data/uploads','UploadController@store')->name('uploads.store');
     });
+    Route::get('deliveryorder/agen/download/{id}','DeliveryOrderController@download_excel')->name('deliveryorder.agen.download');
 });
